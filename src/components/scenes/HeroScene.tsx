@@ -32,7 +32,7 @@ export default function HeroScene() {
       return;
 
 
-    gsap.set(asRef.current.position, { x: 0.8, y: -1 });
+    gsap.set(asRef.current.position, { x: 2, y: -1 });
 
     const introTl = gsap.timeline({
       defaults: {
@@ -52,7 +52,7 @@ export default function HeroScene() {
         duration: 2,
       },
       scrollTrigger: {
-        trigger: ".hero",
+        trigger: "body",
         start: "top top",
         end: "bottom bottom",
         scrub: 1.5,

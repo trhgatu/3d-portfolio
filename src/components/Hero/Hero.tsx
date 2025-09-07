@@ -3,8 +3,6 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
-import { View } from "@react-three/drei";
-import HeroScene from "@/components/scenes/HeroScene";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -13,6 +11,11 @@ export default function Hero() {
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
     tl.from(".hero-subtitle", { opacity: 0, y: 20, duration: 0.6 })
+      .from(".hero-text-mini", {
+        opacity: 0,
+        duration: 0.6,
+        y:20
+      })
       .from(".hero-text-name span", {
         opacity: 0,
         y: 60,
@@ -34,41 +37,55 @@ export default function Hero() {
       }, "-=0.4");
   }, []);
 
-  const name = "Tran Hoang Anh Tu";
-  const title = "Software Engineer";
+  const name = "AnhTu";
+  const firstTitle = "Software";
+  const secondTitle = "Engineer";
 
   return (
-    <section className="hero flex flex-col items-center justify-center text-center min-h-screen bg-black text-white">
-      <View className="hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block">
-        <HeroScene />
-      </View>
-      <div className="px-6 py-20">
-        <p className="hero-subtitle text-sm uppercase tracking-widest text-cyan-400/80 mb-4">
-          trhgatu · 3D Portfolio
-        </p>
-
-        <h1 className="hero-text-name flex flex-wrap justify-center gap-1 text-5xl md:text-6xl font-extrabold text-cyan-300">
-          <span className="text-white mr-3">Hi, I&apos;m</span>
-          {name.split("").map((char, idx) => (
-            <span key={idx} className="inline-block">
-              {char === " " ? "\u00A0" : char}
-            </span>
-          ))}
-        </h1>
-
-        <h2 className="hero-title mt-3 flex flex-wrap justify-center gap-1 text-2xl md:text-4xl font-bold text-pink-400">
-          {title.split("").map((char, idx) => (
-            <span key={idx} className="inline-block">
-              {char === " " ? "\u00A0" : char}
-            </span>
-          ))}
-        </h2>
-
-        <p className="hero-description mt-6 max-w-2xl text-gray-300 text-lg">
-          Welcome to my forge — where imagination meets interaction. I craft vibrant, responsive, and immersive web experiences.
-        </p>
+    <section className="hero min-h-screen flex items-center text-center bg-black text-white">
+      <div className="border-b border-r border-l rounded-lg border-white/20 py-14 w-full mx-auto max-w-6xl">
+        <div className="hero-wrapper-content">
+          <p className="hero-subtitle text-sm uppercase tracking-widest text-gray-50 mb-4">
+            forged in pixels · powered by code
+          </p>
 
 
+          <div className="hero-text-first font-mono items-baseline justify-center flex">
+            <span className="hero-text-mini mr-2 text-2xl">Hi, I&apos;m</span>
+            <h1 className="hero-text-name justify-center gap-1 text-5xl md:text-8xl font-bold">
+              {name.split("").map((char, idx) => (
+                <span key={idx} className="inline-block ">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </h1>
+          </div>
+
+          <div className="hero-text-second font-mono ">
+            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pr-20">
+              {firstTitle.split("").map((char, idx) => (
+                <span key={idx} className="inline-block">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </h1>
+            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pl-20">
+              {secondTitle.split("").map((char, idx) => (
+                <span key={idx} className="inline-block">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </h1>
+          </div>
+
+          <div className="description flex justify-center">
+            <p className="hero-description font-mono mt-6 max-w-2xl text-gray-300 text-lg">
+              Welcome to my forge — where imagination meets interaction. I craft vibrant, responsive, and immersive web experiences.
+            </p>
+          </div>
+
+
+        </div>
       </div>
     </section>
 
