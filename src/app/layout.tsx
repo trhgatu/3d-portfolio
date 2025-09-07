@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/common/Header";
+import ViewCanvas from "@/components/ViewCanvas";
 
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         <Header/>
         {children}
+        <ViewCanvas/>
       </body>
     </html>
   );

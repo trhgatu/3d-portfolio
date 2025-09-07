@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.7.4",
     "@react-three/fiber": "^9.3.0",
     "gsap": "^3.13.0",
