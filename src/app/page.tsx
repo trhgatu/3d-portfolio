@@ -8,14 +8,12 @@ import AstronautScene from "@/components/scenes/HeroScene";
 
 export default function Home() {
   return (
-    <>
-      <View className="hero-scene pointer-events-none sticky top-0 z-50 -mt-[100vh] hidden h-screen w-screen md:block">
+    <main className="overflow-x-hidden">
+      <View className="hero-scene pointer-events-none fixed top-0 z-50 hidden h-screen w-screen md:block">
         <AstronautScene />
       </View>
-      <main>
-        <Hero />
-        <About />
-      </main>
-    </>
+      <Hero />
+      <About />
+    </main>
   );
 }

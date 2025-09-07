@@ -34,7 +34,7 @@ export default function Hero() {
 
   return (
     <section id="hero" className="hero min-h-screen flex items-center text-center bg-black text-white">
-      <div className="border-b border-r border-l rounded-lg border-white/20 py-14 w-full mx-auto max-w-6xl">
+      <div className="border-b border-r border-l rounded-lg border-white/20 py-20 w-full mx-auto max-w-6xl">
         <div className="hero-wrapper-content">
           <p className="hero-subtitle text-sm uppercase tracking-widest text-gray-50 mb-4">
             forged in pixels · powered by code
