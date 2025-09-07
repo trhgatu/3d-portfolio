@@ -44,7 +44,6 @@ export default function HeroScene() {
     if (window.scrollY < 20) {
       introTl
         .from(asRef.current.position, { y: -5, x: 1 }, 0)
-        .from(asRef.current.rotation, { z: 3 }, 0)
     }
 
     const scrollTl = gsap.timeline({
@@ -60,11 +59,8 @@ export default function HeroScene() {
     });
 
     scrollTl
-      .to(groupRef.current.rotation, { y: Math.PI * 2 })
-
       // astronaut
       .to(asRef.current.position, { x: -0.2, y: -0.7, z: -2 }, 0)
-      .to(asRef.current.rotation, { z: 0.3 }, 0)
 
       .to(
         groupRef.current.position,
