@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+/* Custom utilities */
+@layer utilities {
+  .font-mono {
+    font-family: var(--font-space-mono);
+  }
+}

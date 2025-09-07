@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
+import { Space_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/common/Header";
+import ViewCanvas from "@/components/ViewCanvas";
 
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,9 +22,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className={spaceMono.variable}>
+      <body className="overflow-x-hidden">
+        <Header/>
         {children}
+        <ViewCanvas/>
       </body>
     </html>
   );
