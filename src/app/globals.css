@@ -6,3 +6,7 @@
     font-family: var(--font-space-mono);
   }
 }
+
+/* #smooth-content {
+  will-change: transform;
+} */

@@ -17,7 +17,7 @@ type FloatingAstronautProps = {
 const FloatingAstronaut = forwardRef<Group, FloatingAstronautProps>(
     (
         {
-            floatSpeed = 1.5,
+            floatSpeed = 0,
             rotationIntensity = 1,
             floatIntensity = 1,
             floatingRange = [-0.1, 0.1],

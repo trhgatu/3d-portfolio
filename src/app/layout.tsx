@@ -3,6 +3,7 @@ import { Space_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import ViewCanvas from "@/components/ViewCanvas";
+import { SetupScrollSmoother } from "@/components/common/ScrollSmoother";
 
 const spaceMono = Space_Mono({
   subsets: ["latin"],
@@ -24,9 +25,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={spaceMono.variable}>
       <body className="overflow-x-hidden">
-        <Header/>
-        {children}
-        <ViewCanvas/>
+        <ViewCanvas />
+        <div id="smooth-wrapper">
+          <Header />
+          <div id="smooth-content">
+            <SetupScrollSmoother />
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );

@@ -2,9 +2,6 @@
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/all";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function Hero() {
   useGSAP(() => {
@@ -29,12 +26,6 @@ export default function Hero() {
         duration: 0.6,
       }, "-=0.6")
       .from(".hero-description", { opacity: 0, y: 20, duration: 0.6 }, "-=0.4")
-      .from(".hero-cta a", {
-        opacity: 0,
-        y: 20,
-        stagger: 0.1,
-        duration: 0.5,
-      }, "-=0.4");
   }, []);
 
   const name = "AnhTu";
@@ -42,14 +33,12 @@ export default function Hero() {
   const secondTitle = "Engineer";
 
   return (
-    <section className="hero min-h-screen flex items-center text-center bg-black text-white">
+    <section id="hero" className="hero min-h-screen flex items-center text-center bg-black text-white">
       <div className="border-b border-r border-l rounded-lg border-white/20 py-14 w-full mx-auto max-w-6xl">
         <div className="hero-wrapper-content">
           <p className="hero-subtitle text-sm uppercase tracking-widest text-gray-50 mb-4">
             forged in pixels · powered by code
           </p>
-
-
           <div className="hero-text-first font-mono items-baseline justify-center flex">
             <span className="hero-text-mini mr-2 text-2xl">Hi, I&apos;m</span>
             <h1 className="hero-text-name justify-center gap-1 text-5xl md:text-8xl font-bold">
