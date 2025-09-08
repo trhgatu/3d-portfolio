@@ -40,7 +40,7 @@ export default function Hero() {
             forged in pixels · powered by code
           </p>
           <div className="hero-text-first font-mono items-baseline justify-center flex">
-            <span className="hero-text-mini mr-2 text-2xl">Hi, I&apos;m</span>
+            <span className="hero-text-mini mr-6 text-3xl">Hi, I&apos;m</span>
             <h1 className="hero-text-name justify-center gap-1 text-5xl md:text-8xl font-bold">
               {name.split("").map((char, idx) => (
                 <span key={idx} className="inline-block ">
@@ -51,14 +51,14 @@ export default function Hero() {
           </div>
 
           <div className="hero-text-second font-mono ">
-            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pr-20">
+            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pr-40">
               {firstTitle.split("").map((char, idx) => (
                 <span key={idx} className="inline-block">
                   {char === " " ? "\u00A0" : char}
                 </span>
               ))}
             </h1>
-            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pl-20">
+            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pl-40">
               {secondTitle.split("").map((char, idx) => (
                 <span key={idx} className="inline-block">
                   {char === " " ? "\u00A0" : char}

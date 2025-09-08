@@ -3,6 +3,7 @@ import { Space_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import ViewCanvas from "@/components/ViewCanvas";
+import LenisScroll from "@/components/common/LenisScroll";
 
 const spaceMono = Space_Mono({
   subsets: ["latin"],
@@ -24,8 +25,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={spaceMono.variable}>
       <body suppressHydrationWarning={false}>
+      <LenisScroll/>
         <Header />
-
         {children}
         <ViewCanvas />
       </body>
