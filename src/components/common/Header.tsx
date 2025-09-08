@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/all";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
 import { useIntroStore } from "@/app/stores/introStore";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, ScrambleTextPlugin);
 
 const navItems = [
   { href: "#projects", label: "Projects" },
@@ -18,48 +19,86 @@ const navItems = [
 export default function Header() {
   const { hasIntroPlayed } = useIntroStore();
   const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     if (hasIntroPlayed) {
-      gsap.fromTo(
-        ".header",
-        { y: -40, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.6 }
-      );
+      gsap.fromTo(".header", { y: -40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6 });
     }
   }, [hasIntroPlayed]);
 
+  useGSAP(() => {
+    // chỉ áp dụng trên desktop
+    if (!window.matchMedia("(min-width: 768px)").matches) return;
+
+    const cleanupMap = new WeakMap<Element, () => void>();
+    const links = gsap.utils.toArray<HTMLAnchorElement>(".nav-link");
+
+    links.forEach((link) => {
+      const anim = link.querySelector<HTMLElement>(".nav-anim");
+      if (!anim) return;
+      const original = anim.innerText;
+
+      const onEnter = () => {
+        gsap.to(anim, {
+          duration: 0.6,
+          scrambleText: { text: original, chars: "01", speed: 0.6, revealDelay: 0.05 },
+          ease: "none",
+        });
+      };
+      const onLeave = () => {
+        gsap.killTweensOf(anim);
+        anim.textContent = original;
+      };
+
+      link.addEventListener("mouseenter", onEnter);
+      link.addEventListener("mouseleave", onLeave);
+
+      cleanupMap.set(link, () => {
+        link.removeEventListener("mouseenter", onEnter);
+        link.removeEventListener("mouseleave", onLeave);
+      });
+    });
+
+    return () => {
+      links.forEach((link) => cleanupMap.get(link)?.());
+    };
+  }, []);
 
   return (
     <header className="header fixed top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         {/* Logo */}
         <Link href="/" className="text-lg font-bold tracking-wide text-white hover:text-cyan-300">
           trhgatu<span className="text-cyan-300">.</span>
         </Link>
 
-        {/* Nav */}
+        {/* Nav (desktop) */}
         <nav className="hidden gap-6 md:flex">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-white/80 hover:text-cyan-300 transition"
+              className="nav-link relative inline-block font-mono text-white/80 transition hover:text-cyan-300"
+              aria-label={item.label}
             >
-              {item.label}
+              <span className="nav-anim px-4 py-2 whitespace-nowrap">{item.label}</span>
             </a>
           ))}
         </nav>
 
-        {/* Mobile toggle */}
+        <div className="text-white/80">
+            <span>Get in touch</span>
+        </div>
+
         <button
+          aria-label="Toggle menu"
           className="md:hidden text-white/80 hover:text-cyan-300"
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => setMenuOpen((v) => !v)}
         >
           ☰
         </button>
       </div>
 
-      {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden px-6 pb-4">
           <div className="flex flex-col gap-3">

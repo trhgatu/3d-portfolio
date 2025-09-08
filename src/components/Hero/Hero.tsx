@@ -69,14 +69,14 @@ export default function Hero({ playAnimation }: { playAnimation: boolean }) {
           </div>
 
           <div className="hero-text-second font-mono ">
-            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pr-40">
+            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pr-10 md:pr-40">
               {firstTitle.split("").map((char, idx) => (
                 <span key={idx} className="inline-block">
                   {char === " " ? "\u00A0" : char}
                 </span>
               ))}
             </h1>
-            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pl-40">
+            <h1 className="hero-title flex flex-wrap justify-center gap-1 text-5xl md:text-8xl font-bold pl-10 md:pl-40">
               {secondTitle.split("").map((char, idx) => (
                 <span key={idx} className="inline-block">
                   {char === " " ? "\u00A0" : char}
