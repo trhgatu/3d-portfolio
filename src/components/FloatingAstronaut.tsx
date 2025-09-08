@@ -18,7 +18,7 @@ const FloatingAstronaut = forwardRef<Group, FloatingAstronautProps>(
     (
         {
             floatSpeed = 0,
-            rotationIntensity = 1,
+            rotationIntensity = 0,
             floatIntensity = 1,
             floatingRange = [-0.1, 0.1],
             children,

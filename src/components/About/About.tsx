@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function About() {
     return (
-        <section id="about" className="bg-black text-white min-h-screen px-6 py-24">
+        <section id="about" className="bg-black min-h-screen px-6 py-24">
             <div className="mx-auto grid max-w-6xl grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 {/* Avatar */}
                 <div className="flex justify-center">
