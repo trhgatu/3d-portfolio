@@ -24,8 +24,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={spaceMono.variable}>
-      <body suppressHydrationWarning={false}>
-      <LenisScroll/>
+      <body suppressHydrationWarning={false}  className="overflow-hidden">
+        <LenisScroll />
         <Header />
         {children}
         <ViewCanvas />

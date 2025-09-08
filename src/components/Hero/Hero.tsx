@@ -1,17 +1,23 @@
 "use client";
 
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
-export default function Hero() {
-  useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+export default function Hero({ playAnimation }: { playAnimation: boolean }) {
+   const scope = useRef(null);
 
-    tl.from(".hero-subtitle", { opacity: 0, y: 20, duration: 0.6 })
-      .from(".hero-text-mini", {
+  useGSAP(() => {
+    if (!playAnimation) return;
+    const tl = gsap.timeline({ defaults: { ease: "power3.out", opacity: 0 } });
+
+    tl
+      .set(scope.current, { autoAlpha: 1 })
+      .from(".hero-text-mini span", {
         opacity: 0,
         duration: 0.6,
-        y:20
+        y: 20,
+        stagger: 0.03
       })
       .from(".hero-text-name span", {
         opacity: 0,
@@ -25,22 +31,34 @@ export default function Hero() {
         stagger: 0.04,
         duration: 0.6,
       }, "-=0.6")
+      .from(".hero-subtitle", {
+        opacity: 0,
+        y: 20,
+        duration: 0.6
+      })
       .from(".hero-description", { opacity: 0, y: 20, duration: 0.6 }, "-=0.4")
-  }, []);
+  }, [playAnimation]);
 
   const name = "AnhTu";
   const firstTitle = "Software";
   const secondTitle = "Engineer";
+  const introText = "Hi, I'm";
 
   return (
-    <section id="hero" className="hero min-h-screen flex items-center text-center bg-black text-white">
+    <section id="hero" ref={scope} className="hero opacity-0 min-h-screen flex items-center text-center bg-black text-white">
       <div className="border-b border-r border-l rounded-lg border-white/20 py-20 w-full mx-auto max-w-6xl">
         <div className="hero-wrapper-content">
           <p className="hero-subtitle text-sm uppercase tracking-widest text-gray-50 mb-4">
             forged in pixels · powered by code
           </p>
           <div className="hero-text-first font-mono items-baseline justify-center flex">
-            <span className="hero-text-mini mr-6 text-3xl">Hi, I&apos;m</span>
+            <div className="hero-text-mini justify-center gap-1 mr-6 text-3xl">
+              {introText.split("").map((char, idx) => (
+                <span key={idx} className="inline-block text-3xl">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </div>
             <h1 className="hero-text-name justify-center gap-1 text-5xl md:text-8xl font-bold">
               {name.split("").map((char, idx) => (
                 <span key={idx} className="inline-block ">
