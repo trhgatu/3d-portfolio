@@ -6,11 +6,8 @@ import { useGSAP } from "@gsap/react";
 
 export default function Hero({
   playAnimation,
-  onAnimationComplete
-
 }: {
   playAnimation: boolean
-  onAnimationComplete: () => void
 }) {
   const scope = useRef(null);
   const animated = useRef(false)
@@ -22,10 +19,6 @@ export default function Hero({
         ease: "power3.out",
         opacity: 0
       },
-      onComplete: () => {
-        animated.current = true;
-        onAnimationComplete();
-      }
     });
 
     tl
@@ -54,7 +47,7 @@ export default function Hero({
         duration: 0.6
       })
       .from(".hero-description", { opacity: 0, y: 20, duration: 0.6 }, "-=0.4")
-  }, [playAnimation, /* onAnimationComplete */]);
+  }, [playAnimation]);
 
   const name = "AnhTu";
   const firstTitle = "Software";
@@ -63,7 +56,7 @@ export default function Hero({
 
   return (
     <section id="hero" ref={scope} className="hero opacity-0 min-h-screen flex items-center text-center bg-black text-white">
-      <div className="border-b border-r border-l rounded-lg border-white/20 py-20 w-full mx-auto max-w-6xl">
+      <div className="py-20 w-full mx-auto max-w-6xl">
         <div className="hero-wrapper-content relative z-50">
           <p className="hero-subtitle text-sm uppercase tracking-widest text-gray-50 mb-4">
             forged in pixels · powered by code
