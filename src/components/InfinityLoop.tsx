@@ -7,10 +7,11 @@ import { Group } from "three";
 type InfinityLoopProps = {
   scale?: number;
   onLoaded?: () => void;
+  visible?: boolean
 }
 
 export const InfinityLoop = forwardRef<Group, InfinityLoopProps>(
-  ({ scale = 0.5, onLoaded, ...props }, ref) => {
+  ({ scale = 0.5, onLoaded, visible, ...props }, ref) => {
     const { scene, animations } = useGLTF("/models/infinity_loop.glb");
     const { actions, mixer } = useAnimations(animations, scene);
 
@@ -31,7 +32,12 @@ export const InfinityLoop = forwardRef<Group, InfinityLoopProps>(
     }, [scene, onLoaded]);
 
     return (
-      <primitive object={scene} scale={scale} ref={ref} {...props} />
+      <primitive
+        object={scene}
+        scale={scale}
+        visible={visible}
+        ref={ref} {...props}
+      />
     );
   }
 );

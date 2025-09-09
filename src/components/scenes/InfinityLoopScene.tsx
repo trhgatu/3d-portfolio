@@ -11,7 +11,7 @@ import { InfinityLoop } from "@/components/InfinityLoop";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function InfinityLoopScene() {
+export default function InfinityLoopScene({ playAnimation }: { playAnimation: boolean }) {
   const asRef = useRef<Group>(null);
   const asGroupRef = useRef<Group>(null);
   const groupRef = useRef<Group>(null);
@@ -19,8 +19,17 @@ export default function InfinityLoopScene() {
   const [modelReady, setModelReady] = useState(false);
 
   useGSAP(() => {
-    if (!modelReady || !asRef.current || !asGroupRef.current || !groupRef.current) return;
+    if (!playAnimation || !modelReady || !asRef.current || !asGroupRef.current || !groupRef.current) return;
 
+    gsap.set(asRef.current, {
+      opacity: 0,
+      visibility: "hidden"
+    });
+
+    gsap.set(asRef.current, {
+      opacity: 1,
+      visibility: "visible"
+    });
 
     //position init
     gsap.set(asRef.current.position, { x: 0, y: 0, z: 0 });
@@ -57,12 +66,15 @@ export default function InfinityLoopScene() {
       .to(asRef.current.scale, { x: 0.8, y: 0.8, z: 0.8, duration: 1 }, "<");
 
     ScrollTrigger.refresh();
-  }, [modelReady]);
+  }, [playAnimation, modelReady]);
 
   return (
     <group ref={groupRef}>
       <group ref={asGroupRef}>
-        <InfinityLoop onLoaded={() => setModelReady(true)} ref={asRef} />
+        <InfinityLoop
+          onLoaded={() => setModelReady(true)}
+          ref={asRef}
+          visible={playAnimation && modelReady} />
       </group>
       <Environment files="/hdr/qwantani_night_puresky_2k.hdr" environmentIntensity={1.5} />
     </group>
