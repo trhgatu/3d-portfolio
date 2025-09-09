@@ -5,7 +5,7 @@ import { Environment } from "@react-three/drei";
 import { Group } from "three";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/all";
 
 import FloatingAstronaut from "@/components/FloatingAstronaut";
 
@@ -38,6 +38,7 @@ export default function HeroScene() {
         end: "bottom top",
         scrub: 1.5,
         id: "hero",
+        markers: true
       },
     })
       .to(asRef.current.position, { x: 0, y: 0, z: 0, duration: 1 })
@@ -50,6 +51,7 @@ export default function HeroScene() {
         end: "bottom top",
         scrub: 1.5,
         id: "about",
+        markers: true
       }
     })
       .to(asRef.current.position, { x: -1.5, y: 0.5, z: -0.5, duration: 1 })
