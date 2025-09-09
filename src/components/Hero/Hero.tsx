@@ -54,7 +54,7 @@ export default function Hero({
         duration: 0.6
       })
       .from(".hero-description", { opacity: 0, y: 20, duration: 0.6 }, "-=0.4")
-  }, [playAnimation, onAnimationComplete]);
+  }, [playAnimation, /* onAnimationComplete */]);
 
   const name = "AnhTu";
   const firstTitle = "Software";
