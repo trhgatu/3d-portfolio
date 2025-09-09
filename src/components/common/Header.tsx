@@ -27,7 +27,6 @@ export default function Header() {
   }, [hasIntroPlayed]);
 
   useGSAP(() => {
-    // chỉ áp dụng trên desktop
     if (!window.matchMedia("(min-width: 768px)").matches) return;
 
     const cleanupMap = new WeakMap<Element, () => void>();
@@ -67,9 +66,11 @@ export default function Header() {
   return (
     <header className="header fixed top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        {/* Logo */}
         <Link href="/" className="text-lg font-bold tracking-wide text-white hover:text-cyan-300">
-          trhgatu<span className="text-cyan-300">.</span>
+          <span className="font-share-tech-mono">
+            trhgatu
+          </span>
+          <span className="text-cyan-300">.</span>
         </Link>
 
         {/* Nav (desktop) */}
@@ -81,13 +82,13 @@ export default function Header() {
               className="nav-link relative inline-block font-mono text-white/80 transition hover:text-cyan-300"
               aria-label={item.label}
             >
-              <span className="nav-anim px-4 py-2 whitespace-nowrap">{item.label}</span>
+              <span className="font-share-tech-mono nav-anim px-4 py-2 whitespace-nowrap">{item.label}</span>
             </a>
           ))}
         </nav>
 
         <div className="text-white/80">
-            <span>Get in touch</span>
+          <span>Get in touch</span>
         </div>
 
         <button

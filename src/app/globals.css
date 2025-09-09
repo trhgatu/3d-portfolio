@@ -5,7 +5,13 @@
   .font-mono {
     font-family: var(--font-space-mono);
   }
+
+  .font-share-tech-mono {
+    font-family: var(--font-share-tech-mono);
+  }
 }
+
+
 
 /* #smooth-content {
   will-change: transform;

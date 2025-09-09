@@ -6,9 +6,9 @@ export default function About() {
             <div className="mx-auto grid max-w-6xl grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 {/* Avatar */}
                 <div className="flex justify-center">
-                    <div className="relative h-64 w-64 overflow-hidden rounded-full border-4 border-cyan-400 shadow-lg">
+                    <div className="relative overflow-hidden ">
                         <Image
-                            src="/avatar.jpg"
+                            src="/assets/img/avatar.jpg"
                             alt="Infinity Avatar"
                             className="h-full w-full object-cover"
                             width={200}
