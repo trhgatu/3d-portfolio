@@ -1,7 +1,7 @@
 "use client";
 
 import { Canvas } from "@react-three/fiber";
-import { View } from "@react-three/drei";
+import { Preload, View } from "@react-three/drei";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
@@ -21,7 +21,7 @@ export default function ViewCanvas() {
           transform: "translateX(-50%)",
           overflow: "hidden",
           pointerEvents: "none",
-          zIndex: 30,
+          zIndex: 30
         }}
         shadows
         dpr={[1, 1.5]}
@@ -32,6 +32,7 @@ export default function ViewCanvas() {
       >
         <Suspense fallback={null}>
           <View.Port />
+          <Preload all/>
         </Suspense>
       </Canvas>
       <Loader />

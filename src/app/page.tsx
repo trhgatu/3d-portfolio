@@ -8,16 +8,19 @@ import InfinityLoopScene from "@/components/scenes/InfinityLoopScene";
 import { useState } from "react";
 
 export default function Home() {
-  const [hasLoaderFinished, setLoaderFinished] = useState(false);
+  const [hasOverlayFinished, setOverlayFinished] = useState(false);
+  const [heroDone, setHeroDone] = useState(false);
+  const shouleRenderInfLoop = hasOverlayFinished && heroDone;
 
   return (
-    <main className="bg-black text-white overflow-x-hidden">
-      {!hasLoaderFinished && <LoaderWithOverlay onComplete={() => setLoaderFinished(true)} />}
-      <View className="infinity-scene fixed top-0 z-0 hidden md:block h-screen w-screen pointer-events-none">
-        <InfinityLoopScene />
-      </View>
-
-      <Hero key={hasLoaderFinished ? "played" : "not-played"} playAnimation={hasLoaderFinished} />
+    <main className="relative bg-black text-white overflow-x-hidden">
+      {!hasOverlayFinished && <LoaderWithOverlay onComplete={() => setOverlayFinished(true)} />}
+        <View
+          className="infinity-scene fixed top-0 -z-10 inset-0 hidden md:block h-screen w-screen pointer-events-none"
+        >
+          <InfinityLoopScene playAnimation={shouleRenderInfLoop} />
+        </View>
+      <Hero playAnimation={hasOverlayFinished} onAnimationComplete={() => setHeroDone(true)} />
       <About />
     </main>
   );

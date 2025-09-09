@@ -64,7 +64,7 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="header fixed top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur">
+    <header className="header fixed top-0 z-100 w-full border-b border-white/10 bg-black/60 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <Link href="/" className="text-lg font-bold tracking-wide text-white hover:text-cyan-300">
           <span className="font-share-tech-mono">
