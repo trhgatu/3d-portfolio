@@ -6,27 +6,34 @@ import { Group } from "three";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
-
+import { useAppStore } from "@/hooks/useAppStore";
 import { InfinityLoop } from "@/components/InfinityLoop";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function InfinityLoopScene({ playAnimation }: { playAnimation: boolean }) {
+export default function InfinityLoopScene() {
+  const playAnimation = useAppStore((s) => s.heroAnimationDone);
+  const onEntryDone = useAppStore((s) => s.setModelEntryDone);
+
   const asRef = useRef<Group>(null);
   const asGroupRef = useRef<Group>(null);
   const groupRef = useRef<Group>(null);
 
   useGSAP(() => {
     if (!playAnimation || !asRef.current || !asGroupRef.current || !groupRef.current) return;
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: "#hero",
-        start: "top bottom",
-        end: "bottom top",
-        scrub: 1.5,
-      },
-    })
+    console.log("▶️ Start model animation");
+    gsap.set(asRef.current.position, { y: 5 });
 
+    gsap.fromTo(
+      asRef.current.position,
+      { y: 5 },
+      {
+        y: 0,
+        duration: 1.8,
+        ease: "power3.out",
+        onComplete: onEntryDone,
+      }
+    );
 
     gsap.timeline({
       scrollTrigger: {
@@ -34,13 +41,11 @@ export default function InfinityLoopScene({ playAnimation }: { playAnimation: bo
         start: "top bottom",
         end: "bottom top",
         scrub: 1.5,
-      }
+      },
     })
-      /* .to(asRef.current.position, { x: -1.5, y: 0.5, z: -0.5 }) */
       .to(asRef.current.position, { x: 0, y: 0, z: 0 })
       .to(asRef.current.rotation, { y: -1 })
-      .to(asRef.current.scale, { x: 0.6, y: 0.6, z: 0.6 })
-
+      .to(asRef.current.scale, { x: 0.6, y: 0.6, z: 0.6 });
 
     ScrollTrigger.refresh();
   }, [playAnimation]);
@@ -48,11 +53,12 @@ export default function InfinityLoopScene({ playAnimation }: { playAnimation: bo
   return (
     <group ref={groupRef}>
       <group ref={asGroupRef}>
-        <InfinityLoop
-          ref={asRef}
-        />
+        <InfinityLoop ref={asRef} />
       </group>
-      <Environment files="/hdr/qwantani_night_puresky_2k.hdr" environmentIntensity={1.5} />
+      <Environment
+        files="/hdr/qwantani_night_puresky_2k.hdr"
+        environmentIntensity={1.5}
+      />
     </group>
   );
 }

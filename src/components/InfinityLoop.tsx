@@ -4,6 +4,9 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 import { useEffect, forwardRef } from "react";
 import { Group } from "three";
 
+
+useGLTF.preload("/models/infinity_loop.glb");
+
 type InfinityLoopProps = {
   scale?: number;
   onLoaded?: () => void;
