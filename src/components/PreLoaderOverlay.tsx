@@ -1,42 +1,31 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import gsap from "gsap";
+import { useProgressLoader } from "@/hooks/useProgressLoader";
 
 export default function LoaderWithOverlay({ onComplete }: { onComplete: () => void }) {
-  const [count, setCount] = useState(0);
+  const [ready, setReady] = useState(false);
+  const count = useProgressLoader(() => setReady(true));
 
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
   const countRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
+    if (!ready) return;
 
-          const tl = gsap.timeline({
-            defaults: { ease: "power4.inOut" },
-            onComplete,
-          });
+    const tl = gsap.timeline({
+      defaults: { ease: "power4.inOut" },
+      onComplete,
+    });
 
-          tl.to(countRef.current, { autoAlpha: 0, duration: 1 }, 0);
-
-          tl.set(leftRef.current, { borderRightColor: "#ffffff" }, 0.2);
-          tl.set(rightRef.current, { borderLeftColor: "#ffffff" }, 0.2);
-
-          tl.to(leftRef.current, { xPercent: -100, duration: 2 }, 0.3);
-          tl.to(rightRef.current, { xPercent: 100, duration: 2 }, 0.3);
-
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 20);
-
-    return () => clearInterval(interval);
-  }, [onComplete]);
+    tl.to(countRef.current, { autoAlpha: 0, duration: 1 }, 0);
+    tl.set(leftRef.current, { borderRightColor: "#ffffff" }, 0.2);
+    tl.set(rightRef.current, { borderLeftColor: "#ffffff" }, 0.2);
+    tl.to(leftRef.current, { xPercent: -100, duration: 2 }, 0.3);
+    tl.to(rightRef.current, { xPercent: 100, duration: 2 }, 0.3);
+  }, [ready, onComplete]);
 
   return (
     <div className="fixed inset-0 z-[9999] pointer-events-none">
@@ -50,9 +39,12 @@ export default function LoaderWithOverlay({ onComplete }: { onComplete: () => vo
       />
       <div
         ref={countRef}
-        className="absolute inset-0 z-[9999] flex items-center justify-center text-white text-7xl font-mono"
+        className="absolute inset-0 z-[9999] flex flex-col items-center justify-center text-white text-7xl font-mono gap-4"
       >
-        {count}%
+        <span className="text-base tracking-widest font-light text-gray-300 uppercase">
+          loading
+        </span>
+        <span>{count}%</span>
       </div>
     </div>
   );

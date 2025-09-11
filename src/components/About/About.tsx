@@ -1,33 +1,62 @@
-import Image from "next/image";
+"use client";
+import gsap from "gsap";
+
+
+import { ScrollTrigger } from "gsap/all";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function About() {
+
+    useGSAP(() => {
+        const aboutTL = gsap.timeline({
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top top",
+                end: "+=200%",
+                scrub: 1,
+                pin: true,
+                markers: true
+            }
+        });
+        aboutTL
+            .from(".about-title span", {
+                opacity: 0,
+                duration: 1,
+                yPercent: -100,
+                stagger: 0.5
+            })
+
+
+
+    }, [])
+
+    const sectionTitle = "Aboutme.";
+
     return (
         <section id="about" className="bg-black min-h-screen px-6 py-24">
-            <div className="mx-auto grid max-w-6xl grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                {/* Avatar */}
-                <div className="flex justify-center">
-                    <div className="relative overflow-hidden ">
-                        <Image
-                            src="/assets/img/avatar.jpg"
-                            alt="Infinity Avatar"
-                            className="h-full w-full object-cover"
-                            width={200}
-                            height={200}
-                        />
+            <div className="mx-auto max-w-6xl items-center">
+                <div className="about-title text-9xl font-share-tech-mono flex justify-center">
+                    {sectionTitle.split("").map((char, idx) => (
+                        <span key={idx} className="inline-block ">
+                            {char === " " ? "\u00A0" : char}
+                        </span>
+                    ))}
+                </div>
+                <div className="about-content">
+                    <div className="grid grid-cols-1 md:grid-cols-2 mt-20">
+                        <div className="about-left-col flex justify-center">
+                            <span className="text-6xl"> LEFT</span>
+
+                        </div>
+
+                        <div className="about-right-col flex justify-center">
+                            <span className="text-6xl"> Right</span>
+                        </div>
                     </div>
                 </div>
 
-
-                {/* Description */}
-                <div className="text-left">
-                    <h3 className="text-3xl font-bold text-cyan-300 mb-4">About Me</h3>
-                    <p className="text-gray-300 text-lg leading-relaxed">
-                        I&apos;m Tran Hoang Anh Tu, a passionate software engineer based in Vietnam. I specialize in modern frontend development and 3D interaction using React, Three.js, and GSAP.
-                    </p>
-                    <p className="mt-4 text-gray-400 text-base">
-                        From immersive portfolios to dynamic user interfaces, I bring code and creativity together to forge experiences that feel alive. This isn&apos;t just work — it&apos;s my craft.
-                    </p>
-                </div>
             </div>
         </section>
     )
