@@ -179,7 +179,7 @@ export function TheAlchemistRecipes() {
             <p>Was never just the code—it&apos;s you.&quot;</p>
           </div>
 
-          <div className="w-full max-w-2xl flex justify-end items-rightS mt-12 opacity-80 px-4">
+          <div className="w-full max-w-2xl flex justify-end items-end mt-12 opacity-80 px-4">
             <div className="font-bilbo text-4xl text-[#3d2817] -rotate-3">~ The Alchemist</div>
           </div>
         </div>
