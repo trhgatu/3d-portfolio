@@ -20,8 +20,6 @@ export const TechGrimoire = () => {
   const flashRef = useRef<HTMLDivElement>(null);
   const introTextRef = useRef<HTMLDivElement>(null);
 
-  // Use custom hook for timeline management
-  // All animation logic is now centralized in tech-grimoire/hooks/useGrimoireTimeline.ts
   const { scrollProgress } = useGrimoireTimeline({
     containerRef,
     introTextRef,
@@ -65,13 +63,11 @@ export const TechGrimoire = () => {
         <div className="absolute inset-0 z-10 mix-blend-screen">
           <StarField />
         </div>
-        <div className="absolute inset-0 z-20 bg-[url('/assets/noise.png')] opacity-10 mix-blend-overlay" />
       </div>
       <div
         ref={flashRef}
         className="absolute inset-0 z-50 bg-white opacity-0 pointer-events-none mix-blend-screen"
       />
-      {/* Intro Text */}
       <div
         ref={introTextRef}
         className="absolute inset-0 z-60 flex items-center justify-center pointer-events-none opacity-0"
