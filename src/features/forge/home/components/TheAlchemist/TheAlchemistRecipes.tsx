@@ -1,153 +1,188 @@
 "use client";
-import Image from "next/image";
+
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { useRef } from "react";
 
 export function TheAlchemistRecipes() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      if (!containerRef.current) return;
+
+      // Subtle fade in for manuscript elements
+      gsap.from(".recipe-anim", {
+        opacity: 0,
+        y: 30,
+        duration: 1.5,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 75%",
+        },
+      });
+    },
+    { scope: containerRef }
+  );
+
   return (
-    <div className="max-w-5xl mx-auto px-4 py-12 space-y-24">
-      <div className="flex justify-center relative">
-        <div className="relative p-8 rotate-[-1deg] transition-transform duration-500 hover:rotate-0 backdrop-blur-sm hover:scale-105 select-none max-w-2xl w-full">
-          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-neutral-800/40" />
-          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-neutral-800/40" />
-          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-neutral-800/40" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-neutral-800/40" />
+    <div ref={containerRef} className="max-w-6xl mx-auto px-4 relative mt-16 md:mt-32 mb-24">
+      {/* The Recipe Book / Content */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto md:p-8">
+        {/* Title Area */}
+        <div className="text-center mb-16 relative flex flex-col items-center recipe-anim">
+          <div className="pb-4 text-[#8b5a2b]/60 font-serif text-sm tracking-widest uppercase">
+            The Final Formula
+          </div>
+          <h3 className="font-kings text-5xl md:text-7xl text-[#3d2817] mb-4 border-b-2 border-[#8b5a2b]/30 pb-6 inline-block px-8 md:px-16 relative">
+            Magnum Opus
+          </h3>
+          <p className="font-bilbo text-3xl text-neutral-700 max-w-2xl mx-auto italic mt-4">
+            A precise formulation for the transmutation of abstract thought into enduring digital
+            structure.
+          </p>
+        </div>
 
-          <div className="text-neutral-700/80 font-['Courier_New'] text-sm md:text-base leading-relaxed select-none mix-blend-multiply">
-            <div className="space-y-1">
-              <div className="italic font-bold text-neutral-800/80">
-                class <span className="text-purple-900/80">Self</span> extends{" "}
-                <span className="text-neutral-500">Nobody</span> {"{"}
-              </div>
-              <div className="italic">&nbsp;&nbsp;async evolve() {"{"}</div>
-              <div className="italic text-amber-700/60">
-                &nbsp;&nbsp;&nbsp;&nbsp;// The Great Work
-              </div>
-              <div className="italic">
-                &nbsp;&nbsp;&nbsp;&nbsp;await{" "}
-                <span className="text-blue-900/60 font-bold">forge</span>(
-              </div>
-              <div className="italic">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.lead,{" "}
-                <span className="text-orange-700/80 font-bold">PAIN</span>
-              </div>
-              <div className="italic">&nbsp;&nbsp;&nbsp;&nbsp;);</div>
-              <div className="italic font-bold text-neutral-800/80">
-                &nbsp;&nbsp;&nbsp;&nbsp;return new{" "}
-                <span className="text-emerald-800/80">Creator</span>();
-              </div>
-              <div className="italic">&nbsp;&nbsp;{"}"}</div>
-              <div className="italic font-bold text-neutral-800/80">{"}"}</div>
+        {/* The Recipe Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20 relative z-10">
+          {/* Left Column (Ingredients & Catalysts) */}
+          <div className="space-y-12">
+            <div className="recipe-anim">
+              <h4 className="font-kings text-4xl text-[#5c3a21] border-b border-[#5c3a21]/20 pb-3 mb-6 flex items-center gap-4">
+                <span className="text-3xl opacity-60">☿</span> Materia Prima
+              </h4>
+              <ul className="space-y-6 font-serif text-[#3d2817]">
+                <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
+                  <span>
+                    <strong className="font-kings text-2xl">Fluidity</strong>{" "}
+                    <span className="text-xs md:text-sm opacity-70 ml-1">(Mercury)</span>
+                  </span>
+                  <span className="font-bilbo text-2xl text-[#78350f]">3 measures</span>
+                </li>
+                <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
+                  <span>
+                    <strong className="font-kings text-2xl">Passion</strong>{" "}
+                    <span className="text-xs md:text-sm opacity-70 ml-1">(Sulfur)</span>
+                  </span>
+                  <span className="font-bilbo text-2xl text-[#78350f]">1 ember</span>
+                </li>
+                <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
+                  <span>
+                    <strong className="font-kings text-2xl">Grounding</strong>{" "}
+                    <span className="text-xs md:text-sm opacity-70 ml-1">(Salt)</span>
+                  </span>
+                  <span className="font-bilbo text-2xl text-[#78350f]">2 pinches</span>
+                </li>
+                <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
+                  <span>
+                    <strong className="font-kings text-2xl">Energy</strong>{" "}
+                    <span className="text-xs md:text-sm opacity-70 ml-1">(Fire)</span>
+                  </span>
+                  <span className="font-bilbo text-2xl text-[#78350f]">To a boil</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="recipe-anim">
+              <h4 className="font-kings text-4xl text-[#5c3a21] border-b border-[#5c3a21]/20 pb-3 mb-6 flex items-center gap-4">
+                <span className="text-3xl opacity-60">⚗</span> The Catalysts
+              </h4>
+              <ul className="space-y-6 font-serif text-[#3d2817]">
+                <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
+                  <span>
+                    <strong className="font-kings text-2xl">Obsession</strong>
+                  </span>
+                  <span className="font-bilbo text-2xl text-[#78350f]">Unrelenting</span>
+                </li>
+                <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
+                  <span>
+                    <strong className="font-kings text-2xl">Curiosity</strong>
+                  </span>
+                  <span className="font-bilbo text-2xl text-[#78350f]">Endless</span>
+                </li>
+                <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
+                  <span>
+                    <strong className="font-kings text-2xl">Discipline</strong>
+                  </span>
+                  <span className="font-bilbo text-2xl text-[#78350f]">Daily rigor</span>
+                </li>
+                <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
+                  <span>
+                    <strong className="font-kings text-2xl">Solitude</strong>
+                  </span>
+                  <span className="font-bilbo text-2xl text-[#78350f]">A quiet refuge</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Right Column (The Process & Circle) */}
+          <div className="flex flex-col h-full recipe-anim">
+            <h4 className="font-kings text-4xl text-[#5c3a21] border-b border-[#5c3a21]/20 pb-3 mb-8 flex items-center gap-4">
+              <span className="text-3xl opacity-60">☉</span> The Process
+            </h4>
+
+            <div className="relative w-48 h-48 md:w-56 md:h-56 mx-auto mb-10 mt-4 group flex-shrink-0">
+              {/* Transmutation Circle Image */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/images/craftings/transmutation_circle.png"
+                alt="Transmutation Circle"
+                className="absolute inset-0 w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-700 animate-[spin_40s_linear_infinite]"
+                style={{ filter: "sepia(0.5) hue-rotate(-20deg) contrast(1.2)" }}
+              />
+              <div className="absolute inset-0 bg-amber-600/10 rounded-full blur-2xl opacity-40 mix-blend-multiply pointer-events-none" />
+            </div>
+
+            <div className="font-serif text-[#3d2817] space-y-8 text-justify leading-relaxed flex-grow text-lg">
+              <p>
+                <span className="float-left text-6xl font-kings text-[#78350f] pr-3 pt-2 leading-none">
+                  I.
+                </span>
+                Melt down the ego within the crucible of continuous failure. The code will break;
+                you must not.
+              </p>
+              <p>
+                <span className="float-left text-6xl font-kings text-[#78350f] pr-3 pt-2 leading-none">
+                  II.
+                </span>
+                Apply the relentless heat of Obsession. Iterate until the chaotic logic aligns into
+                elegant structure.
+              </p>
+              <p>
+                <span className="float-left text-6xl font-kings text-[#78350f] pr-3 pt-2 leading-none">
+                  III.
+                </span>
+                Realize the ultimate truth: You are not merely forging software. The software is the
+                fire forging you.
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Faint Transmutation Circle Background */}
-        <div className="absolute inset-0 -z-10 opacity-[0.08] mix-blend-multiply scale-150 pointer-events-none flex items-center justify-center">
-          <div className="relative w-full h-full max-w-[500px] max-h-[500px]">
-            <Image
-              src="/assets/images/craftings/transmutation_circle.png"
-              alt=""
-              fill
-              className="object-contain animate-[spin_120s_linear_infinite]"
-            />
+        {/* The Manifestation */}
+        <div className="mt-20 pt-10 recipe-anim flex flex-col items-center">
+          <div className="w-full flex items-center justify-center gap-4 mb-8 opacity-60">
+            <div className="h-[1px] w-full max-w-[100px] bg-[#8b5a2b]"></div>
+            <span className="text-2xl font-serif text-[#8b5a2b]">✧</span>
+            <div className="h-[1px] w-full max-w-[100px] bg-[#8b5a2b]"></div>
+          </div>
+          <h4 className="text-center font-mono text-sm uppercase tracking-[0.3em] text-[#8b5a2b]/70 mb-8">
+            The Manifestation
+          </h4>
+          <div className="font-kings text-4xl md:text-5xl text-[#2a1a10] text-center px-4 md:px-12 py-6">
+            <p className="mb-3">&quot;Through countless errors, bugs, and strife,</p>
+            <p className="mb-3">I breathe into the syntax, life.</p>
+            <p className="mb-3">The final product, clear and true,</p>
+            <p>Was never just the code—it&apos;s you.&quot;</p>
+          </div>
+
+          <div className="w-full max-w-2xl flex justify-end items-end mt-12 opacity-80 px-4">
+            <div className="font-bilbo text-4xl text-[#3d2817] -rotate-3">~ The Alchemist</div>
           </div>
         </div>
-      </div>
-
-      {/* Section 2: The Equations */}
-      <div className="border-t border-neutral-400/20 pt-16">
-        {/* Alchemical Equation */}
-        <div className="alchemy-equation flex flex-wrap items-center justify-center gap-8 md:gap-16 select-none mb-16">
-          {/* LEAD */}
-          <div className="flex flex-col items-center group/lead relative">
-            <span className="text-5xl md:text-6xl text-neutral-600 font-serif leading-none transition-colors duration-500 group-hover/lead:text-neutral-800">
-              ♄
-            </span>
-            <span className="font-bilbo text-2xl text-neutral-500 mt-2 tracking-wide group-hover/lead:text-neutral-700 transition-colors">
-              Lead
-            </span>
-            <span className="absolute -bottom-8 text-sm text-neutral-400 font-mono opacity-0 group-hover/lead:opacity-100 transition-opacity duration-500">
-              (Self)
-            </span>
-          </div>
-
-          {/* ADDITION */}
-          <span className="text-3xl text-neutral-400 font-bilbo pb-6">+</span>
-
-          {/* FIRE */}
-          <div className="flex flex-col items-center group/fire relative">
-            <span className="text-5xl md:text-6xl text-orange-700/80 font-serif leading-none duration-1000 group-hover/fire:text-orange-600 transition-colors">
-              🜂
-            </span>
-            <span className="font-bilbo text-2xl text-neutral-500 mt-2 tracking-wide group-hover/fire:text-orange-700/80 transition-colors">
-              Pain
-            </span>
-            <span className="absolute -bottom-8 text-sm text-neutral-400 font-mono opacity-0 group-hover/fire:opacity-100 transition-opacity duration-500">
-              (Effort)
-            </span>
-          </div>
-
-          {/* TRANSMUTE */}
-          <span className="text-3xl text-neutral-400 font-bilbo pb-6">→</span>
-
-          {/* GOLD */}
-          <div className="flex flex-col items-center group/gold relative">
-            <div className="relative">
-              <span className="text-6xl md:text-7xl text-amber-500 font-serif leading-none drop-shadow-[0_0_15px_rgba(245,158,11,0.4)] transition-all duration-700 group-hover/gold:text-amber-400 group-hover/gold:drop-shadow-[0_0_25px_rgba(245,158,11,0.6)]">
-                ☉
-              </span>
-              <div className="absolute inset-0 bg-amber-400/20 blur-md rounded-full opacity-0 group-hover/gold:opacity-100" />
-            </div>
-            <span className="font-bilbo text-2xl text-amber-700 font-bold mt-2 tracking-wide">
-              Creator
-            </span>
-            <span className="absolute -bottom-8 text-sm text-amber-600/60 font-mono opacity-0 group-hover/gold:opacity-100 transition-opacity duration-500">
-              (Gold)
-            </span>
-          </div>
-        </div>
-
-        {/* Einstein's Equation - Scientific Complement */}
-        <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 select-none font-mono opacity-70 hover:opacity-100 transition-opacity duration-500">
-          {/* E (Energy/Creator) */}
-          <div className="flex flex-col items-center group/energy relative">
-            <span className="text-4xl md:text-5xl text-amber-500 font-bold leading-none drop-shadow-[0_0_15px_rgba(245,158,11,0.4)] transition-all duration-700 group-hover/energy:text-amber-400 group-hover/energy:drop-shadow-[0_0_25px_rgba(245,158,11,0.6)]">
-              E
-            </span>
-            <span className="absolute -bottom-8 text-xs text-amber-600/60 font-sans opacity-0 group-hover/energy:opacity-100 transition-opacity duration-500 whitespace-nowrap">
-              Energy
-            </span>
-          </div>
-
-          {/* EQUALS */}
-          <span className="text-2xl text-neutral-400 font-bold pb-2">=</span>
-
-          {/* m (Mass/Self) */}
-          <div className="flex flex-col items-center group/mass relative">
-            <span className="text-3xl md:text-4xl text-neutral-600 font-bold leading-none transition-colors duration-500 group-hover/mass:text-neutral-800">
-              m
-            </span>
-            <span className="absolute -bottom-8 text-xs text-neutral-400 font-sans opacity-0 group-hover/mass:opacity-100 transition-opacity duration-500 whitespace-nowrap">
-              Mass
-            </span>
-          </div>
-
-          {/* MULTIPLY */}
-          <span className="text-xl text-neutral-400 font-bold pb-2">×</span>
-
-          {/* c² (Light²/Effort²) */}
-          <div className="flex flex-col items-center group/light relative">
-            <span className="text-3xl md:text-4xl text-orange-700/80 font-bold leading-none transition-colors duration-700 group-hover/light:text-orange-600">
-              c<sup className="text-xl md:text-2xl">2</sup>
-            </span>
-            <span className="absolute -bottom-8 text-xs text-orange-600/60 font-sans opacity-0 group-hover/light:opacity-100 transition-opacity duration-500 whitespace-nowrap">
-              Speed²
-            </span>
-          </div>
-        </div>
-
-        <p className="text-center mt-8 text-xs text-neutral-400 font-sans italic">
-          The same truth, inscribed in different tongues
-        </p>
       </div>
     </div>
   );

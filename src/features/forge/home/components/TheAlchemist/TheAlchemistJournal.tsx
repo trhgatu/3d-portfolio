@@ -5,20 +5,19 @@ import { TheAlchemistCard } from "./TheAlchemistCard";
 export function TheAlchemistJournal() {
   return (
     <div className="space-y-12 max-w-5xl mx-auto px-4">
-      {/* Row 1: Text 70% | Avatar 30% */}
       <div className="grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 items-center relative overflow-visible group">
         <div className="text-left space-y-4 order-2 md:order-1">
           <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
-            Prima Materia
+            Nigredo: The Void
           </h3>
           <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
             <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
               T
             </span>
-            he work begins in silence—a fleeting vision, a chaotic impulse. This is my{" "}
-            <span className="italic text-neutral-800">Prima Materia</span>. Not a business
-            requirement, but a raw fragment of the soul demanding a body. It is the unshaped dream
-            that I must capture before it fades.
+            he work begins in darkness—the blank editor, the chaotic influx of fragmented
+            requirements. This is <span className="italic text-neutral-800">Nigredo</span>, the
+            blackening. It is the necessary destruction of preconceptions, reducing a complex
+            problem into its most fundamental, untamed logic before creation can even begin.
           </p>
         </div>
         <div className="relative h-64 overflow-visible order-1 md:order-2 flex justify-center">
@@ -27,15 +26,12 @@ export function TheAlchemistJournal() {
           </div>
         </div>
       </div>
-
-      {/* Ornamental Divider */}
       <div className="flex items-center justify-center gap-4 opacity-40">
         <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
         <div className="w-2 h-2 rotate-45 border border-neutral-600 bg-neutral-600/20" />
         <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
       </div>
 
-      {/* Row 2: Symbol 30% | Text 70% */}
       <div className="grid grid-cols-1 md:grid-cols-[3fr_7fr] gap-8 items-center group">
         <div className="flex justify-center opacity-20 mix-blend-multiply order-1">
           <div className="relative w-48 h-48">
@@ -49,41 +45,40 @@ export function TheAlchemistJournal() {
         </div>
         <div className="text-left space-y-4 order-2">
           <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
-            The Great Work
+            Albedo: Purification
           </h3>
           <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
             <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
-              T
+              F
             </span>
-            o transmute a thought into a thing requires more than skill; it demands obsession. The{" "}
-            <span className="italic text-neutral-800">Magnum Opus</span> is the relentless pursuit
-            to solidify the abstract. It is the fire that burns until the ghost in the machine takes
-            physical form.
+            rom the ashes of initial drafts emerges{" "}
+            <span className="italic text-neutral-800">Albedo</span>, the whitening. Here, the code
+            is washed clean. Architectures are refined, unnecessary dependencies are purged, and the
+            logic is scrubbed until it is pristine, performant, and perfectly legible. Clarity over
+            cleverness.
           </p>
         </div>
       </div>
 
-      {/* Ornamental Divider */}
       <div className="flex items-center justify-center gap-4 opacity-40">
         <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
         <div className="w-2 h-2 rotate-45 border border-neutral-600 bg-neutral-600/20" />
         <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
       </div>
 
-      {/* Row 3: Text 70% | Symbol 30% */}
       <div className="grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 items-center group">
         <div className="text-left space-y-4 order-2 md:order-1">
           <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
-            Philosopher&apos;s Stone
+            Citrinitas: Awakening
           </h3>
           <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
             <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
-              I
+              S
             </span>
-            seek no gold, only the power of projection. The{" "}
-            <span className="italic text-neutral-800">Philosopher&apos;s Stone</span> is the
-            realization that with enough will and logic, any dream can be forced to manifest. It is
-            the ultimate freedom to create worlds from nothingness.
+            uddenly, the static lines spark to life. This is{" "}
+            <span className="italic text-neutral-800">Citrinitas</span>, the yellowing. The system
+            awakens. Data flows seamlessly across boundaries, components react with fluid grace, and
+            what was once a rigid script becomes a breathing, dynamic digital entity.
           </p>
         </div>
         <div className="flex justify-center order-1 md:order-2 opacity-60 mix-blend-multiply">
@@ -98,14 +93,12 @@ export function TheAlchemistJournal() {
         </div>
       </div>
 
-      {/* Ornamental Divider */}
       <div className="flex items-center justify-center gap-4 opacity-40">
         <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
         <div className="w-2 h-2 rotate-45 border border-neutral-600 bg-neutral-600/20" />
         <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
       </div>
 
-      {/* Row 4: Universal Solvent (Symbol 30% | Text 70%) */}
       <div className="grid grid-cols-1 md:grid-cols-[3fr_7fr] gap-8 items-center group">
         <div className="flex justify-center opacity-60 mix-blend-multiply order-1">
           <div className="relative w-40 h-40 flex items-center justify-center">
@@ -119,20 +112,20 @@ export function TheAlchemistJournal() {
         </div>
         <div className="text-left space-y-4 order-2">
           <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
-            Universal Solvent
+            Rubedo: Realization
           </h3>
           <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
             <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
-              C
+              T
             </span>
-            ode is the <span className="italic text-neutral-800">Alkahest</span> that dissolves the
-            barrier between dream and reality. It is the ritual by which I force the invisible to
-            manifest. I do not just write syntax; I inscribe the laws of a new world.
+            he final deployment. <span className="italic text-neutral-800">Rubedo</span>, the
+            reddening, marks the culmination of the work. The software steps out of the local forge
+            and into reality. It stands resilient, holding structure against the chaos of the web—a
+            true testament to the alchemy of engineering.
           </p>
         </div>
       </div>
 
-      {/* Ornamental Divider - End of Journal */}
       <div className="flex items-center justify-center gap-4 opacity-40">
         <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
         <div className="w-2 h-2 rotate-45 border border-neutral-600 bg-neutral-600/20" />

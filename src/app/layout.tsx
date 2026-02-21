@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import {
   Share_Tech_Mono,
   Space_Mono,
@@ -163,6 +164,7 @@ export default function RootLayout({
                   >
                     <LenisScroll />
                     <main>{children}</main>
+                    <Analytics />
                   </ThemeProvider>
                 </ReactQueryProvider>
               </ReduxProvider>

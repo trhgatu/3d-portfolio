@@ -12,11 +12,11 @@ import { TheAlchemistRecipes } from "./TheAlchemistRecipes";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function TheAlchemist() {
+  // Force Update - Burnt Edges Added
   const containerRef = useRef<HTMLDivElement>(null);
 
   const theAlchemistText =
-    "In the digital forge where logic meets imagination, I transmute raw concepts into living code. Each project is an alchemical experiment—combining the precision of algorithms with the artistry of design. Through countless iterations and refinements, I pursue the Magnum Opus: software that doesn't just function, but transforms. My mission is to craft solutions that endure, to learn from every challenge, and to push the boundaries of what's possible when creativity and engineering unite.";
-  const theAlchemistText2 = "Tempered by Challenge";
+    "In the digital forge, architecture and ambition become one. I do not merely write syntax; I shape the unseen systems that govern the living web. Each line of code is a forged link, binding chaotic ideas into enduring structures. Welcome to the crucible where engineering meets intent.";
   useGSAP(
     () => {
       gsap.fromTo(
@@ -103,50 +103,15 @@ export function TheAlchemist() {
       <div className="absolute inset-0 pointer-events-none z-0 bg-[#e8e4d9]">
         <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
         <div className="absolute rotate-180 inset-0 opacity-40 pointer-events-none mix-blend-multiply z-0">
-          <Image
-            src="/assets/images/craftings/texture_washi.png"
-            alt="Washi Texture"
-            fill
-            className="object-cover"
-            priority
+          <div
+            style={{
+              backgroundImage: "url(/assets/images/craftings/texture_washi.png)",
+              backgroundSize: "contain",
+              backgroundRepeat: "repeat-y",
+            }}
+            className="absolute inset-0"
           />
         </div>
-
-        <svg
-          className="absolute inset-0 w-full h-full pointer-events-none z-10"
-          preserveAspectRatio="none"
-          viewBox="0 0 100 100"
-        >
-          <defs>
-            <filter id="burnt-edge" x="-20%" y="-20%" width="140%" height="140%">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.02"
-                numOctaves="3"
-                result="noise"
-              />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
-              <feGaussianBlur stdDeviation="1" />
-            </filter>
-          </defs>
-
-          <path
-            d="M 0,0 L 100,0 L 100,4 Q 80,5 60,4 Q 40,3 20,5 Q 10,6 0,4 Z"
-            fill="#3d2817"
-            opacity="0.15"
-            filter="url(#burnt-edge)"
-            vectorEffect="non-scaling-stroke"
-          />
-
-          <path
-            d="M 0,100 L 100,100 L 100,98 Q 80,96 60,97 Q 40,98 20,96 Q 10,95 0,97 Z"
-            fill="#3d2817"
-            opacity="0.15"
-            filter="url(#burnt-edge)"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-
         <AlchemyPageDecoration />
       </div>
 
@@ -182,7 +147,7 @@ export function TheAlchemist() {
         </div>
       </div>
 
-      <div className="the-alchemist-wrapper max-w-4xl mx-auto py-12 relative z-10 flex flex-col items-center px-4 h-full justify-center">
+      <div className="the-alchemist-wrapper max-w-7xl mx-auto py-12 relative z-10 flex flex-col items-center px-4 h-full justify-center">
         <div className="relative w-40 h-40 md:w-40 md:h-40 opacity-40 mix-blend-multiply z-50 pointer-events-none">
           <Image
             src="/assets/images/craftings/eye_of_providence.png"
@@ -195,26 +160,26 @@ export function TheAlchemist() {
         <div className="the-alchemist-title-container text-center text-neutral-900 mb-8 pt-32 md:pt-40">
           <div
             className="the-alchemist-title line-1 text-5xl md:text-7xl font-kings tracking-wide relative z-20"
-            aria-label="Forged in Code"
+            aria-label="The Alchemist"
           >
-            {"Forged in Code".split("").map((char, idx) => (
+            {"The Alchemist".split("").map((char, idx) => (
               <span key={idx} className="inline-block" aria-hidden="true">
                 {char === " " ? "\u00A0" : char}
               </span>
             ))}
           </div>
 
-          <div className="flex items-center justify-center gap-4 my-4 relative z-20">
-            <div className="w-24 h-[1px] bg-neutral-400" />
-            <div className="w-3 h-3 rotate-45 border border-neutral-600" />
-            <div className="w-24 h-[1px] bg-neutral-400" />
+          <div className="flex items-center justify-center gap-4 my-6 relative z-20 opacity-70">
+            <div className="w-24 h-[1px] bg-neutral-500" />
+            <span className="text-xl text-neutral-500 font-serif">✧</span>
+            <div className="w-24 h-[1px] bg-neutral-500" />
           </div>
 
           <div
-            className="the-alchemist-title line-2 text-3xl font-kings md:text-4xl italic mt-0 text-neutral-700 relative z-20"
-            aria-label={theAlchemistText2}
+            className="the-alchemist-title line-2 text-2xl font-serif md:text-3xl italic mt-0 text-neutral-600 relative z-20 tracking-wide"
+            aria-label="The Art of Forging the Creator"
           >
-            {theAlchemistText2.split("").map((char, idx) => (
+            {"The Art of Forging the Creator".split("").map((char, idx) => (
               <span key={idx} className="inline-block" aria-hidden="true">
                 {char === " " ? "\u00A0" : char}
               </span>
@@ -240,7 +205,7 @@ export function TheAlchemist() {
             </p>
           </div>
 
-          <div className="w-full space-y-24 mt-12">
+          <div className="w-full space-y-12 mt-12">
             <TheAlchemistJournal />
             <TheAlchemistRecipes />
           </div>
