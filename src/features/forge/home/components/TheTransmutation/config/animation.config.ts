@@ -32,17 +32,13 @@ export interface TransmutationAnimationConfig {
   content: {
     text1: {
       title: string;
-      subtitle: string;
     };
     text2: {
       title: string;
-      subtitle: string;
     };
     text3: {
       title: string;
       titleHighlight: string;
-      subtitle: string;
-      latin: string;
       footer: string;
     };
   };
@@ -96,18 +92,14 @@ export const TRANSMUTATION_ANIMATION_CONFIG: TransmutationAnimationConfig = {
     text1: {
       title:
         '"In the alchemical dance of existence, nothing new can be born until the old is surrendered."',
-      subtitle: "The fixed shell must shatter",
     },
     text2: {
       title:
         '"Life is a sacred furnace. To die a thousand small deaths is not destruction, but a necessary tempering of the soul."',
-      subtitle: "Burning away the false",
     },
     text3: {
       title: '"And from the crucible, we rise.',
       titleHighlight: "Not just better, but truer.",
-      subtitle: "The Magnum Opus",
-      latin: "Solve et Coagula",
       footer: '"We begin again. With Gold in the marrow."',
     },
   },

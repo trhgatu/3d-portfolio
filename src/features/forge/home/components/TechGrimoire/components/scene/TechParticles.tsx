@@ -193,7 +193,7 @@ export function TechParticles({ scrollProgress }: TechParticlesProps) {
       PARTICLE_TIMING.CONVERGENCE.END
     );
 
-    groupRef.current.children.forEach((child, i) => {
+    groupRef.current.children.forEach((child: THREE.Object3D, i: number) => {
       if (child.type !== "Group") return;
 
       const initial = initialPositions[i];
@@ -251,7 +251,9 @@ export function TechParticles({ scrollProgress }: TechParticlesProps) {
 
       const combinedGroup = child;
 
-      const iconMesh = combinedGroup.children.find((c) => c.type === "Mesh") as THREE.Mesh;
+      const iconMesh = combinedGroup.children.find(
+        (c: THREE.Object3D) => c.type === "Mesh"
+      ) as THREE.Mesh;
       if (iconMesh && iconMesh.material) {
         const iconMaterial = iconMesh.material as THREE.MeshBasicMaterial;
 
@@ -269,7 +271,9 @@ export function TechParticles({ scrollProgress }: TechParticlesProps) {
         iconMaterial.opacity = opacityFactor;
       }
 
-      const starSprite = combinedGroup.children.find((c) => c.type === "Sprite") as THREE.Sprite;
+      const starSprite = combinedGroup.children.find(
+        (c: THREE.Object3D) => c.type === "Sprite"
+      ) as THREE.Sprite;
       if (starSprite && starSprite.material) {
         const opacityFactor = THREE.MathUtils.smoothstep(
           progress,
@@ -289,7 +293,7 @@ export function TechParticles({ scrollProgress }: TechParticlesProps) {
     });
     if (progress > PARTICLE_TIMING.EXPLOSION.START) {
       const time = state.clock.elapsedTime;
-      groupRef.current.children.forEach((child, i) => {
+      groupRef.current.children.forEach((child: THREE.Object3D, i: number) => {
         if (child.type !== "Group") return;
         const driftX =
           Math.sin(time * INITIAL_SPAWN.DRIFT.SPEED + i * 1.5) * INITIAL_SPAWN.DRIFT.AMPLITUDE;

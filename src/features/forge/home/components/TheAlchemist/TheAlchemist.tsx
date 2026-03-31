@@ -187,10 +187,10 @@ export function TheAlchemist() {
           </div>
         </div>
 
-        <div className="the-alchemist-content-container font-serif relative z-10 w-full flex flex-col items-center gap-8">
-          <div className="space-y-6 p-6 md:p-0 relative z-20 text-center max-w-3xl mx-auto">
+        <div className="the-alchemist-content-container font-serif relative z-10 w-full flex flex-col items-center gap-16">
+          <div className="space-y-6 p-6 md:p-0 relative z-20 text-center max-w-5xl mx-auto mb-12">
             <p
-              className="the-alchemist-desc-1 text-2xl md:text-3xl leading-relaxed text-neutral-900 font-medium font-bilbo relative"
+              className="the-alchemist-desc-1 text-3xl sm:text-4xl lg:text-5xl leading-[1.6] text-neutral-900 font-medium font-bilbo relative"
               aria-label={theAlchemistText}
             >
               {theAlchemistText.split(" ").map((word, wi) => (
