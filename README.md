@@ -1,4 +1,4 @@
-# 🌌 The Alchemist's Forge
+# 🌌 The Alchemist
 
 > _"In the alchemical dance of existence, nothing new can be born until the old is surrendered."_
 
@@ -8,6 +8,26 @@ This is a **grimoire**—a living scroll where code becomes poetry, and logic da
 Inspired by **The Alchemist** by Paulo Coelho, this is a journey through fire, transformation, and the eternal pursuit of one's Personal Legend.
 
 🔗 **[Enter the Forge](https://thatu.is-a.dev)**
+
+---
+
+---
+
+## 🛠️ The Alchemical Engine
+
+The Forge is powered by a custom-built narrative engine that blurs the line between 2D digital art and 3D immersive environments.
+
+### 🌌 Global Atmosphere Sync
+
+A centralized background layer that harmonizes **StarField** (celestial starlight) and **GoldenSparks** (forge embers). Using a synchronized `ViewCanvas`, the atmosphere shifts from the intense heat of the forge to the cold clarity of the cosmos as you journey through the grimoire.
+
+### 📜 SVG Alchemical Filters
+
+Custom SVG displacement maps (`torn-paper-filter`) generate organic, procedurally-torn edges for digital parchment. These filters include amber-burnt glow effects, allowing the global starlight to bleed through the imperfections of the paper.
+
+### ⚡ Unified ViewCanvas Architecture
+
+Built on **Next.js 15**, **Three.js (R3F)**, and **Drei's View**. All 3D interactions—from the Magic Circle to the Alchemy Book—share a single, high-performance canvas, ensuring buttery-smooth transitions and zero memory redundant overhead.
 
 ---
 
