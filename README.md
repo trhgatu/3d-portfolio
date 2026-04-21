@@ -2,90 +2,87 @@
 
 > _"In the alchemical dance of existence, nothing new can be born until the old is surrendered."_
 
-This is not a portfolio.
-This is a **grimoire**—a living scroll where code becomes poetry, and logic dances with imagination.
+This is not a portfolio.  
+This is my **grimoire**—a living scroll where I transform syntax into poetry, and bound logic into the infinite dance of imagination.
 
-Inspired by **The Alchemist** by Paulo Coelho, this is a journey through fire, transformation, and the eternal pursuit of one's Personal Legend.
+Inspired by **The Alchemist** by Paulo Coelho, this is a record of my journey through fire, transformation, and the eternal pursuit of my Personal Legend.
 
-🔗 **[Enter the Forge](https://thatu.is-a.dev)**
-
----
+🔗 **[Enter the Sanctum](https://thatu.is-a.dev)**
 
 ---
 
 ## 🛠️ The Alchemical Engine
 
-The Forge is powered by a custom-built narrative engine that blurs the line between 2D digital art and 3D immersive environments.
+The Sanctum is powered by a custom-built narrative engine designed to dissolve the boundary between digital art and immersive reality.
 
 ### 🌌 Global Atmosphere Sync
 
-A centralized background layer that harmonizes **StarField** (celestial starlight) and **GoldenSparks** (forge embers). Using a synchronized `ViewCanvas`, the atmosphere shifts from the intense heat of the forge to the cold clarity of the cosmos as you journey through the grimoire.
+I have forged a centralized background layer that harmonizes **StarField** (celestial starlight) and **GoldenSparks** (forge embers). The atmosphere breathes with the user, transitioning from the intense heat of the forge to the cold clarity of the cosmos as the journey unfolds.
 
-### 📜 SVG Alchemical Filters
+### 📜 Procedural Parchment (SVG Filters)
 
-Custom SVG displacement maps (`torn-paper-filter`) generate organic, procedurally-torn edges for digital parchment. These filters include amber-burnt glow effects, allowing the global starlight to bleed through the imperfections of the paper.
+I use custom SVG displacement maps (`torn-paper-filter`) to generate organic, procedurally-torn edges for my digital journals. These filters bleed amber starlight through the "burnt" imperfections of the paper, bridging the gap between ancient texture and modern code.
 
 ### ⚡ Unified ViewCanvas Architecture
 
-Built on **Next.js 15**, **Three.js (R3F)**, and **Drei's View**. All 3D interactions—from the Magic Circle to the Alchemy Book—share a single, high-performance canvas, ensuring buttery-smooth transitions and zero memory redundant overhead.
+Built on **Next.js 15**, **Three.js (R3F)**, and **Drei's View**. All 3D interactions—from the Magic Circle to the planetary orbital systems—share a single, high-performance canvas to ensure buttery-smooth motion and zero redundant memory overhead.
 
 ---
 
-## 🔥 The Journey
+## 🔥 The Journey: Chapters of Transmutation
 
-**The Awakening**
-Your name materializes from the void. Letter by letter. The first breath of identity in an infinite expanse.
+### Chapter I: The Awakening
 
-**The Manifesto**
-_"Standing at the intersection of raw engineering and digital art."_
-A declaration. A promise. A way of being.
+My identity materializes from the void. Letter by letter, I forge my first breath in the digital expanse. This is where the quiet hum of existence begins.
 
-**The Transmutation**
-The heart of the forge. Particles swirl through three sacred phases:
+### Chapter II: The Crucible
 
-- **Chaos** — _"The fixed shell must shatter"_
-- **Fire** — _"Burning away the false"_
-- **Rebirth** — _"We rise. Not just better, but truer."_
+The heart of the forge. Here, I shatter the fixed shell of "what is" to reveal "what can be." Particles swirl through three sacred phases: **Chaos**, **Fire**, and **Rebirth**.
 
-Watch as formless matter becomes the infinity symbol—the eternal cycle made visible.
+### Chapter III: Procedural Memories
 
-### The Runes
+My journals—etched onto digital vellum. Using the _Torn Paper Filter_, I record the thoughts that the fire refined: knowledge transmuted into power.
 
-- **Soul:** TypeScript, Node.js (The logic of the universe)
-- **Form:** React, Next.js, R3F (The vessel of light)
-- **Motion:** GSAP, Framer Motion (The dance of existence)
+### Chapter IV: The Void's Knowledge (The Grimoire)
 
-Every tool is a rune. Every language, a spell learned through trial and tempered by failure. This is the sacred collection of what has been mastered.
+A space-parchment hybrid transition. As the tàn lửa (embers) fade, the starfield emerges, signaling the shift from the forge's heat to the vastness of universal logic.
 
-**The Prophecies**
-Projects are not tasks. They are visions made real. Each one a battle fought in the crucible of creation, each one a testament to what was once impossible.
+### Chapter V: Bound Legacies (The Craftings)
 
-**The Bridge**
-_"There is a language beyond words... It speaks of the courage to follow one's own Personal Legend."_
+Every project is a planetary artifact. Forged in fire, they inhabit a planetary system where each line of code is a legacy—a trace left behind to inspire, empower, and endure.
 
-The final truth: Every line of code is a legacy. Every creation, a footprint in the sand.
+### Chapter VI: The Desert of Truth (The Journey)
+
+The final test. I step out of the sanctum and into the shifting sands of the desert. Here, there is a language beyond words—the courage to follow my Personal Legend until my hands build what my heart has always known.
+
+> **"And, when you want something, all the universe conspires in helping you to achieve it."**  
+> — _Paulo Coelho, The Alchemist_
 
 ---
 
-## 🗝️ The Vow
+## 🗝️ The Runes of Creation
 
-> _"Life is a sacred furnace. To die a thousand small deaths is not destruction, but a necessary tempering of the soul."_
+The tools I used to forge this world:
 
-This work is open. Not because it is perfect, but because it is honest.
-
-You may study it. You may borrow from it. You may forge your own path.
-
-But remember: **Copying the form is easy. Capturing the spirit requires your own transmutation.**
+| Aspect         | Rune (Technology)         | Interpretation                          |
+| :------------- | :------------------------ | :-------------------------------------- |
+| **Soul**       | TypeScript / Node.js      | The deep logic governing the universe.  |
+| **Form**       | React / Next.js 15        | The vessel that contains the starlight. |
+| **Space**      | Three.js / R3F            | The 3D void where ideas take shape.     |
+| **Motion**     | GSAP / ScrollTrigger      | The rhythmic breath of the narrative.   |
+| **Aesthetics** | Vanilla CSS / SVG Filters | The art of crafting imperfection.       |
 
 ---
 
 ## 🧙 The Alchemist
 
-**trhgatu** - <code>The one who forges in the digital fire</code>
+**trhgatu** — _A traveler on the path to the Personal Legend._
 
-[GitHub](https://github.com/trhgatu) • [The Forge](https://thatu.is-a.dev)
+[GitHub](https://github.com/trhgatu) • [The Sanctum](https://thatu.is-a.dev)
 
 ---
 
-_Where the soul meets the cipher_
-**Born from fire and starlight**
+> "All is one."  
+> This Grimoire is my record of what I have learned from the language beyond words. I share it as a reminder to myself: the journey only truly begins when one dares to take the first step.
+
+**Born from fire and starlight.**
