@@ -6,44 +6,20 @@ import * as THREE from "three";
 import { AdditiveBlending } from "three";
 
 interface GoldenSparksProps {
-  /**
-   * If true, sparks are in high-energy state (faster, larger, orange).
-   * If false, sparks are in idle state (slower, smaller, blue).
-   * Can be overridden by specific color/speed props.
-   */
   isIgnited?: boolean;
-  /**
-   * Override the active (ignited) color. Default: #ffaa33 (Orange)
-   */
   activeColor?: string;
-  /**
-   * Override the idle color. Default: #4aa0ff (Blue)
-   */
   idleColor?: string;
-  /**
-   * Number of particles. Default: 150
-   */
   count?: number;
-  /**
-   * Blending mode. Default: AdditiveBlending
-   */
   blending?: THREE.Blending;
+  opacity?: number;
 }
 
-/**
- * Renders a particle-based golden sparks effect.
- *
- * @param isIgnited - If true, use the ignited visual state (faster, larger, orange sparks).
- * @param activeColor - Custom hex color for the ignited state.
- * @param idleColor - Custom hex color for the idle state.
- * @param count - Particle count.
- * @param blending - Blending mode.
- */
 export function GoldenSparks({
   isIgnited = false,
   activeColor: customActiveColor = "#ffaa33",
   idleColor: customIdleColor = "#4aa0ff",
   count = 150,
+  opacity = 0.9,
   blending = AdditiveBlending,
 }: GoldenSparksProps) {
   const pointsRef = useRef<THREE.Points>(null);
@@ -64,14 +40,11 @@ export function GoldenSparks({
     canvas.height = 128;
     const ctx = canvas.getContext("2d");
     if (!ctx) return null;
-
-    // Randomly choose ember shape type
     const shapeType = Math.floor(Math.random() * 4);
 
     ctx.clearRect(0, 0, 128, 128);
 
     if (shapeType === 0) {
-      // Triangle spark (upward pointing)
       const gradient = ctx.createLinearGradient(64, 30, 64, 100);
       gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
       gradient.addColorStop(0.3, "rgba(255, 200, 100, 0.8)");
@@ -86,7 +59,6 @@ export function GoldenSparks({
       ctx.closePath();
       ctx.fill();
     } else if (shapeType === 1) {
-      // Teardrop / flame shape
       ctx.beginPath();
       ctx.moveTo(64, 20);
       ctx.bezierCurveTo(90, 40, 90, 80, 64, 110);
@@ -100,7 +72,6 @@ export function GoldenSparks({
       ctx.fillStyle = gradient;
       ctx.fill();
     } else if (shapeType === 2) {
-      // Irregular blob
       ctx.beginPath();
       for (let i = 0; i < 8; i++) {
         const angle = (i / 8) * Math.PI * 2;
@@ -120,7 +91,6 @@ export function GoldenSparks({
       ctx.fillStyle = gradient;
       ctx.fill();
     } else {
-      // Small round spark
       const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 35);
       gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
       gradient.addColorStop(0.3, "rgba(255, 220, 120, 0.9)");
@@ -153,9 +123,9 @@ export function GoldenSparks({
       pos[i * 3 + 1] = Math.random() * 10 - 5;
       pos[i * 3 + 2] = (Math.random() - 0.5) * 5;
 
-      vel[i * 3] = (Math.random() - 0.5) * 0.05; // Faster horizontal
-      vel[i * 3 + 1] = 0.03 + Math.random() * 0.08; // Faster upward (embers rise)
-      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.05; // Faster depth
+      vel[i * 3] = (Math.random() - 0.5) * 0.05;
+      vel[i * 3 + 1] = 0.01 + Math.random() * 0.04;
+      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.05;
 
       ph[i] = Math.random() * Math.PI * 2;
     }
@@ -166,11 +136,11 @@ export function GoldenSparks({
   useFrame((state, delta) => {
     if (!pointsRef.current) return;
 
-    const targetSpeed = isIgnited ? 1.0 : 0.2;
+    const targetSpeed = isIgnited ? 0.4 : 0.15;
     const targetColor = isIgnited ? activeColorObj : idleColorObj;
-    const targetSize = isIgnited ? 0.4 : 0.2;
+    const targetSize = isIgnited ? 0.3 : 0.15;
 
-    const lerpFactor = Math.min(delta * 2, 1); // Clamp to [0, 1]
+    const lerpFactor = Math.min(delta * 2, 1);
     currentState.current.speedMultiplier = THREE.MathUtils.lerp(
       currentState.current.speedMultiplier,
       targetSpeed,
@@ -198,7 +168,6 @@ export function GoldenSparks({
       positions[i * 3 + 1] += velocities[i * 3 + 1] * speed;
       positions[i * 3 + 2] += velocities[i * 3 + 2] * speed;
 
-      // Wrap around Y axis
       if (positions[i * 3 + 1] > 6) {
         positions[i * 3 + 1] = -6;
         positions[i * 3 + 0] = (Math.random() - 0.5) * 15;
@@ -227,8 +196,8 @@ export function GoldenSparks({
         size={0.4}
         color="#ffffff"
         transparent={true}
-        opacity={0.9}
-        blending={blending} // Use prop
+        opacity={opacity}
+        blending={blending}
         depthWrite={false}
         sizeAttenuation={true}
       />

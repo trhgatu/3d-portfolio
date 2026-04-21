@@ -10,6 +10,8 @@ import {
   TheAlchemist,
   TheCraftings,
   TheJourney,
+  AlchemicalFilters,
+  GlobalAtmosphere,
 } from "@/features/forge/home/components";
 import { usePublicProjects } from "@/features/forge/craftings/hooks";
 import { useLang } from "@/hooks";
@@ -49,7 +51,9 @@ export default function ChroniclesPage() {
   );
 
   return (
-    <main ref={containerRef} className="relative w-full bg-neutral-950">
+    <main ref={containerRef} className="relative w-full">
+      <GlobalAtmosphere isIgnited={true} />
+      <AlchemicalFilters />
       <div ref={transmutationRef} className="fixed inset-0 z-0">
         <TheTransmutation triggerRef={spacerRef} triggerId="#ghost-spacer" />
       </div>

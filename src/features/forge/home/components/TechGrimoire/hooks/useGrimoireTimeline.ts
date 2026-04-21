@@ -134,15 +134,34 @@ export function useGrimoireTimeline({
           ease: BOOK_ENTRANCE_TIMING.EASE,
         },
         BOOK_ENTRANCE_TIMING.START
-      ).to(
-        spaceRef.current,
-        {
-          opacity: 1,
-          duration: BOOK_ENTRANCE_TIMING.DURATION,
-          ease: BOOK_ENTRANCE_TIMING.EASE,
-        },
-        BOOK_ENTRANCE_TIMING.START
-      );
+      )
+        .to(
+          ".global-embers",
+          {
+            opacity: 0,
+            duration: BOOK_ENTRANCE_TIMING.DURATION,
+            ease: BOOK_ENTRANCE_TIMING.EASE,
+          },
+          BOOK_ENTRANCE_TIMING.START
+        )
+        .to(
+          ".global-stars",
+          {
+            opacity: 1,
+            duration: BOOK_ENTRANCE_TIMING.DURATION,
+            ease: BOOK_ENTRANCE_TIMING.EASE,
+          },
+          BOOK_ENTRANCE_TIMING.START
+        )
+        .to(
+          spaceRef.current,
+          {
+            opacity: 1,
+            duration: BOOK_ENTRANCE_TIMING.DURATION,
+            ease: BOOK_ENTRANCE_TIMING.EASE,
+          },
+          BOOK_ENTRANCE_TIMING.START
+        );
 
       // ═══════════════════════════════════════════════════════════
       // ZOOM EFFECT

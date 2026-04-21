@@ -5,6 +5,7 @@ import SplashCursor from "@/features/forge/home/components/SplashCursor";
 import { cookies } from "next/headers";
 import LoaderWithOverlay from "@/components/PreLoaderOverlay";
 import ViewCanvas from "@/components/ViewCanvas";
+import { AlchemicalFilters } from "@/features/forge/home/components/AlchemicalFilters";
 
 export default async function ForgeLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
@@ -13,6 +14,7 @@ export default async function ForgeLayout({ children }: { children: React.ReactN
   return (
     <div className="w-full h-full">
       <ViewCanvas />
+      <AlchemicalFilters />
 
       {!isVisited && <LoaderWithOverlay />}
 

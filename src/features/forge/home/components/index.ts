@@ -4,4 +4,6 @@ export * from "./TheTransmutation";
 export * from "./TheAlchemist";
 export * from "./TheJourney";
 export * from "./ForgeAssetTracker";
+export * from "./GlobalAtmosphere";
+export * from "./AlchemicalFilters";
 export * from "./HeroForgeEntry";

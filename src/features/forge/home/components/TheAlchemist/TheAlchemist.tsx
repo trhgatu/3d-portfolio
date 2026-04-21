@@ -5,14 +5,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
-import { AlchemyPageDecoration } from "./AlchemyPageDecoration";
 import { TheAlchemistJournal } from "./TheAlchemistJournal";
 import { TheAlchemistRecipes } from "./TheAlchemistRecipes";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function TheAlchemist() {
-  // Force Update - Burnt Edges Added
   const containerRef = useRef<HTMLDivElement>(null);
 
   const theAlchemistText =
@@ -100,19 +98,36 @@ export function TheAlchemist() {
       ref={containerRef}
       className="the-alchemist min-h-screen relative z-0 pb-32"
     >
-      <div className="absolute inset-0 pointer-events-none z-0 bg-[#e8e4d9]">
-        <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
-        <div className="absolute rotate-180 inset-0 opacity-40 pointer-events-none mix-blend-multiply z-0">
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {}
+        <div
+          className="absolute inset-[2%] md:inset-[5%] bg-[#e8e4d9] z-0"
+          style={{
+            filter: "url(#torn-paper-filter)",
+            opacity: 0.85,
+          }}
+        >
+          <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
+          <div className="absolute rotate-180 inset-0 opacity-40 mix-blend-multiply z-0">
+            <div
+              style={{
+                backgroundImage: "url(/assets/images/craftings/texture_washi.png)",
+                backgroundSize: "contain",
+                backgroundRepeat: "repeat-y",
+              }}
+              className="absolute inset-0"
+            />
+          </div>
+          {}
           <div
+            className="absolute inset-0 -z-10 pointer-events-none"
             style={{
-              backgroundImage: "url(/assets/images/craftings/texture_washi.png)",
-              backgroundSize: "contain",
-              backgroundRepeat: "repeat-y",
+              filter: "url(#torn-paper-filter)",
+              boxShadow:
+                "0 0 20px 5px rgba(251, 191, 36, 0.2), inset 0 0 15px rgba(180, 83, 9, 0.1)",
             }}
-            className="absolute inset-0"
           />
         </div>
-        <AlchemyPageDecoration />
       </div>
 
       <div className="absolute inset-0 pointer-events-none z-50">

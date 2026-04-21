@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useAppStore } from "@/hooks";
 import { ScenePhase } from "@/constants/ScenePhase";
-import { ForgeEmbers } from "./ForgeEmbers";
+import { GlobalAtmosphere } from "./GlobalAtmosphere";
 import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(useGSAP);
@@ -131,7 +131,7 @@ export const HeroForgeEntry = () => {
 
     chargeTl.current = gsap.timeline({
       onComplete: () => {
-        router.push("/forge/transmutation");
+        router.push("/forge/chronicles");
       },
     });
 
@@ -144,37 +144,38 @@ export const HeroForgeEntry = () => {
         duration: 0.05,
         ease: "none",
       })
-      .to({}, { duration: 1.0 })
       .to(
         contentRef.current,
         {
-          scale: 5,
-          filter: "blur(20px)",
-          duration: 0.5,
+          scale: 8,
+          filter: "blur(30px)",
+          opacity: 0,
+          zIndex: 10,
+          duration: 1.2,
           ease: "power2.in",
         },
-        ">-0.5"
+        0
       )
       .to(
         ".hero-text-name span, .hero-title span, .hero-text-mini span",
         {
           opacity: 0,
-          y: -50,
-          rotation: Math.random() * 360,
-          stagger: { amount: 0.5, from: "random" },
-          duration: 0.5,
+          scale: 0.5,
+          y: 100,
+          stagger: { amount: 0.4, from: "random" },
+          duration: 0.8,
           ease: "power1.in",
         },
-        "<"
+        0.2
       )
       .to(
         bgRef.current,
         {
           scale: 2,
           opacity: 0,
-          duration: 0.5,
+          duration: 1,
         },
-        "<"
+        0.2
       );
   };
 
@@ -185,6 +186,7 @@ export const HeroForgeEntry = () => {
       gsap.to(contentRef.current, {
         scale: 1,
         opacity: 1,
+        zIndex: 30,
         filter: "blur(0px)",
         duration: 0.5,
       });
@@ -198,9 +200,18 @@ export const HeroForgeEntry = () => {
         opacity: 1,
         duration: 0.5,
       });
+      gsap.to("#ink-transmutation-filter feDisplacementMap", {
+        attr: { scale: 0 },
+        duration: 0.5,
+      });
+      gsap.to("#ink-transmutation-filter feTurbulence", {
+        attr: { baseFrequency: 0.04 },
+        duration: 0.5,
+      });
       gsap.to(".hero-text-name span, .hero-title span, .hero-text-mini span", {
         opacity: 1,
         y: 0,
+        scale: 1,
         rotation: 0,
         duration: 0.5,
       });
@@ -250,15 +261,15 @@ export const HeroForgeEntry = () => {
         }`}
       />
 
-      <ForgeEmbers isIgnited={isIgnited} />
+      <GlobalAtmosphere isIgnited={isIgnited} showSeal={true} />
 
       <div className="absolute inset-0 z-[25] pointer-events-none" />
       <div
         ref={contentRef}
-        className="py-20 w-full mx-auto max-w-7xl relative z-30 will-change-transform flex flex-col items-center justify-center"
+        className="py-12 w-full mx-auto max-w-screen-xl relative z-30 will-change-transform flex flex-col items-center justify-center"
       >
-        <div className="hero-wrapper-content max-w-4xl">
-          <p className="hero-subtitle text-xs md:text-sm font-space-mono uppercase tracking-[0.3em] text-white/60 mb-6 opacity-80">
+        <div className="hero-wrapper-content w-full px-4">
+          <p className="hero-subtitle text-xs md:text-sm font-space-mono uppercase tracking-[0.4em] text-white/50 mb-8 opacity-80">
             Where Vision Becomes Masterpiece
           </p>
 
@@ -269,8 +280,8 @@ export const HeroForgeEntry = () => {
             onClick={() => router.push("/forge/chronicles")}
           >
             <div ref={shakeRef}>
-              <div className="hero-text-first font-mono items-center justify-center flex flex-col md:flex-row mb-2">
-                <div className="hero-text-mini justify-center gap-1 md:mr-6 text-2xl md:text-3xl text-neutral-400 font-cinzel-decorative mb-2 md:mb-0 group-hover:text-amber-200/80 transition-colors duration-500">
+              <div className="hero-text-first font-mono items-center justify-center flex flex-col md:flex-row mb-4">
+                <div className="hero-text-mini justify-center gap-1 md:mr-8 text-3xl md:text-4xl text-neutral-500 font-cinzel-decorative mb-4 md:mb-0 group-hover:text-amber-200/80 transition-colors duration-500">
                   {introText.split("").map((char, idx) => (
                     <span key={idx} className="inline-block opacity-0">
                       {char === " " ? "\u00A0" : char}
@@ -278,10 +289,10 @@ export const HeroForgeEntry = () => {
                   ))}
                 </div>
                 <h1
-                  className={`hero-text-name justify-center gap-1 text-7xl md:text-9xl font-bold leading-none transition-all duration-700 ${
+                  className={`hero-text-name justify-center gap-2 text-7xl md:text-[10rem] font-bold leading-none transition-all duration-700 ${
                     isIgnited
-                      ? "text-amber-100 drop-shadow-[0_0_35px_rgba(255,170,50,0.6)]"
-                      : "text-white/90 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                      ? "text-amber-100 drop-shadow-[0_0_45px_rgba(255,170,50,0.7)]"
+                      : "text-white/95 drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]"
                   }`}
                 >
                   {name.split("").map((char, idx) => (
@@ -292,9 +303,9 @@ export const HeroForgeEntry = () => {
                 </h1>
               </div>
 
-              <div className="hero-text-second font-mono mb-6 md:mb-10">
+              <div className="hero-text-second font-mono mb-12 md:mb-16">
                 <h1
-                  className={`hero-title flex flex-wrap justify-center gap-2 text-2xl md:text-4xl font-bold pr-4 md:pr-0 transition-all duration-700 ${
+                  className={`hero-title flex flex-wrap justify-center gap-3 text-3xl md:text-5xl font-bold transition-all duration-700 ${
                     isIgnited ? "scale-105" : "scale-100"
                   }`}
                 >
@@ -303,21 +314,21 @@ export const HeroForgeEntry = () => {
                       key={idx}
                       className={`inline-block font-cinzel-decorative opacity-0 transition-colors duration-700 ${
                         isIgnited
-                          ? "text-amber-500 drop-shadow-[0_0_20px_rgba(245,158,11,0.8)]"
-                          : "text-neutral-500 drop-shadow-none"
+                          ? "text-amber-500 drop-shadow-[0_0_25px_rgba(245,158,11,0.9)]"
+                          : "text-neutral-500/80 drop-shadow-none"
                       }`}
                     >
                       {char === " " ? "\u00A0" : char}
                     </span>
                   ))}
-                  <span className="w-2 md:w-5" />
+                  <span className="w-3 md:w-6" />
                   {secondTitle.split("").map((char, idx) => (
                     <span
                       key={idx}
                       className={`inline-block font-cinzel-decorative opacity-0 transition-colors duration-700 ${
                         isIgnited
-                          ? "text-amber-500 drop-shadow-[0_0_20px_rgba(245,158,11,0.8)]"
-                          : "text-neutral-500 drop-shadow-none"
+                          ? "text-amber-500 drop-shadow-[0_0_25px_rgba(245,158,11,0.9)]"
+                          : "text-neutral-500/80 drop-shadow-none"
                       }`}
                     >
                       {char === " " ? "\u00A0" : char}
@@ -329,11 +340,11 @@ export const HeroForgeEntry = () => {
           </div>
 
           <div className="description flex justify-center px-4">
-            <div className="hero-description relative mt-2 md:mt-6 max-w-2xl">
-              <div className="absolute -inset-8 bg-neutral-900/5 blur-2xl -z-10 rounded-full" />
-              <p className="font-cinzel-decorative text-neutral-400 text-sm md:text-base leading-relaxed block tracking-wider">
+            <div className="hero-description relative mt-4 md:mt-10 max-w-3xl">
+              <div className="absolute -inset-10 bg-neutral-900/5 blur-3xl -z-10 rounded-full" />
+              <p className="font-cinzel-decorative text-neutral-400 text-base md:text-lg leading-[1.8] block tracking-[0.1em]">
                 {descriptionText.split(" ").map((word, idx) => (
-                  <span key={idx} className="inline-block opacity-0 mr-1.5">
+                  <span key={idx} className="inline-block opacity-0 mr-2">
                     {word}
                   </span>
                 ))}

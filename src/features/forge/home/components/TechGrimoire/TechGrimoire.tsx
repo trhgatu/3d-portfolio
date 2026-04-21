@@ -34,17 +34,39 @@ export const TechGrimoire = () => {
       id="tech-grimoire"
       className="relative w-full min-h-screen z-20 overflow-hidden"
     >
-      <div ref={washiRef} className="absolute inset-0 z-0 bg-[#e8e4d9]">
-        <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
-        <div className="absolute inset-0 opacity-40 pointer-events-none mix-blend-multiply z-0">
-          <Image
-            src="/assets/images/craftings/texture_washi.png"
-            alt="Washi Texture"
-            fill
-            className="object-cover"
+      <div
+        ref={washiRef}
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ opacity: 0.9 }}
+      >
+        <div
+          className="absolute inset-[3%] md:inset-[8%] bg-[#e8e4d9] shadow-[0_0_30px_rgba(251,191,36,0.15)]"
+          style={{
+            filter: "url(#torn-paper-filter)",
+          }}
+        >
+          <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
+          <div className="absolute inset-0 opacity-40 pointer-events-none mix-blend-multiply z-0">
+            <Image
+              src="/assets/images/craftings/texture_washi.png"
+              alt="Washi Texture"
+              fill
+              className="object-cover"
+            />
+          </div>
+          {}
+          <div
+            className="absolute inset-0 -z-10 pointer-events-none"
+            style={{
+              filter: "url(#torn-paper-filter)",
+              boxShadow:
+                "0 0 20px 5px rgba(251, 191, 36, 0.1), inset 0 0 15px rgba(180, 83, 9, 0.05)",
+            }}
           />
         </div>
-        <div className="absolute top-20 left-0 w-full text-center pointer-events-none z-20 mix-blend-multiply">
+
+        {}
+        <div className="absolute top-28 md:top-32 left-0 w-full text-center pointer-events-none z-20 mix-blend-multiply">
           <h2 className="grimoire-title text-4xl md:text-6xl font-kings text-amber-900/80 tracking-widest drop-shadow-sm mb-4">
             The Grimoire
           </h2>

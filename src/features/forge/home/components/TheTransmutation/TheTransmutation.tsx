@@ -1,10 +1,3 @@
-/**
- * TheTransmutation Component
- *
- * Enterprise-grade component using composition pattern.
- * All logic is extracted into hooks, presentation into sub-components.
- */
-
 "use client";
 
 import { useRef } from "react";
@@ -37,7 +30,7 @@ export function TheTransmutation({ triggerRef, triggerId }: TheTransmutationProp
     <section
       id="transmutation-section"
       ref={containerRef}
-      className="relative w-full h-screen bg-neutral-950 flex items-center justify-center overflow-hidden z-10"
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden z-10"
     >
       <TransmutationCanvas scrollProgress={scrollProgress} />
       <TransmutationText textRefs={{ text1: textRef1, text2: textRef2, text3: textRef3 }} />
