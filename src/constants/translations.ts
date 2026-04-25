@@ -25,9 +25,15 @@ export const translations = {
         footer: '"We begin again. With Gold in the marrow."',
       },
       techGrimoire: {
-        title: "The Grimoire",
-        subtitle: "Source of Knowledge",
-        desc: '"The Grimoire holds what the fire refined: knowledge transmuted into power."',
+        title: "Tech Grimoire",
+        subtitle: "The Source of Knowledge",
+        desc: '"The Grimoire holds what the fire has forged: knowledge transmuted into power."',
+        manuscripts: [
+          "The Law of Equivalent Exchange: To create, one must provide focus, time, and a piece of the soul.",
+          "The Syntax of Stars: When logic aligns with cosmic order, the code begins to breathe.",
+          "The Digital Alchemist: We do not merely write commands; we manifest will into existing reality.",
+          "The Crucible of Failure: Each bug is a cinder, purged to reveal the gold of insight.",
+        ],
       },
       alchemist: {
         title: "The Alchemist",
@@ -187,6 +193,12 @@ export const translations = {
         title: "Cổ Thư",
         subtitle: "Nguồn Gốc Của Tri Thức",
         desc: '"Cổ Thư lưu giữ những gì ngọn lửa đã tôi luyện: tri thức được chuyển hóa thành sức mạnh."',
+        manuscripts: [
+          "Luật Trao Đổi Đồng Giá: Để kiến tạo, ta phải trả giá bằng sự tập trung, thời gian và một phần linh hồn.",
+          "Cú Pháp Của Những Vì Sao: Khi logic hòa quyện cùng trật tự vũ trụ, mã nguồn sẽ tự sinh ra hơi thở.",
+          "Nhà Giả Kim Số: Chúng ta không chỉ viết mệnh lệnh; chúng ta đang hiển lộ ý chí thành thực tại.",
+          "Lò Luyện Của Thất Bại: Mỗi lỗi lầm là một mồi lửa, được thanh tẩy để lộ ra vàng ròng của sự thấu thị.",
+        ],
       },
       alchemist: {
         title: "Nhà Giả Kim",

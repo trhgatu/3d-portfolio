@@ -9,6 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BookScene } from "./components/scene/BookScene";
 import { useGrimoireTimeline } from "./hooks";
 import { TechParticles } from "./components/scene/TechParticles";
+import { ManuscriptNotes } from "./components/ManuscriptNotes";
 import { useLang } from "@/hooks/useLang";
 import { translations } from "@/constants/translations";
 
@@ -19,14 +20,12 @@ export const TechGrimoire = () => {
   const washiRef = useRef<HTMLDivElement>(null);
   const spaceRef = useRef<HTMLDivElement>(null);
   const flashRef = useRef<HTMLDivElement>(null);
-  const introTextRef = useRef<HTMLDivElement>(null);
 
   const lang = useLang();
   const t = translations[lang].chronicles.techGrimoire;
 
   const { scrollProgress } = useGrimoireTimeline({
     containerRef,
-    introTextRef,
     washiRef,
     spaceRef,
     flashRef,
@@ -92,7 +91,10 @@ export const TechGrimoire = () => {
           />
         </div>
 
-        {}
+        {/* Scattered Manuscripts */}
+        <ManuscriptNotes />
+
+        {/* Title and Intro */}
         <div className="absolute top-28 md:top-32 left-0 w-full text-center pointer-events-none z-20 mix-blend-multiply">
           <h2 className="grimoire-title text-4xl md:text-6xl font-kings text-amber-900/80 tracking-widest drop-shadow-sm mb-4">
             {t.title}
@@ -112,15 +114,6 @@ export const TechGrimoire = () => {
         ref={flashRef}
         className="absolute inset-0 z-50 bg-white opacity-0 pointer-events-none mix-blend-screen"
       />
-      <div
-        ref={introTextRef}
-        className="absolute inset-0 z-60 flex items-center justify-center pointer-events-none opacity-0"
-        style={{ transform: "translateY(20px)", filter: "blur(10px)" }}
-      >
-        <p className="font-playfair-display text-3xl md:text-4xl lg:text-5xl italic text-amber-600/80 leading-[1.5] tracking-wide text-center px-8 max-w-4xl drop-shadow-[0_0_30px_rgba(103,232,249,0.3)]">
-          {t.desc}
-        </p>
-      </div>
       <div className="absolute inset-0 z-10">
         <Canvas camera={{ position: [0, 2, 8], fov: 35 }} gl={{ antialias: true, alpha: true }}>
           <ambientLight intensity={0.3} />
