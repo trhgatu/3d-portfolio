@@ -91,7 +91,7 @@ export function TheJourney() {
       });
 
       tl.to([".bridge-bg"], { opacity: 0, duration: 1.5, ease: "power2.inOut" }, "+=0.2");
-      tl.to(containerRef.current, { backgroundColor: "#0a0a0a", duration: 2 }, "<");
+      tl.to(containerRef.current, { backgroundColor: "#ffffff", duration: 2 }, "<");
 
       tl.to(
         mistLeftRef.current,
@@ -161,17 +161,34 @@ export function TheJourney() {
         ref={bgAdventureRef}
         className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none transition-colors duration-1000"
       >
-        <div className="absolute inset-0 bg-neutral-950 opacity-0 group-data-[final=true]:opacity-100 transition-opacity duration-1000" />
+        <div className="absolute top-0 -left-2 w-40 h-40 md:w-60 md:h-60 z-20 pointer-events-none">
+          <Image
+            src="/assets/images/the-sun-left.svg"
+            alt="The Sun"
+            fill
+            className="object-contain brightness-0 opacity-80 drop-shadow-[0_0_15px_rgba(0,0,0,0.2)]"
+          />
+        </div>
+
+        <div className="absolute top-0 right-0 w-40 h-40 md:w-60 md:h-60 z-20 pointer-events-none">
+          <Image
+            src="/assets/images/the-moon-right.svg"
+            alt="The Moon"
+            fill
+            className="object-contain brightness-0 opacity-80 drop-shadow-[0_0_15px_rgba(0,0,0,0.2)]"
+          />
+        </div>
+        <div className="absolute inset-0 bg-white opacity-0 group-data-[final=true]:opacity-100 transition-opacity duration-1000" />
         <Image
           src="/assets/images/adventure.svg"
           alt="Desert Adventure"
           width={1000}
           height={1000}
           priority
-          className="object-contain w-full h-full opacity-5 md:opacity-[0.05] invert brightness-200"
+          className="object-contain w-full h-full opacity-5 md:opacity-[0.1]"
         />
         {}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-950/20 to-neutral-950 opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-100/20 to-white opacity-80" />
       </div>
 
       {}
@@ -204,7 +221,7 @@ export function TheJourney() {
           className="object-cover opacity-90"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-amber-900/20 via-transparent to-amber-900/20 mix-blend-multiply opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-amber-200/20 via-transparent to-amber-200/20 mix-blend-overlay opacity-60" />
         <div
           className="absolute inset-0"
           style={{
@@ -212,7 +229,7 @@ export function TheJourney() {
           }}
         />
         <div className="absolute inset-0 bg-white/20 mix-blend-overlay" />
-        <div className="absolute top-0 left-0 right-0 h-60 bg-gradient-to-b from-white via-white/60 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-60 bg-gradient-to-b from-white via-white/80 to-transparent" />
         <div
           className="sand-layer-1 absolute inset-0 bg-repeat opacity-60 mix-blend-screen scale-110"
           style={{
@@ -286,7 +303,7 @@ export function TheJourney() {
         className="absolute inset-0 z-40 flex flex-col items-center justify-center text-center px-6 pointer-events-none"
       >
         <div className="crafting-content relative">
-          <h2 className="crafting-title text-3xl md:text-5xl lg:text-6xl font-kings tracking-wide mb-8 text-amber-100 drop-shadow-[0_0_15px_rgba(251,191,36,0.4)]">
+          <h2 className="crafting-title text-3xl md:text-5xl lg:text-6xl font-kings tracking-wide mb-8 text-amber-600 drop-shadow-[0_0_15px_rgba(251,191,36,0.2)]">
             {"Crafting Legacies".split("").map((char, i) => (
               <span key={i} className="inline-block">
                 {char === " " ? "\u00A0" : char}
@@ -294,7 +311,7 @@ export function TheJourney() {
             ))}
           </h2>
 
-          <p className="crafting-text text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto text-neutral-400 font-playfair-display">
+          <p className="crafting-text text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto text-neutral-600 font-playfair-display">
             {"Every line of code is not just a solution — it's a legacy, a trace left behind to inspire, empower, and endure."
               .split(" ")
               .map((word, i) => (
@@ -304,7 +321,7 @@ export function TheJourney() {
               ))}
           </p>
 
-          <div className="crafting-quote relative mt-16 italic text-lg md:text-2xl max-w-4xl mx-auto text-neutral-300">
+          <div className="crafting-quote relative mt-16 italic text-lg md:text-2xl max-w-4xl mx-auto text-neutral-600">
             <Image
               src="/assets/images/apos.svg"
               alt="quote open mark"
@@ -319,12 +336,12 @@ export function TheJourney() {
               height={80}
               className="absolute -bottom-10 -right-12 opacity-20 invert rotate-180 select-none pointer-events-none"
             />
-            <span className="relative z-10 block leading-relaxed text-3xl md:text-5xl font-playfair-display text-neutral-100">
+            <span className="relative z-10 block leading-relaxed text-3xl md:text-5xl font-playfair-display text-neutral-900">
               “And, when you want something, all the universe conspires in helping you to achieve
               it.”
             </span>
 
-            <div className="mt-8 relative z-10 font-space-mono text-xs uppercase tracking-[0.3em] text-neutral-500">
+            <div className="mt-8 relative z-10 font-space-mono text-xs uppercase tracking-[0.3em] text-neutral-600">
               — Paulo Coelho, <span className="text-amber-500 font-bold">The Alchemist</span>
             </div>
 
@@ -332,7 +349,7 @@ export function TheJourney() {
               id="maktub"
               className="mt-20 font-kings text-4xl md:text-6xl tracking-[0.6em] text-amber-500 select-none pointer-events-none drop-shadow-[0_0_20px_rgba(245,158,11,0.5)]"
             >
-              MAKTUB
+              MAKTUB !
             </div>
           </div>
         </div>

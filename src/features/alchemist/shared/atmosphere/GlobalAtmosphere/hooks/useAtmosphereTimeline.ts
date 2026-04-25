@@ -20,13 +20,11 @@ export const useAtmosphereTimeline = ({
     () => {
       if (!containerRef.current || !starsRef.current || !embersRef.current) return;
 
-      // 1. Initial State
       if (window.scrollY < 100) {
         gsap.set(starsRef.current, { autoAlpha: ATMOSPHERE_CONFIG.STARS_INITIAL_OPACITY });
         gsap.set(embersRef.current, { autoAlpha: ATMOSPHERE_CONFIG.EMBERS_INITIAL_OPACITY });
       }
 
-      // 2. Grimoire Entrance (Stars begin to appear)
       ScrollTrigger.create({
         trigger: "#tech-grimoire",
         start: ATMOSPHERE_CONFIG.GRIMOIRE_FADE_START,
@@ -40,7 +38,6 @@ export const useAtmosphereTimeline = ({
         },
       });
 
-      // 3. Grimoire Space Transition (Embers fade, Stars fully appear)
       ScrollTrigger.create({
         trigger: "#tech-grimoire",
         start: "top top",
@@ -58,22 +55,23 @@ export const useAtmosphereTimeline = ({
             autoAlpha: self.progress >= 1 ? 0 : 1,
           });
 
-          // Toggle component unmounting
           const shouldBeVisible = self.progress < ATMOSPHERE_CONFIG.SPARKS_FADE_THRESHOLD;
           setEmbersVisible(shouldBeVisible);
         },
       });
 
-      // 4. Craftings Exit (Everything fades out for Journey)
       ScrollTrigger.create({
         trigger: "#craftings",
         start: ATMOSPHERE_CONFIG.CRAFTINGS_FADE_START,
         end: ATMOSPHERE_CONFIG.CRAFTINGS_FADE_END,
         scrub: true,
         onUpdate: (self) => {
+          // Stay bright until background starts turning white (80% progress - near end of 3rd project)
+          // Then fade out quickly in the remaining 20%
+          const fadeProgress = gsap.utils.clamp(0, 1, (self.progress - 0.8) * 5);
           gsap.set(starsRef.current, {
-            opacity: 1 - self.progress,
-            autoAlpha: self.progress >= 1 ? 0 : 1,
+            opacity: 1 - fadeProgress,
+            autoAlpha: fadeProgress >= 1 ? 0 : 1,
           });
           gsap.set(embersRef.current, { autoAlpha: 0 });
           setEmbersVisible(false);

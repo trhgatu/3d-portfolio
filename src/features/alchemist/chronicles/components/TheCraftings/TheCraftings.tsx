@@ -58,9 +58,8 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
         backgroundColor: "transparent",
       });
 
-      gsap.to(backgroundRef.current, {
-        backgroundColor: "#ffffff",
-        ease: "none",
+      // Background color transition (Delayed to 50% progress)
+      const bgTl = gsap.timeline({
         scrollTrigger: {
           trigger: gridRef.current,
           start: "top top",
@@ -68,6 +67,15 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
           scrub: 1,
         },
       });
+
+      bgTl.to(
+        backgroundRef.current,
+        {
+          backgroundColor: "#ffffff",
+          ease: "power4.in", // Sharper transition at the end
+        },
+        0.8
+      ); // Starts at 80% of the 300% scroll (near end of 3rd project)
 
       // ⚙️ CONFIG: ATMOSPHERE LAYER (Lớp khí quyển)
       // ═══════════════════════════════════════════════════════════
@@ -308,24 +316,6 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
       <BackgroundLayers projects={projects} activeIndex={activeIndex} />
 
       <div className="w-full relative z-20">
-        <div className="absolute top-0 left-0 w-40 h-40 md:w-60 md:h-60 z-20 pointer-events-none">
-          <Image
-            src="/assets/images/the-sun-left.svg"
-            alt="The Sun"
-            fill
-            className="object-contain brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]"
-          />
-        </div>
-
-        <div className="absolute top-0 right-0 w-40 h-40 md:w-60 md:h-60 z-20 pointer-events-none">
-          <Image
-            src="/assets/images/the-moon-right.svg"
-            alt="The Moon"
-            fill
-            className="object-contain brightness-0 invert drop-shadow-[0_0_15px_rgba(255,255,255,0.6)]"
-          />
-        </div>
-
         <div className="absolute top-10 left-0 right-0 w-full z-10 cloud-parallax pointer-events-none">
           <Image
             src="/assets/images/cloud.avif"
