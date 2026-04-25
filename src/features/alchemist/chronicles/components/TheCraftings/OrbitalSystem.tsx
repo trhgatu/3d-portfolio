@@ -18,9 +18,9 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
           {/* --- ASTROLABE / CELESTIAL CHART LAYERS --- */}
           <defs>
             <linearGradient id="orbitalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.02" />
-              <stop offset="50%" stopColor="#ffffff" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="#ffffff" stopOpacity="0.02" />
+              <stop offset="0%" stopColor="#b45309" stopOpacity="0.02" />
+              <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#b45309" stopOpacity="0.02" />
             </linearGradient>
             <mask id="fadeMask">
               <linearGradient id="maskGrad" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -40,19 +40,19 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
               cy="45%"
               r={`${radius + 40}`}
               fill="none"
-              stroke="#ffffff"
+              stroke="#8b5a2b"
               strokeWidth="6"
               strokeDasharray="1 8"
-              opacity="0.08"
+              opacity="0.12"
             />
             <circle
               cx={centerX}
               cy="45%"
               r={`${radius + 45}`}
               fill="none"
-              stroke="#ffffff"
+              stroke="#b45309"
               strokeWidth="0.5"
-              opacity="0.1"
+              opacity="0.15"
             />
 
             {/* 2. CONSTELLATION RING (Dashed) */}
@@ -61,9 +61,9 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
               cy="45%"
               r={`${radius + 20}`}
               fill="none"
-              stroke="#ffffff"
+              stroke="#f59e0b"
               strokeWidth="1"
-              opacity="0.05"
+              opacity="0.1"
               strokeDasharray="4 4"
             />
 
@@ -75,7 +75,7 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
               fill="none"
               stroke="url(#orbitalGradient)"
               strokeWidth="1.5"
-              opacity="0.5"
+              opacity="0.6"
             />
 
             {/* 4. INNER ALIGNMENT RINGS */}
@@ -84,19 +84,19 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
               cy="45%"
               r={`${radius - 30}`}
               fill="none"
-              stroke="#ffffff"
+              stroke="#8b5a2b"
               strokeWidth="0.5"
-              opacity="0.2"
+              opacity="0.3"
             />
             <circle
               cx={centerX}
               cy="45%"
               r={`${radius - 35}`}
               fill="none"
-              stroke="#ffffff"
+              stroke="#f59e0b"
               strokeWidth="4"
               strokeDasharray="0.5 15"
-              opacity="0.2"
+              opacity="0.25"
             />
 
             {/* 5. GEOMETRIC CROSSHAIRS (The 'Scope') */}
@@ -105,18 +105,18 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
               y1="45%"
               x2={centerX + radius * 1.2}
               y2="45%"
-              stroke="#ffffff"
+              stroke="#8b5a2b"
               strokeWidth="0.5"
-              opacity="0.15"
+              opacity="0.2"
             />
             <line
               x1={centerX}
               y1={dimensions.height * 0.45 - radius}
               x2={centerX}
               y2={dimensions.height * 0.45 + radius}
-              stroke="#ffffff"
+              stroke="#8b5a2b"
               strokeWidth="0.5"
-              opacity="0.15"
+              opacity="0.2"
             />
 
             {/* 6. DECORATIVE PLANETARY NODES */}
@@ -124,15 +124,15 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
               cx={centerX + Math.cos(-0.5) * radius}
               cy={Math.sin(-0.5) * radius + dimensions.height * 0.45}
               r="2"
-              fill="white"
-              opacity="0.4"
+              fill="#f59e0b"
+              opacity="0.5"
             />
             <circle
               cx={centerX + Math.cos(2.0) * (radius - 30)}
               cy={Math.sin(2.0) * (radius - 30) + dimensions.height * 0.45}
               r="1.5"
-              fill="white"
-              opacity="0.3"
+              fill="#b45309"
+              opacity="0.4"
             />
 
             {/* 7. STAR CHART LINES (Connecting Nodes) */}
@@ -148,11 +148,11 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
                     y1="45%"
                     x2={x}
                     y2={y}
-                    stroke="#ffffff"
+                    stroke="#8b5a2b"
                     strokeWidth="0.5"
-                    opacity="0.03"
+                    opacity="0.08"
                   />
-                  <circle cx={x} cy={y} r="1" fill="white" opacity="0.2" />
+                  <circle cx={x} cy={y} r="1" fill="#f59e0b" opacity="0.3" />
                 </g>
               );
             })}
@@ -171,14 +171,14 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
                               ${i === activeIndex ? "scale-110" : "opacity-90 scale-75"}`}
                 >
                   {i === activeIndex && (
-                    <div className="absolute inset-0 bg-white/5 blur-3xl rounded-full" />
+                    <div className="absolute inset-0 bg-amber-500/10 blur-3xl rounded-full" />
                   )}
                   <div className="relative group-hover:scale-110 transition-transform duration-500">
                     <svg
                       width="100"
                       height="100"
                       viewBox="0 0 100 100"
-                      className={`transition-all duration-700 ${i === activeIndex ? "drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]" : "drop-shadow-none opacity-60 grayscale"}`}
+                      className={`transition-all duration-700 ${i === activeIndex ? "drop-shadow-[0_0_15px_rgba(245,158,11,0.8)]" : "drop-shadow-none opacity-60 grayscale"}`}
                     >
                       <defs>
                         <linearGradient
@@ -188,30 +188,23 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
                           x2="100%"
                           y2="100%"
                         >
-                          <stop offset="0%" stopColor="#ffffff" />
-                          <stop offset="50%" stopColor="#e2e8f0" />
-                          <stop offset="100%" stopColor="#94a3b8" />
+                          <stop offset="0%" stopColor="#fef3c7" />
+                          <stop offset="50%" stopColor="#f59e0b" />
+                          <stop offset="100%" stopColor="#b45309" />
                         </linearGradient>
-                        <filter id="glow-filter">
-                          <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                          <feMerge>
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="SourceGraphic" />
-                          </feMerge>
-                        </filter>
                       </defs>
 
                       <path
                         d="M50 20 L60 40 L80 50 L60 60 L50 80 L40 60 L20 50 L40 40 Z"
-                        fill={i === activeIndex ? "white" : "#cbd5e1"}
-                        opacity={i === activeIndex ? "0.5" : "0.3"}
+                        fill={i === activeIndex ? "#f59e0b" : "#8b5a2b"}
+                        opacity={i === activeIndex ? "0.6" : "0.3"}
                         className="transition-all duration-700"
                       />
 
                       <path
                         d="M50 0 L58 42 L100 50 L58 58 L50 100 L42 58 L0 50 L42 42 Z"
                         fill={`url(#starGradient-${i})`}
-                        className={`transition-all duration-700 ${i === activeIndex ? "brightness-125" : "brightness-75"}`}
+                        className={`transition-all duration-700 ${i === activeIndex ? "brightness-110" : "brightness-75"}`}
                       />
 
                       <circle
@@ -224,12 +217,12 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
 
                       {i === activeIndex && (
                         <>
-                          <circle cx="50" cy="50" r="3" fill="#cbd5e1" />
+                          <circle cx="50" cy="50" r="3" fill="#fef3c7" />
                           <path
                             d="M50 10 L50 90 M10 50 L90 50"
-                            stroke="white"
+                            stroke="#fcd34d"
                             strokeWidth="0.5"
-                            opacity="0.5"
+                            opacity="0.7"
                           />
                         </>
                       )}
@@ -237,9 +230,9 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
 
                     {i === activeIndex && (
                       <div className="absolute inset-0 z-20 pointer-events-none mix-blend-screen">
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-1 bg-white blur-md opacity-60" />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-40 bg-white blur-md opacity-60" />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-white/20 blur-xl rounded-full" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-1 bg-amber-200 blur-md opacity-40" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-40 bg-amber-200 blur-md opacity-40" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-amber-500/20 blur-xl rounded-full" />
                       </div>
                     )}
                   </div>
@@ -258,9 +251,9 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
                 >
                   <defs>
                     <linearGradient id={`godRayGradient-${i}`} x1="0%" y1="50%" x2="100%" y2="50%">
-                      <stop offset="0%" stopColor="white" stopOpacity="0.9" />
-                      <stop offset="50%" stopColor="white" stopOpacity="0.5" />
-                      <stop offset="100%" stopColor="white" stopOpacity="0" />
+                      <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.8" />
+                      <stop offset="50%" stopColor="#b45309" stopOpacity="0.4" />
+                      <stop offset="100%" stopColor="#78350f" stopOpacity="0" />
                     </linearGradient>
                     <linearGradient
                       id={`coreBeamGradient-${i}`}
@@ -269,52 +262,37 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
                       x2="100%"
                       y2="50%"
                     >
-                      <stop offset="0%" stopColor="white" stopOpacity="1" />
-                      <stop offset="90%" stopColor="white" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="white" stopOpacity="0" />
+                      <stop offset="0%" stopColor="#fef3c7" stopOpacity="1" />
+                      <stop offset="90%" stopColor="#f59e0b" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#b45309" stopOpacity="0" />
                     </linearGradient>
-                    <filter id="intense-glow">
-                      <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                      <feMerge>
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="coloredBlur" />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
                   </defs>
 
                   <path
                     d="M0 100 L100% 0 L100% 200 Z"
                     fill={`url(#godRayGradient-${i})`}
-                    opacity="0.5"
+                    opacity="0.4"
                   />
 
                   <path
                     d="M0 100 L100% 0 M0 100 L100% 200"
-                    stroke="white"
+                    stroke="#f59e0b"
                     strokeWidth="0.5"
-                    opacity="0.3"
+                    opacity="0.2"
                   />
 
                   <path
                     d="M0 100 L95% 40 L95% 160 Z"
                     fill={`url(#coreBeamGradient-${i})`}
-                    opacity="0.9"
-                    style={{ filter: "blur(2px)" }}
-                  />
-
-                  <path
-                    d="M0 100 L90% 90 L90% 110 Z"
-                    fill="white"
-                    opacity="1"
-                    filter="url(#intense-glow)"
+                    opacity="0.8"
+                    style={{ filter: "blur(3px)" }}
                   />
 
                   <circle
                     cx="10%"
                     cy="100"
                     r="2"
-                    fill="white"
+                    fill="#fef3c7"
                     className="animate-[flow-right_2s_linear_infinite]"
                     opacity="1"
                   />
@@ -322,7 +300,7 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
                     cx="20%"
                     cy="90"
                     r="1.5"
-                    fill="white"
+                    fill="#f59e0b"
                     className="animate-[flow-right_3s_linear_infinite]"
                     style={{ animationDelay: "0.4s" }}
                     opacity="0.9"
@@ -331,18 +309,9 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
                     cx="15%"
                     cy="110"
                     r="2.5"
-                    fill="white"
+                    fill="#fcd34d"
                     className="animate-[flow-right_4s_linear_infinite]"
                     style={{ animationDelay: "1.2s" }}
-                    opacity="1"
-                  />
-                  <circle
-                    cx="5%"
-                    cy="95"
-                    r="1.5"
-                    fill="white"
-                    className="animate-[flow-right_2.5s_linear_infinite]"
-                    style={{ animationDelay: "0.8s" }}
                     opacity="1"
                   />
                 </svg>
