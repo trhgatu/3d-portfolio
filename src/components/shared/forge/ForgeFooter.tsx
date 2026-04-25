@@ -73,15 +73,15 @@ export const ForgeFooter = () => (
       <div className="flex flex-col items-end gap-6 text-right order-3">
         <div className="flex gap-5">
           {[
-            { icon: IconMail, href: "mailto:contact@trhgatu.dev", label: "Email" },
+            { icon: IconMail, href: "mailto:trhgatu.dev@gmail.com", label: "Email" },
             { icon: IconBrandGithub, href: "https://github.com/trhgatu", label: "GitHub" },
-            { icon: IconBrandLinkedin, href: "https://linkedin.com/in/trhgatu", label: "LinkedIn" },
-            { icon: IconBrandFacebook, href: "https://facebook.com/tu.trhgatu", label: "Facebook" },
             {
-              icon: IconBrandInstagram,
-              href: "https://instagram.com/tu.trhgatu",
-              label: "Instagram",
+              icon: IconBrandLinkedin,
+              href: "https://linkedin.com/in/trhgatu1103",
+              label: "LinkedIn",
             },
+            { icon: IconBrandFacebook, href: "https://facebook.com/trhgatu", label: "Facebook" },
+            { icon: IconBrandInstagram, href: "https://instagram.com/th_atu", label: "Instagram" },
           ].map((social) => (
             <a
               key={social.label}
