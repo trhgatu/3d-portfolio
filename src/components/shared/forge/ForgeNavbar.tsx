@@ -19,20 +19,24 @@ export function NavbarForge() {
   useScrambleText();
   const navItems = [
     {
-      name: "Forge",
-      link: "/forge",
+      name: "Awakening",
+      link: "/awakening",
+    },
+    {
+      name: "Chronicles",
+      link: "/chronicles",
     },
     {
       name: "Craftings",
-      link: "/forge/craftings",
-    },
-    {
-      name: "Timeline",
-      link: "/forge/timeline",
+      link: "/craftings",
     },
     {
       name: "The Alchemist",
-      link: "/forge/the-alchemist",
+      link: "/the-alchemist",
+    },
+    {
+      name: "Timeline",
+      link: "/timeline",
     },
   ];
 

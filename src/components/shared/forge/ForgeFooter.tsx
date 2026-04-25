@@ -47,7 +47,7 @@ export const ForgeFooter = () => (
         {["Forge", "Craftings", "Timeline", "The Alchemist"].map((item) => (
           <Link
             key={item}
-            href={item === "Forge" ? "/" : `/forge/${item.toLowerCase().replace(" ", "-")}`}
+            href={item === "Forge" ? "/" : `/${item.toLowerCase().replace(" ", "-")}`}
             className="nav-link relative w-fit group"
           >
             <span className="text-neutral-500 group-hover:text-amber-500 transition-colors duration-300 font-space-mono text-sm uppercase tracking-widest">

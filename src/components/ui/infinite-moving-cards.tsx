@@ -69,13 +69,9 @@ export const InfiniteMovingCards = ({
             key={item._id}
             className="relative w-[320px] md:w-[400px] shrink-0 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-900 dark:to-zinc-800 shadow-lg px-5 py-4"
           >
-            <Link href={`/forge/craftings/${item.slug}`} className="group block">
+            <Link href={`/craftings/${item.slug}`} className="group block">
               <Image
-                src={
-                  item.thumbnail ??
-                  item.images?.[0] ??
-                  "https://placehold.co/600x400.png"
-                }
+                src={item.thumbnail ?? item.images?.[0] ?? "https://placehold.co/600x400.png"}
                 alt={item.name}
                 width={400}
                 height={200}
