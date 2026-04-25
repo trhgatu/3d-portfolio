@@ -90,11 +90,11 @@ export const translations = {
           process: {
             title: "The Process",
             step1:
-              "Melt down the ego within the crucible of continuous failure. The code will break; you must not.",
+              "Melt down the ego within the crucible of continuous failure. The code will break; I must not.",
             step2:
               "Apply the relentless heat of Obsession. Iterate until the chaotic logic aligns into elegant structure.",
             step3:
-              "Realize the ultimate truth: You are not merely forging software. The software is the fire forging you.",
+              "Realize the ultimate truth: I am not merely forging software. The software is the fire forging me.",
           },
           manifestation: {
             title: "The Manifestation",
@@ -102,7 +102,7 @@ export const translations = {
               "Through countless errors, bugs, and strife,",
               "I breathe into the syntax, life.",
               "The final product, clear and true,",
-              "Was never just the code—it's you.",
+              "Was never just the code—it's me.",
             ],
             author: "~ The Alchemist",
           },
@@ -250,11 +250,11 @@ export const translations = {
           process: {
             title: "Quy Trình",
             step1:
-              "Nung chảy cái tôi trong lò luyện của những thất bại liên tiếp. Mã nguồn có thể vỡ; nhưng bạn thì không.",
+              "Nung chảy cái tôi trong lò luyện của những thất bại liên tiếp. Mã nguồn có thể vỡ; nhưng tôi thì không.",
             step2:
               "Áp dụng sức nóng không ngừng của sự Ám ảnh. Lặp lại cho đến khi logic hỗn loạn trở thành cấu trúc thanh nhã.",
             step3:
-              "Nhận ra chân lý cuối cùng: Bạn không chỉ đang rèn giũa những tạo vật. Chính những tạo vật đó là ngọn lửa đang rèn giũa bạn.",
+              "Nhận ra chân lý cuối cùng: Tôi không chỉ đang rèn giũa những tạo vật. Chính những tạo vật đó là ngọn lửa đang rèn giũa tôi.",
           },
           manifestation: {
             title: "Sự Hiển Lộ",
@@ -262,7 +262,7 @@ export const translations = {
               "Qua bao sai sót, lỗi lầm, gian truân,",
               "Tôi thổi vào cú pháp, hơi thở của sự sống.",
               "Sản phẩm cuối cùng, rõ ràng và chân thực,",
-              "Chưa bao giờ chỉ là những dòng mã—mà chính là Bạn.",
+              "Chưa bao giờ chỉ là những dòng mã—mà chính là Tôi.",
             ],
             author: "~ Nhà Giả Kim",
           },
