@@ -13,8 +13,7 @@ export function TheAlchemistRecipes() {
 
   useGSAP(
     () => {
-      if (!containerRef.current) return;
-
+      // Subtle fade in for manuscript elements
       gsap.from(".recipe-anim", {
         opacity: 0,
         y: 30,
@@ -26,6 +25,82 @@ export function TheAlchemistRecipes() {
           start: "top 75%",
         },
       });
+
+      // Burn scroll animation for Magnum Opus
+      gsap.fromTo(
+        ".magnum-opus-title .char",
+        {
+          opacity: 0.3,
+          color: "#3d2817",
+          filter: "brightness(1)",
+          textShadow: "0 0 0px rgba(255,100,0,0)",
+          y: 0,
+        },
+        {
+          keyframes: [
+            {
+              opacity: 1,
+              color: "#ff6b35",
+              filter: "brightness(1.5)",
+              textShadow: "0 0 20px rgba(255,107,53,0.9), 0 0 40px rgba(255,107,53,0.5)",
+              y: -5,
+              duration: 0.25,
+            },
+            {
+              color: "#3d2817",
+              filter: "brightness(1)",
+              textShadow: "0 0 0px rgba(0,0,0,0)",
+              y: 0,
+              duration: 0.35,
+            },
+          ],
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: ".magnum-opus-title",
+            start: "top 85%",
+            end: "bottom 45%",
+            scrub: 1,
+          },
+        }
+      );
+
+      // Burn scroll animation for Manifestation
+      gsap.fromTo(
+        ".manifestation-title .char",
+        {
+          opacity: 0.3,
+          color: "#3d2817",
+          filter: "brightness(1)",
+          textShadow: "0 0 0px rgba(255,100,0,0)",
+          y: 0,
+        },
+        {
+          keyframes: [
+            {
+              opacity: 1,
+              color: "#ff6b35",
+              filter: "brightness(1.5)",
+              textShadow: "0 0 20px rgba(255,107,53,0.9), 0 0 40px rgba(255,107,53,0.5)",
+              y: -5,
+              duration: 0.25,
+            },
+            {
+              color: "#3d2817",
+              filter: "brightness(1)",
+              textShadow: "0 0 0px rgba(0,0,0,0)",
+              y: 0,
+              duration: 0.35,
+            },
+          ],
+          stagger: 0.05,
+          scrollTrigger: {
+            trigger: ".manifestation-title",
+            start: "top 85%",
+            end: "bottom 45%",
+            scrub: 1,
+          },
+        }
+      );
     },
     { scope: containerRef }
   );
@@ -36,12 +111,18 @@ export function TheAlchemistRecipes() {
       <div className="relative z-10 w-full max-w-5xl mx-auto md:p-8">
         {/* Title Area */}
         <div className="text-center mb-16 relative flex flex-col items-center recipe-anim">
-          <div className="pb-4 text-[#8b5a2b]/60 font-serif text-sm tracking-widest uppercase">
-            {t.finalFormula}
-          </div>
-          <h3 className="font-kings text-5xl md:text-7xl text-[#3d2817] mb-4 border-b-2 border-[#8b5a2b]/30 pb-6 inline-block px-8 md:px-16 relative">
-            {t.magnumOpus}
+          <h3 className="magnum-opus-title font-kings text-5xl md:text-7xl text-[#3d2817] mb-4 relative">
+            {t.magnumOpus.split("").map((char, idx) => (
+              <span key={idx} className="char inline-block" aria-hidden="true">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
           </h3>
+          <div className="flex items-center justify-center gap-4 my-6 relative z-20 opacity-70">
+            <div className="w-24 h-[1px] bg-neutral-500" />
+            <span className="text-xl text-neutral-500 font-serif">✧</span>
+            <div className="w-24 h-[1px] bg-neutral-500" />
+          </div>
           <p className="font-bilbo text-3xl text-neutral-700 max-w-2xl mx-auto italic mt-4">
             {t.desc}
           </p>
@@ -183,19 +264,24 @@ export function TheAlchemistRecipes() {
 
         {/* The Manifestation */}
         <div className="mt-20 pt-10 recipe-anim flex flex-col items-center">
-          <div className="w-full flex items-center justify-center gap-4 mb-8 opacity-60">
-            <div className="h-[1px] w-full max-w-[100px] bg-[#8b5a2b]"></div>
-            <span className="text-2xl font-serif text-[#8b5a2b]">✧</span>
-            <div className="h-[1px] w-full max-w-[100px] bg-[#8b5a2b]"></div>
-          </div>
-          <h4 className="text-center font-mono text-sm uppercase tracking-[0.3em] text-[#8b5a2b]/70 mb-8">
-            {t.manifestation.title}
+          <h4 className="manifestation-title font-kings text-5xl md:text-7xl text-[#3d2817] mb-4 relative">
+            {t.manifestation.title.split("").map((char, idx) => (
+              <span key={idx} className="char inline-block" aria-hidden="true">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
           </h4>
-          <div className="font-kings text-4xl md:text-5xl text-[#2a1a10] text-center px-4 md:px-12 py-6">
+          <div className="flex items-center justify-center gap-4 my-6 relative z-20 opacity-70">
+            <div className="w-24 h-[1px] bg-neutral-500" />
+            <span className="text-xl text-neutral-500 font-serif">✧</span>
+            <div className="w-24 h-[1px] bg-neutral-500" />
+          </div>
+          <div className="font-kings text-3xl md:text-4xl text-[#2a1a10] text-center px-4 md:px-12 py-6 leading-relaxed">
             {t.manifestation.poem.map((line: string, i: number) => (
-              <p key={i} className={i !== t.manifestation.poem.length - 1 ? "mb-3" : ""}>
-                &quot;{line.replace(/^"|"$/g, "")}
-                {i === t.manifestation.poem.length - 1 ? '"' : ""}
+              <p key={i} className={i !== t.manifestation.poem.length - 1 ? "mb-8" : ""}>
+                {i === 0 ? "“" : ""}
+                {line}
+                {i === t.manifestation.poem.length - 1 ? "”" : ""}
               </p>
             ))}
           </div>

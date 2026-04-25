@@ -102,10 +102,10 @@ export function TheAlchemistJournal() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center gap-4 opacity-40 journal-divider">
-        <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
-        <div className="w-2 h-2 rotate-45 border border-neutral-600 bg-neutral-600/20" />
-        <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
+      <div className="flex items-center justify-center gap-4 opacity-70 journal-divider">
+        <div className="w-24 h-[1px] bg-neutral-500" />
+        <span className="text-xl text-neutral-500 font-serif">✧</span>
+        <div className="w-24 h-[1px] bg-neutral-500" />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-[3fr_7fr] gap-8 items-center group journal-phase">
@@ -132,10 +132,10 @@ export function TheAlchemistJournal() {
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-4 opacity-40 journal-divider">
-        <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
-        <div className="w-2 h-2 rotate-45 border border-neutral-600 bg-neutral-600/20" />
-        <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
+      <div className="flex items-center justify-center gap-4 opacity-70 journal-divider">
+        <div className="w-24 h-[1px] bg-neutral-500" />
+        <span className="text-xl text-neutral-500 font-serif">✧</span>
+        <div className="w-24 h-[1px] bg-neutral-500" />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 items-center group journal-phase">
@@ -162,10 +162,10 @@ export function TheAlchemistJournal() {
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-4 opacity-40 journal-divider">
-        <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
-        <div className="w-2 h-2 rotate-45 border border-neutral-600 bg-neutral-600/20" />
-        <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-neutral-600 to-transparent" />
+      <div className="flex items-center justify-center gap-4 opacity-70 journal-divider">
+        <div className="w-24 h-[1px] bg-neutral-500" />
+        <span className="text-xl text-neutral-500 font-serif">✧</span>
+        <div className="w-24 h-[1px] bg-neutral-500" />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-[3fr_7fr] gap-8 items-center group journal-phase">

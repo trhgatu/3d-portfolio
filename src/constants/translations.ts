@@ -99,10 +99,9 @@ export const translations = {
           manifestation: {
             title: "The Manifestation",
             poem: [
-              "Through countless errors, bugs, and strife,",
-              "I breathe into the syntax, life.",
-              "The final product, clear and true,",
-              "Was never just the code—it's me.",
+              "Every line of code I write is more than a technical directive; it is a manifestation of will and the hunger to bring the self into existence.",
+              "Through thousands of errors purged and the rigorous refinement of logic, I have breathed life into the void.",
+              "The final product was never just about code—it is the crystallization of my evolution, a living testament that I am the forge, the fire, and the ultimate gold.",
             ],
             author: "~ The Alchemist",
           },
@@ -258,10 +257,9 @@ export const translations = {
           manifestation: {
             title: "Sự Hiển Lộ",
             poem: [
-              "Qua bao sai sót, lỗi lầm, gian truân,",
-              "Tôi thổi vào cú pháp, hơi thở của sự sống.",
-              "Sản phẩm cuối cùng, rõ ràng và chân thực,",
-              "Chưa bao giờ chỉ là những dòng mã—mà chính là Tôi.",
+              "Mỗi dòng mã tôi viết ra không chỉ là một chỉ thị kỹ thuật, mà là sự hiển lộ của ý chí và khát khao hiện thực hóa bản ngã.",
+              "Qua hàng ngàn lỗi lầm được gọt rửa và sự tinh luyện khắc nghiệt của logic, tôi đã ban sự sống cho hư vô.",
+              "Sản phẩm cuối cùng không bao giờ chỉ là những dòng code—nó là sự kết tinh của quá trình tiến hóa, là minh chứng rằng tôi chính là lò rèn, là ngọn lửa, và là vàng ròng sau cùng.",
             ],
             author: "~ Nhà Giả Kim",
           },
