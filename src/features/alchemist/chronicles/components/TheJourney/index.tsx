@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import Image from "next/image";
+import { useLang } from "@/hooks/useLang";
+import { translations } from "@/constants/translations";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -14,6 +16,8 @@ export function TheJourney() {
   const mistLeftRef = useRef<HTMLDivElement>(null);
   const mistRightRef = useRef<HTMLDivElement>(null);
   const legaciesContentRef = useRef<HTMLDivElement>(null);
+  const lang = useLang();
+  const t = translations[lang].chronicles.journey;
 
   useGSAP(
     () => {
@@ -270,7 +274,7 @@ export function TheJourney() {
       <div className="relative z-50 w-full max-w-4xl px-6 h-full flex items-center justify-center pointer-events-none">
         <div className="narrative-entry absolute inset-0 flex items-center justify-center">
           <p className="font-playfair-display text-3xl md:text-5xl leading-tight italic text-neutral-800 drop-shadow-sm text-center">
-            {'"There is a language beyond words..."'.split("").map((char, i) => (
+            {t.narrative1.split("").map((char, i) => (
               <span key={i} className="narrative-char inline-block">
                 {char === " " ? "\u00A0" : char}
               </span>
@@ -279,18 +283,16 @@ export function TheJourney() {
         </div>
         <div className="narrative-entry absolute inset-0 flex items-center justify-center">
           <p className="font-playfair-display text-3xl md:text-5xl leading-tight italic text-neutral-800 drop-shadow-sm text-center">
-            {'"It speaks of the courage to follow one\'s own Personal Legend."'
-              .split("")
-              .map((char, i) => (
-                <span key={i} className="narrative-char inline-block">
-                  {char === " " ? "\u00A0" : char}
-                </span>
-              ))}
+            {t.narrative2.split("").map((char, i) => (
+              <span key={i} className="narrative-char inline-block">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
           </p>
         </div>
         <div className="narrative-entry absolute inset-0 flex items-center justify-center">
           <p className="font-playfair-display text-4xl md:text-6xl italic text-neutral-900 tracking-wide text-center">
-            {'"Until the hands build what the heart has always known."'.split("").map((char, i) => (
+            {t.narrative3.split("").map((char, i) => (
               <span key={i} className="narrative-char inline-block">
                 {char === " " ? "\u00A0" : char}
               </span>
@@ -304,7 +306,7 @@ export function TheJourney() {
       >
         <div className="crafting-content relative">
           <h2 className="crafting-title text-3xl md:text-5xl lg:text-6xl font-kings tracking-wide mb-8 text-amber-600 drop-shadow-[0_0_15px_rgba(251,191,36,0.2)]">
-            {"Crafting Legacies".split("").map((char, i) => (
+            {t.legacies.split("").map((char, i) => (
               <span key={i} className="inline-block">
                 {char === " " ? "\u00A0" : char}
               </span>
@@ -312,13 +314,11 @@ export function TheJourney() {
           </h2>
 
           <p className="crafting-text text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto text-neutral-600 font-playfair-display">
-            {"Every line of code is not just a solution — it's a legacy, a trace left behind to inspire, empower, and endure."
-              .split(" ")
-              .map((word, i) => (
-                <span key={i} className="inline-block mr-2">
-                  {word}
-                </span>
-              ))}
+            {t.legaciesDesc.split(" ").map((word, i) => (
+              <span key={i} className="inline-block mr-2">
+                {word}
+              </span>
+            ))}
           </p>
 
           <div className="crafting-quote relative mt-16 italic text-lg md:text-2xl max-w-4xl mx-auto text-neutral-600">
@@ -337,19 +337,18 @@ export function TheJourney() {
               className="absolute -bottom-10 -right-12 opacity-20 invert rotate-180 select-none pointer-events-none"
             />
             <span className="relative z-10 block leading-relaxed text-3xl md:text-5xl font-playfair-display text-neutral-900">
-              “And, when you want something, all the universe conspires in helping you to achieve
-              it.”
+              {t.quote}
             </span>
 
             <div className="mt-8 relative z-10 font-space-mono text-xs uppercase tracking-[0.3em] text-neutral-600">
-              — Paulo Coelho, <span className="text-amber-500 font-bold">The Alchemist</span>
+              {t.author}
             </div>
 
             <div
               id="maktub"
               className="mt-20 font-kings text-4xl md:text-6xl tracking-[0.6em] text-amber-500 select-none pointer-events-none drop-shadow-[0_0_20px_rgba(245,158,11,0.5)]"
             >
-              MAKTUB !
+              {t.maktub}
             </div>
           </div>
         </div>

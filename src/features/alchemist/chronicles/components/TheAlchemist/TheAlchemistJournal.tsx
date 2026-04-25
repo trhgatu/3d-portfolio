@@ -5,11 +5,15 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useGSAP } from "@gsap/react";
+import { useLang } from "@/hooks/useLang";
+import { translations } from "@/constants/translations";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function TheAlchemistJournal() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const lang = useLang();
+  const t = translations[lang].chronicles.alchemist.journal;
 
   useGSAP(
     () => {
@@ -83,16 +87,13 @@ export function TheAlchemistJournal() {
       <div className="grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 items-center relative overflow-visible group journal-phase">
         <div className="text-left space-y-4 order-2 md:order-1 journal-text">
           <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
-            Nigredo: The Void
+            {t.nigredo.title}
           </h3>
           <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
             <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
-              T
+              {t.nigredo.initial}
             </span>
-            he work begins in darkness—the blank editor, the chaotic influx of fragmented
-            requirements. This is <span className="italic text-neutral-800">Nigredo</span>, the
-            blackening. It is the necessary destruction of preconceptions, reducing a complex
-            problem into its most fundamental, untamed logic before creation can even begin.
+            {t.nigredo.desc}
           </p>
         </div>
         <div className="relative h-64 overflow-visible order-1 md:order-2 flex justify-center journal-image">
@@ -120,17 +121,13 @@ export function TheAlchemistJournal() {
         </div>
         <div className="text-left space-y-4 order-2 journal-text">
           <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
-            Albedo: Purification
+            {t.albedo.title}
           </h3>
           <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
             <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
-              F
+              {t.albedo.initial}
             </span>
-            rom the ashes of initial drafts emerges{" "}
-            <span className="italic text-neutral-800">Albedo</span>, the whitening. Here, the code
-            is washed clean. Architectures are refined, unnecessary dependencies are purged, and the
-            logic is scrubbed until it is pristine, performant, and perfectly legible. Clarity over
-            cleverness.
+            {t.albedo.desc}
           </p>
         </div>
       </div>
@@ -144,16 +141,13 @@ export function TheAlchemistJournal() {
       <div className="grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 items-center group journal-phase">
         <div className="text-left space-y-4 order-2 md:order-1 journal-text">
           <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
-            Citrinitas: Awakening
+            {t.citrinitas.title}
           </h3>
           <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
             <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
-              S
+              {t.citrinitas.initial}
             </span>
-            uddenly, the static lines spark to life. This is{" "}
-            <span className="italic text-neutral-800">Citrinitas</span>, the yellowing. The system
-            awakens. Data flows seamlessly across boundaries, components react with fluid grace, and
-            what was once a rigid script becomes a breathing, dynamic digital entity.
+            {t.citrinitas.desc}
           </p>
         </div>
         <div className="flex justify-center order-1 md:order-2 opacity-60 mix-blend-multiply journal-image">
@@ -187,16 +181,13 @@ export function TheAlchemistJournal() {
         </div>
         <div className="text-left space-y-4 order-2 journal-text">
           <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
-            Rubedo: Realization
+            {t.rubedo.title}
           </h3>
           <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
             <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
-              T
+              {t.rubedo.initial}
             </span>
-            he final deployment. <span className="italic text-neutral-800">Rubedo</span>, the
-            reddening, marks the culmination of the work. The software steps out of the local forge
-            and into reality. It stands resilient, holding structure against the chaos of the web—a
-            true testament to the alchemy of engineering.
+            {t.rubedo.desc}
           </p>
         </div>
       </div>

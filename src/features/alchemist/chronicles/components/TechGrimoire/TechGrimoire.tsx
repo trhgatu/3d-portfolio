@@ -9,6 +9,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { BookScene } from "./components/scene/BookScene";
 import { useGrimoireTimeline } from "./hooks";
 import { TechParticles } from "./components/scene/TechParticles";
+import { useLang } from "@/hooks/useLang";
+import { translations } from "@/constants/translations";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -18,6 +20,9 @@ export const TechGrimoire = () => {
   const spaceRef = useRef<HTMLDivElement>(null);
   const flashRef = useRef<HTMLDivElement>(null);
   const introTextRef = useRef<HTMLDivElement>(null);
+
+  const lang = useLang();
+  const t = translations[lang].chronicles.techGrimoire;
 
   const { scrollProgress } = useGrimoireTimeline({
     containerRef,
@@ -90,11 +95,11 @@ export const TechGrimoire = () => {
         {}
         <div className="absolute top-28 md:top-32 left-0 w-full text-center pointer-events-none z-20 mix-blend-multiply">
           <h2 className="grimoire-title text-4xl md:text-6xl font-kings text-amber-900/80 tracking-widest drop-shadow-sm mb-4">
-            The Grimoire
+            {t.title}
           </h2>
           <div className="w-24 h-[1px] bg-amber-900/30 mx-auto mb-4" />
           <p className="font-space-mono text-xs md:text-sm text-amber-800/60 uppercase tracking-[0.3em]">
-            Source of Knowledge
+            {t.subtitle}
           </p>
         </div>
       </div>
@@ -113,7 +118,7 @@ export const TechGrimoire = () => {
         style={{ transform: "translateY(20px)", filter: "blur(10px)" }}
       >
         <p className="font-playfair-display text-3xl md:text-4xl lg:text-5xl italic text-amber-600/80 leading-[1.5] tracking-wide text-center px-8 max-w-4xl drop-shadow-[0_0_30px_rgba(103,232,249,0.3)]">
-          &quot;The Grimoire holds what the fire refined: knowledge transmuted into power.&quot;
+          {t.desc}
         </p>
       </div>
       <div className="absolute inset-0 z-10">

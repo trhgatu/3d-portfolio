@@ -1,5 +1,7 @@
 "use client";
 import { ModeToggle } from "@/components/shared/ModeToggle";
+import { useLang } from "@/hooks/useLang";
+import { translations } from "@/constants/translations";
 import {
   Navbar,
   NavBody,
@@ -17,25 +19,28 @@ import { useScrambleText } from "@/hooks/useScrambleText";
 
 export function NavbarForge() {
   useScrambleText();
+  const lang = useLang();
+  const t = translations[lang].nav;
+
   const navItems = [
     {
-      name: "Awakening",
+      name: t.awakening,
       link: "/awakening",
     },
     {
-      name: "Chronicles",
+      name: t.chronicles,
       link: "/chronicles",
     },
     {
-      name: "Craftings",
+      name: t.craftings,
       link: "/craftings",
     },
     {
-      name: "The Alchemist",
+      name: t.alchemist,
       link: "/the-alchemist",
     },
     {
-      name: "Timeline",
+      name: t.timeline,
       link: "/timeline",
     },
   ];
@@ -102,7 +107,9 @@ export function NavbarForge() {
             >
               Login
             </NavbarButton>
-            <ModeToggle />
+            <div className="flex items-center justify-end mt-2">
+              <ModeToggle />
+            </div>
           </div>
         </MobileNavMenu>
       </MobileNav>

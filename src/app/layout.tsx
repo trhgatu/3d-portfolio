@@ -15,7 +15,6 @@ import {
 import "./globals.css";
 import LenisScroll from "@/components/common/LenisScroll";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
-import { ReduxProvider } from "@/store/provider";
 import { ReactQueryProvider } from "@/app/providers/react-query-provider";
 import { siteConfig } from "@/config/site";
 
@@ -153,21 +152,19 @@ export default function RootLayout({
         <div id="page-wrapper">
           <div className="lenis-body">
             <div className="lenis-content">
-              <ReduxProvider>
-                <ReactQueryProvider>
-                  <ThemeProvider
-                    attribute="class"
-                    defaultTheme="dark"
-                    forcedTheme="dark"
-                    enableSystem={false}
-                    disableTransitionOnChange
-                  >
-                    <LenisScroll />
-                    <main>{children}</main>
-                    <Analytics />
-                  </ThemeProvider>
-                </ReactQueryProvider>
-              </ReduxProvider>
+              <ReactQueryProvider>
+                <ThemeProvider
+                  attribute="class"
+                  defaultTheme="dark"
+                  forcedTheme="dark"
+                  enableSystem={false}
+                  disableTransitionOnChange
+                >
+                  <LenisScroll />
+                  <main>{children}</main>
+                  <Analytics />
+                </ThemeProvider>
+              </ReactQueryProvider>
             </div>
           </div>
         </div>

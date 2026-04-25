@@ -1,4 +1,4 @@
-import { ForgeFooter, NavbarForge } from "@/components/shared/forge";
+import { ForgeFooter, NavbarForge, LanguageToggle } from "@/components/shared/forge";
 import SplashCursor from "@/features/alchemist/shared/effects/SplashCursor";
 // import { View } from '@react-three/drei';
 // import InfinityLoopScene from '@/features/alchemist/chronicles/scenes/InfinityLoopScene';
@@ -25,6 +25,7 @@ export default async function ForgeLayout({ children }: { children: React.ReactN
           <SplashCursor />
         </div>
       </div>
+      <LanguageToggle />
       <ForgeFooter />
     </div>
   );

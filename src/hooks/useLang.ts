@@ -1,5 +1,5 @@
-import { useAppSelector } from '@/store/hook';
+import { useAppStore } from "./useAppStore";
 
 export const useLang = () => {
-  return useAppSelector((state) => state.language.lang);
+  return useAppStore((state) => state.lang);
 };

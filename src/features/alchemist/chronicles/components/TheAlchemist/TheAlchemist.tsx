@@ -7,54 +7,91 @@ import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { TheAlchemistJournal } from "./TheAlchemistJournal";
 import { TheAlchemistRecipes } from "./TheAlchemistRecipes";
+import { useLang } from "@/hooks/useLang";
+import { translations } from "@/constants/translations";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function TheAlchemist() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const theAlchemistText =
-    "In the digital forge, architecture and ambition become one. I do not merely write syntax; I shape the unseen systems that govern the living web. Each line of code is a forged link, binding chaotic ideas into enduring structures. Welcome to the crucible where engineering meets intent.";
+  const lang = useLang();
+  const t = translations[lang].chronicles.alchemist;
+
+  const theAlchemistText = t.desc;
   useGSAP(
     () => {
       gsap.fromTo(
-        ".the-alchemist-title.line-1 span",
-        { opacity: 0, y: 40, filter: "blur(6px)" },
+        ".the-alchemist-title.line-1 .char",
         {
-          opacity: 1,
+          opacity: 0.3,
+          color: "#a3a3a3",
+          filter: "brightness(1)",
+          textShadow: "0 0 0px rgba(255,100,0,0)",
           y: 0,
-          filter: "blur(0px)",
+        },
+        {
+          keyframes: [
+            {
+              opacity: 1,
+              color: "#ff6b35",
+              filter: "brightness(1.5)",
+              textShadow: "0 0 20px rgba(255,107,53,0.9), 0 0 40px rgba(255,107,53,0.5)",
+              y: -5,
+              duration: 0.25,
+            },
+            {
+              color: "#171717",
+              filter: "brightness(1)",
+              textShadow: "0 0 0px rgba(0,0,0,0)",
+              y: 0,
+              duration: 0.35,
+            },
+          ],
           stagger: 0.05,
-          duration: 1,
           scrollTrigger: {
             trigger: ".the-alchemist-title.line-1",
             start: "top 85%",
-            end: "bottom 65%",
+            end: "bottom 45%",
             scrub: 1,
           },
         }
       );
 
       gsap.fromTo(
-        ".the-alchemist-title.line-2 span",
-        { opacity: 0, scale: 0.8, yPercent: 50 },
+        ".the-alchemist-title.line-2 .char",
         {
-          opacity: 1,
-          scale: 1,
-          yPercent: 0,
-          stagger: 0.05,
-          duration: 1,
-          ease: "back.out(1.7)",
+          opacity: 0.3,
+          color: "#a3a3a3",
+          filter: "brightness(1)",
+          textShadow: "0 0 0px rgba(255,100,0,0)",
+        },
+        {
+          keyframes: [
+            {
+              opacity: 1,
+              color: "#ff6b35",
+              filter: "brightness(1.5)",
+              textShadow: "0 0 15px rgba(255,107,53,0.8), 0 0 30px rgba(255,107,53,0.4)",
+              duration: 0.25,
+            },
+            {
+              color: "#525252",
+              filter: "brightness(1)",
+              textShadow: "0 0 0px rgba(0,0,0,0)",
+              duration: 0.35,
+            },
+          ],
+          stagger: 0.03,
           scrollTrigger: {
             trigger: ".the-alchemist-title.line-2",
             start: "top 85%",
-            end: "bottom 65%",
+            end: "bottom 45%",
             scrub: 1,
           },
         }
       );
 
-      // Text animation with burning effect
       gsap.fromTo(
         ".the-alchemist-desc-1 .char",
         {
@@ -164,7 +201,7 @@ export function TheAlchemist() {
         >
           <div className="flex items-center gap-2 text-neutral-400/35 font-kings select-none mix-blend-multiply">
             <span className="text-neutral-500/20 text-xl">◆</span>
-            <span className="text-4xl md:text-6xl tracking-[0.5em]">SOLVE</span>
+            <span className="text-4xl md:text-6xl tracking-[0.5em]">{t.solve}</span>
             <span className="text-neutral-500/20 text-xl">◆</span>
           </div>
         </div>
@@ -179,7 +216,7 @@ export function TheAlchemist() {
         >
           <div className="flex items-center gap-2 text-neutral-400/35 font-kings select-none mix-blend-multiply">
             <span className="text-neutral-500/20 text-xl">◆</span>
-            <span className="text-4xl md:text-6xl tracking-[0.5em]">COAGULA</span>
+            <span className="text-4xl md:text-6xl tracking-[0.5em]">{t.coagula}</span>
             <span className="text-neutral-500/20 text-xl">◆</span>
           </div>
         </div>
@@ -198,10 +235,10 @@ export function TheAlchemist() {
         <div className="the-alchemist-title-container text-center text-neutral-900 mb-8 pt-32 md:pt-40">
           <div
             className="the-alchemist-title line-1 text-5xl md:text-7xl font-kings tracking-wide relative z-20"
-            aria-label="The Alchemist"
+            aria-label={t.title}
           >
-            {"The Alchemist".split("").map((char, idx) => (
-              <span key={idx} className="inline-block" aria-hidden="true">
+            {t.title.split("").map((char, idx) => (
+              <span key={idx} className="char inline-block" aria-hidden="true">
                 {char === " " ? "\u00A0" : char}
               </span>
             ))}
@@ -214,11 +251,11 @@ export function TheAlchemist() {
           </div>
 
           <div
-            className="the-alchemist-title line-2 text-2xl font-serif md:text-3xl italic mt-0 text-neutral-600 relative z-20 tracking-wide"
-            aria-label="The Art of Forging the Creator"
+            className="the-alchemist-title line-2 text-2xl font-kings md:text-3xl italic mt-0 text-neutral-600 relative z-20 tracking-wide"
+            aria-label={t.subtitle}
           >
-            {"The Art of Forging the Creator".split("").map((char, idx) => (
-              <span key={idx} className="inline-block" aria-hidden="true">
+            {t.subtitle.split("").map((char, idx) => (
+              <span key={idx} className="char inline-block" aria-hidden="true">
                 {char === " " ? "\u00A0" : char}
               </span>
             ))}

@@ -9,6 +9,8 @@ import { Project } from "@/types";
 import { BackgroundLayers } from "./BackgroundLayers";
 import { OrbitalSystem } from "./OrbitalSystem";
 import { ProphecyCard } from "./ProphecyCard";
+import { useLang } from "@/hooks/useLang";
+import { translations } from "@/constants/translations";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -24,6 +26,9 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
   const orbitalRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const prophecyListRef = useRef<HTMLDivElement>(null);
+  const lang = useLang();
+  const t = translations[lang].chronicles.craftings;
+
   const [activeIndex, setActiveIndex] = useState(0);
   const [dimensions, setDimensions] = useState({ height: 800, width: 1200 });
 
@@ -301,7 +306,7 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
         <div className="text-center space-y-2">
           <h3 className="font-kings text-3xl text-red-500/80">Flux Disruption</h3>
           <p className="font-space-mono text-xs text-neutral-500 tracking-wider">
-            Failed to commune with the archives.
+            {translations[lang].common.error}
           </p>
         </div>
       </section>
@@ -328,15 +333,14 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
 
         <div className="relative z-30 text-center pt-20 pb-2 md:pt-24 md:pb-6 shrink-0">
           <h2 className="craftings-title text-4xl md:text-6xl font-kings tracking-wide drop-shadow-sm mb-2">
-            {"The Craftings".split("").map((char, i) => (
+            {t.title.split("").map((char, i) => (
               <span key={i} className="inline-block">
                 {char === " " ? "\u00A0" : char}
               </span>
             ))}
           </h2>
-          <p className="font-serif italic text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-neutral-400 px-4">
-            Forged in fire, each project is a testament to battles fought, lessons learned, and
-            dreams brought to life.
+          <p className="font-kings italic text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-neutral-400 px-4">
+            {t.desc}
           </p>
         </div>
         <div ref={gridRef} className="h-screen w-full flex overflow-hidden relative z-20 min-h-0">

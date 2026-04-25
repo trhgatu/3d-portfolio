@@ -7,6 +7,8 @@ import { useAppStore } from "@/hooks";
 import { ScenePhase } from "@/constants/ScenePhase";
 import { GlobalAtmosphere } from "../../shared";
 import { useRouter } from "next/navigation";
+import { useLang } from "@/hooks/useLang";
+import { translations } from "@/constants/translations";
 
 gsap.registerPlugin(useGSAP);
 
@@ -241,12 +243,14 @@ export const HeroForgeEntry = () => {
     });
   };
 
+  const lang = useLang();
+  const t = translations[lang].awakening;
+
   const name = "trhgatu";
-  const introText = "I am";
-  const firstTitle = "Digital";
-  const secondTitle = "Alchemist";
-  const descriptionText =
-    "Ideas are fleeting. Masterpieces are eternal. I transform the intangible into the unforgettable—forging reality from pure imagination.";
+  const introText = t.intro;
+  const firstTitle = t.firstTitle;
+  const secondTitle = t.secondTitle;
+  const descriptionText = t.desc;
 
   return (
     <section
@@ -270,7 +274,7 @@ export const HeroForgeEntry = () => {
       >
         <div className="hero-wrapper-content w-full px-4">
           <p className="hero-subtitle text-xs md:text-sm font-space-mono uppercase tracking-[0.4em] text-white/50 mb-8 opacity-80">
-            Where Vision Becomes Masterpiece
+            {t.subtitle}
           </p>
 
           <div

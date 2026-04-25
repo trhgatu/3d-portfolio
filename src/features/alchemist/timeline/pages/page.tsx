@@ -6,54 +6,62 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { IconFlame, IconCode, IconRocket, IconHammer, IconArrowDown } from "@tabler/icons-react";
+import { useLang } from "@/hooks/useLang";
+import { translations } from "@/constants/translations";
+
+interface RawEvent {
+  year: string;
+  title: string;
+  desc: string;
+}
+
+interface TimelineEvent extends RawEvent {
+  icon?: React.ReactNode;
+  images?: string[];
+  tags?: string[];
+}
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
-
-const DATA = [
-  {
-    year: "2025",
-    title: "The Year of Forging Excellence",
-    icon: <IconFlame className="w-6 h-6 text-red-500" />,
-    desc: "Forged and launched revolutionary UI systems from the depths of creativity, each component tempered by passion and refined through countless iterations.",
-    images: [
-      "https://assets.aceternity.com/templates/startup-1.webp",
-      "https://assets.aceternity.com/templates/startup-2.webp",
-      "https://assets.aceternity.com/templates/startup-3.webp",
-    ],
-  },
-  {
-    year: "Early 2023",
-    title: "The Foundation Era",
-    icon: <IconCode className="w-6 h-6 text-orange-500" />,
-    desc: "In the early flames of creation, every line of code was a battle against mediocrity. Each design forged with purpose, each component crafted with soul.",
-    images: [
-      "https://assets.aceternity.com/pro/hero-sections.png",
-      "https://assets.aceternity.com/features-section.png",
-    ],
-  },
-  {
-    year: "Forge Log",
-    title: "Latest Weapons Forged",
-    icon: <IconRocket className="w-6 h-6 text-yellow-500" />,
-    desc: "Today's conquests in the eternal battle against mediocrity. New templates, new systems, new powers.",
-    images: [
-      "https://assets.aceternity.com/pro/bento-grids.png",
-      "https://assets.aceternity.com/cards.png",
-    ],
-    tags: ["Card Grid", "Startup Template", "File Upload", "Music Integration"],
-  },
-  {
-    year: "2022",
-    title: "The Awakening",
-    icon: <IconHammer className="w-6 h-6 text-purple-500" />,
-    desc: "The first sparks of creation ignited. Learning the ancient arts of web development, each tutorial a step closer to mastery.",
-    images: [],
-  },
-];
 
 export default function TimelinePage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const lineRef = useRef<SVGPathElement>(null);
+  const lang = useLang();
+  const t = translations[lang].timeline;
+
+  const ICONS = [
+    <IconFlame key="flame" className="w-6 h-6 text-red-500" />,
+    <IconCode key="code" className="w-6 h-6 text-orange-500" />,
+    <IconRocket key="rocket" className="w-6 h-6 text-yellow-500" />,
+    <IconHammer key="hammer" className="w-6 h-6 text-purple-500" />,
+  ];
+
+  const DATA = (t.events as readonly RawEvent[]).map(
+    (event: RawEvent, i: number): TimelineEvent => ({
+      ...event,
+      icon: ICONS[i] || ICONS[0],
+      images:
+        i === 0
+          ? [
+              "https://assets.aceternity.com/templates/startup-1.webp",
+              "https://assets.aceternity.com/templates/startup-2.webp",
+              "https://assets.aceternity.com/templates/startup-3.webp",
+            ]
+          : i === 1
+            ? [
+                "https://assets.aceternity.com/pro/hero-sections.png",
+                "https://assets.aceternity.com/features-section.png",
+              ]
+            : i === 2
+              ? [
+                  "https://assets.aceternity.com/pro/bento-grids.png",
+                  "https://assets.aceternity.com/cards.png",
+                ]
+              : [],
+      tags:
+        i === 2 ? ["Card Grid", "Startup Template", "File Upload", "Music Integration"] : undefined,
+    })
+  );
 
   useGSAP(() => {
     if (!containerRef.current || !lineRef.current) return;
@@ -141,11 +149,9 @@ export default function TimelinePage() {
       {/* --- PROLOGUE HERO --- */}
       <section className="relative h-[70vh] flex flex-col items-center justify-center z-10">
         <h1 className="text-6xl md:text-8xl font-kings text-white mb-6 text-center shadow-red-500/50 drop-shadow-2xl">
-          The Path of Mastery
+          {t.heroTitle}
         </h1>
-        <p className="font-space-mono text-white/50 text-center max-w-xl px-4">
-          Tracing the thread of fate through years of code, design, and relentless creation.
-        </p>
+        <p className="font-space-mono text-white/50 text-center max-w-xl px-4">{t.heroSubtitle}</p>
         <div className="absolute bottom-12 animate-bounce opacity-50">
           <IconArrowDown className="text-white" />
         </div>
@@ -174,7 +180,7 @@ export default function TimelinePage() {
         </div>
 
         <div className="flex flex-col gap-32 relative">
-          {DATA.map((item, i) => {
+          {DATA.map((item: TimelineEvent, i: number) => {
             const isLeft = i % 2 === 0;
             return (
               <div
@@ -217,7 +223,7 @@ export default function TimelinePage() {
                   {/* Tags if any */}
                   {item.tags && (
                     <div className={`flex flex-wrap gap-2 mb-6 ${isLeft ? "md:justify-end" : ""}`}>
-                      {item.tags.map((tag) => (
+                      {item.tags.map((tag: string) => (
                         <span
                           key={tag}
                           className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs font-space-mono text-gray-300"
@@ -228,26 +234,23 @@ export default function TimelinePage() {
                     </div>
                   )}
 
-                  {/* Images Grid */}
-                  {item.images.length > 0 && (
-                    <div
-                      className={`grid grid-cols-2 gap-3 opacity-80 hover:opacity-100 transition-opacity duration-500 ${isLeft ? "md:ml-auto" : ""} max-w-sm`}
-                    >
-                      {item.images.map((img, idx) => (
-                        <div
-                          key={idx}
-                          className="relative aspect-video rounded overflow-hidden border border-white/10 group"
-                        >
-                          <Image
-                            src={img}
-                            alt="evidence"
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  <div
+                    className={`grid grid-cols-2 gap-3 opacity-80 hover:opacity-100 transition-opacity duration-500 ${isLeft ? "md:ml-auto" : ""} max-w-sm`}
+                  >
+                    {item.images?.map((img: string, idx: number) => (
+                      <div
+                        key={idx}
+                        className="relative aspect-video rounded overflow-hidden border border-white/10 group"
+                      >
+                        <Image
+                          src={img}
+                          alt="evidence"
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             );
@@ -255,10 +258,9 @@ export default function TimelinePage() {
         </div>
       </section>
 
-      {/* --- EPILOGUE --- */}
       <section className="py-32 text-center relative z-10">
         <div className="w-px h-24 bg-gradient-to-b from-white to-transparent mx-auto mb-8" />
-        <h2 className="text-2xl font-kings text-white/30">The chronicle continues...</h2>
+        <h2 className="text-2xl font-kings text-white/30">{t.epilogue}</h2>
       </section>
     </div>
   );
