@@ -115,7 +115,7 @@ export const translations = {
       },
       craftings: {
         title: "The Craftings",
-        desc: "Forged in fire, each project is a testament to battles fought, lessons learned, and dreams brought to life.",
+        desc: "Artifacts forged from code and persistence, each creation is a fragment of the soul made manifest.",
       },
       journey: {
         quote:
@@ -279,7 +279,7 @@ export const translations = {
       },
       craftings: {
         title: "Tác Phẩm Chế Tác",
-        desc: "Được tôi luyện trong lửa, mỗi dự án là minh chứng cho những trận chiến đã qua, những bài học kinh nghiệm và những giấc mơ được hiện thực hóa.",
+        desc: "Những cổ vật được rèn nên từ dòng lệnh và sự kiên trì, mỗi tạo tác là một mảnh linh hồn được hữu hình hóa.",
       },
       journey: {
         quote:

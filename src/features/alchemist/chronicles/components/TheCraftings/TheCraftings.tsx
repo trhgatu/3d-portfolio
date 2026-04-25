@@ -331,15 +331,20 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
           />
         </div>
 
-        <div className="relative z-30 text-center pt-20 pb-2 md:pt-24 md:pb-6 shrink-0">
-          <h2 className="craftings-title text-4xl md:text-6xl font-kings tracking-wide drop-shadow-sm mb-2">
+        <div className="relative z-30 text-center pt-20 pb-2 md:pt-24 md:pb-6 shrink-0 flex flex-col items-center">
+          <h2 className="craftings-title text-5xl md:text-8xl font-kings tracking-wide drop-shadow-sm mb-2">
             {t.title.split("").map((char, i) => (
               <span key={i} className="inline-block">
                 {char === " " ? "\u00A0" : char}
               </span>
             ))}
           </h2>
-          <p className="font-kings italic text-base md:text-lg max-w-2xl mx-auto leading-relaxed text-neutral-400 px-4">
+          <div className="flex items-center justify-center gap-4 my-6 relative z-20 opacity-70">
+            <div className="w-24 h-[1px] bg-neutral-500" />
+            <span className="text-xl text-neutral-500 font-serif">✧</span>
+            <div className="w-24 h-[1px] bg-neutral-500" />
+          </div>
+          <p className="font-kings italic text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-neutral-400 px-4">
             {t.desc}
           </p>
         </div>
