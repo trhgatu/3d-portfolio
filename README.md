@@ -29,6 +29,10 @@ Custom SVG displacement maps are used to generate organic, procedurally-torn edg
 
 Built on **Next.js 15**, **Three.js (R3F)**, and **Drei's View**. All 3D interactions — from the Magic Circle to the planetary orbital systems — share a single, high-performance canvas to ensure buttery-smooth motion and zero redundant memory overhead.
 
+### 🔮 State & Localization (Zustand + i18n)
+
+The soul of the Sanctum is unified using **Zustand**, managing global states from atmospheric ignition to localized narratives. A custom **i18n system** enables seamless switching between English and Vietnamese, toggled via a floating **"Alchemist's Orb"** — a mystical UI element that mirrors the project's aesthetic.
+
 ---
 
 ## 🔥 The Journey: Chapters of Transmutation
@@ -72,6 +76,7 @@ The tools used to forge this world:
 | **Form**       | React / Next.js 15        | The vessel that contains the starlight. |
 | **Space**      | Three.js / R3F            | The 3D void where ideas take shape.     |
 | **Motion**     | GSAP / ScrollTrigger      | The rhythmic breath of the narrative.   |
+| **Will**       | Zustand                   | The unified intent behind the world.    |
 | **Aesthetics** | Vanilla CSS / SVG Filters | The art of crafting imperfection.       |
 
 ---

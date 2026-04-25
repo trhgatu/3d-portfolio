@@ -29,6 +29,10 @@ Kỹ thuật biến dạng SVG tùy chỉnh được sử dụng để tạo ra 
 
 Xây dựng trên nền tảng **Next.js 15**, **Three.js (R3F)** và **Drei's View**. Tất cả các tương tác 3D — từ Vòng Tròn Ma Thuật đến các hệ thống hành tinh — đều chia sẻ một Canvas duy nhất, đảm bảo mọi chuyển động đều mượt mà và tối ưu hiệu suất.
 
+### 🔮 Trạng thái & Đa ngôn ngữ (Zustand + i18n)
+
+Linh hồn của Mật thất được thống nhất thông qua **Zustand**, quản lý các trạng thái toàn cục từ việc kích hoạt khí quyển đến các câu chuyện được bản địa hóa. Hệ thống **i18n tùy chỉnh** cho phép chuyển đổi mượt mà giữa tiếng Anh và tiếng Việt thông qua **"Viên ngọc Giả kim"** — một thành phần giao diện huyền bí đồng nhất với thẩm mỹ của toàn dự án.
+
 ---
 
 ## 🔥 Hành trình: Những chương của sự Chuyển Hóa
@@ -72,6 +76,7 @@ Những công cụ được dùng để rèn nên thế giới này:
 | **Hình hài**    | React / Next.js 15        | Bình chứa đựng ánh sáng tinh tú.      |
 | **Không gian**  | Three.js / R3F            | Hư không nơi các ý tưởng thành hình.  |
 | **Chuyển động** | GSAP / ScrollTrigger      | Nhịp thở của câu chuyện.              |
+| **Ý chí**       | Zustand                   | Ý định thống nhất đằng sau thế giới.  |
 | **Thẩm mỹ**     | Vanilla CSS / SVG Filters | Nghệ thuật chế tác sự không hoàn hảo. |
 
 ---
