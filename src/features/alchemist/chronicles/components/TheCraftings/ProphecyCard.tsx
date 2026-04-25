@@ -12,48 +12,30 @@ interface ProphecyCardProps {
 export function ProphecyCard({ project: p, index: i, activeIndex }: ProphecyCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
+  // Function to generate a torn circle mask as a data URI
+  // This is the most reliable way to get a consistent "torn" edge that scales perfectly
+  const getTornMask = (seed: number, scale: number = 40) => {
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">
+        <filter id="f">
+          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="${seed}" />
+          <feDisplacementMap in="SourceGraphic" scale="${scale}" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+        <circle cx="200" cy="200" r="160" fill="white" filter="url(#f)" />
+      </svg>
+    `
+      .trim()
+      .replace(/\n/g, "")
+      .replace(/"/g, "'");
+
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+  };
+
+  const mainMask = getTornMask(i + 100, 50);
+  const subMask = getTornMask(i + 200, 40);
+
   return (
     <div className="min-h-screen w-full flex flex-col justify-center pr-4 md:pr-12">
-      {/* SVG Mask with UserSpace Units for accurate tearing */}
-      <svg className="absolute w-0 h-0 pointer-events-none">
-        <defs>
-          <filter id={`prophecy-ink-distortion-${i}`} x="-50%" y="-50%" width="200%" height="200%">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.04"
-              numOctaves="4"
-              seed={i + 555}
-              result="noise"
-            />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale="60"
-              xChannelSelector="R"
-              yChannelSelector="G"
-            />
-          </filter>
-
-          <mask
-            id={`torn-mask-user-${i}`}
-            maskUnits="userSpaceOnUse"
-            x="0"
-            y="0"
-            width="500"
-            height="500"
-          >
-            {/* The white circle is what gets torn by the filter */}
-            <circle
-              cx="250"
-              cy="250"
-              r="180"
-              fill="white"
-              style={{ filter: `url(#prophecy-ink-distortion-${i})` }}
-            />
-          </mask>
-        </defs>
-      </svg>
-
       <div
         ref={containerRef}
         className={`relative group/card p-8 md:p-12 rounded-sm transition-all duration-1000 ease-out transform-gpu overflow-hidden min-h-[65vh] flex flex-col border
@@ -77,6 +59,16 @@ export function ProphecyCard({ project: p, index: i, activeIndex }: ProphecyCard
             }}
           />
         </div>
+
+        {/* Decorative Corners */}
+        {i === activeIndex && (
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+            <div className="absolute top-8 left-8 w-12 h-12 border-l border-t border-[#8b5a2b]/40" />
+            <div className="absolute top-8 right-8 w-12 h-12 border-r border-t border-[#8b5a2b]/40" />
+            <div className="absolute bottom-8 left-8 w-12 h-12 border-l border-b border-[#8b5a2b]/40" />
+            <div className="absolute bottom-8 right-8 w-12 h-12 border-r border-b border-[#8b5a2b]/40" />
+          </div>
+        )}
 
         <div className="relative z-10 flex-1 flex flex-col lg:flex-row gap-12 items-center">
           {/* Content Side */}
@@ -143,48 +135,67 @@ export function ProphecyCard({ project: p, index: i, activeIndex }: ProphecyCard
             </div>
           </div>
 
-          {/* Precise Ink-Blob Reveal Section */}
-          <div className="relative w-full lg:w-[450px] aspect-square shrink-0 flex items-center justify-center">
-            {/* Background Halo */}
-            <div className="absolute inset-0 bg-amber-500/5 blur-[100px] rounded-full" />
-
-            <div className="relative w-full h-full z-10 flex items-center justify-center">
-              {/* Outer Decorative Border (Distorted) */}
-              <div
-                className="absolute inset-0 border-4 border-[#8b5a2b]/20 pointer-events-none z-30"
-                style={{
-                  maskImage: `url(#torn-mask-user-${i})`,
-                  WebkitMaskImage: `url(#torn-mask-user-${i})`,
-                  maskSize: "100% 100%",
-                  WebkitMaskSize: "100% 100%",
-                }}
-              />
-
-              {/* The Actual Image Container - Masked but NO FILTER directly on the Image */}
+          {/* Multi-Hole Reveal Section */}
+          <div className="relative w-full lg:w-[480px] aspect-square shrink-0 flex items-center justify-center">
+            {/* Main Thumbnail Hole */}
+            <div className="relative w-[75%] h-[75%] z-10">
+              <div className="absolute inset-0 bg-amber-500/5 blur-[100px] rounded-full -z-10" />
               <div
                 className="relative w-full h-full overflow-hidden bg-neutral-950 shadow-2xl"
                 style={{
-                  maskImage: `url(#torn-mask-user-${i})`,
-                  WebkitMaskImage: `url(#torn-mask-user-${i})`,
-                  maskSize: "100% 100%",
-                  WebkitMaskSize: "100% 100%",
+                  maskImage: mainMask,
+                  WebkitMaskImage: mainMask,
+                  maskSize: "cover",
+                  WebkitMaskSize: "cover",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskRepeat: "no-repeat",
                 }}
               >
-                {/* Image stays sharp! */}
-                <div className="absolute inset-0 bg-amber-900/5 mix-blend-multiply z-10 pointer-events-none" />
-
-                {p.thumbnail ? (
+                {p.thumbnail && (
                   <Image src={p.thumbnail} alt={p.name} fill className="object-cover" />
-                ) : (
-                  <div className="w-full h-full bg-neutral-900 flex items-center justify-center">
-                    <span className="font-kings text-amber-500/20 text-4xl">Locked Archive</span>
-                  </div>
                 )}
-
-                {/* Inner Depth Shadow */}
-                <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] z-20 pointer-events-none" />
+                <div className="absolute inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.8)] z-20 pointer-events-none" />
               </div>
             </div>
+
+            {/* Sub-Holes for other images */}
+            {p.images && p.images.length > 0 && (
+              <>
+                {/* Sub Hole 1: Top-Right */}
+                <div className="absolute top-0 right-0 w-[40%] aspect-square z-20 -translate-y-6 translate-x-6 rotate-6">
+                  <div
+                    className="relative w-full h-full overflow-hidden bg-neutral-950 shadow-xl"
+                    style={{
+                      maskImage: subMask,
+                      WebkitMaskImage: subMask,
+                      maskSize: "cover",
+                      WebkitMaskSize: "cover",
+                    }}
+                  >
+                    <Image src={p.images[0]} alt="Fragment 1" fill className="object-cover" />
+                    <div className="absolute inset-0 bg-black/20 mix-blend-multiply" />
+                  </div>
+                </div>
+
+                {/* Sub Hole 2: Bottom-Left */}
+                {p.images.length > 1 && (
+                  <div className="absolute bottom-0 left-0 w-[35%] aspect-square z-20 translate-y-8 -translate-x-10 -rotate-12">
+                    <div
+                      className="relative w-full h-full overflow-hidden bg-neutral-900 shadow-xl"
+                      style={{
+                        maskImage: subMask,
+                        WebkitMaskImage: subMask,
+                        maskSize: "cover",
+                        WebkitMaskSize: "cover",
+                      }}
+                    >
+                      <Image src={p.images[1]} alt="Fragment 2" fill className="object-cover" />
+                      <div className="absolute inset-0 bg-black/30 mix-blend-multiply" />
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
 
             {/* Background Index Number */}
             <div className="absolute -right-8 -bottom-12 text-[14rem] leading-none font-kings text-[#8b5a2b]/10 select-none pointer-events-none z-0 rotate-[-5deg]">
