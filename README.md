@@ -86,3 +86,5 @@ The tools used to forge this world:
 
 > "All is one."  
 > This Grimoire is a record of what has been learned from the language beyond words. It remains as a reminder: the journey only truly begins when one dares to take the first step.
+
+**Maktub.**

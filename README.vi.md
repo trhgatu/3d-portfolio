@@ -86,3 +86,5 @@ Những công cụ được dùng để rèn nên thế giới này:
 
 > "Tất cả là một."  
 > Cuốn Grimoire này là nhật ký ghi lại những gì đã học được từ ngôn ngữ không lời, như một lời nhắc nhở rằng: Hành trình chỉ thực sự bắt đầu khi ta dám bước đi.
+
+**Maktub.**
