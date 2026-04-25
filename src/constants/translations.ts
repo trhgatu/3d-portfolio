@@ -32,7 +32,7 @@ export const translations = {
       alchemist: {
         title: "The Alchemist",
         subtitle: "The Art of Forging the Creator",
-        desc: "The digital forge is where I surrendered who I was to become who I am. I do not merely write syntax; I shape the unseen architecture of my own evolution. Each line is a forged link, binding the chaos of the dark years into an enduring structure of purpose. This is the crucible where pain meets intent, and the soul is transmuted into code.",
+        desc: "Where lines of code become poetry, and logic dances with imagination to crystallize abstract thoughts into existing reality. I give form to the illusory, and in the process, forge a resilient self that stands firm against all fluctuations. Every creation is a testament to the transmutation of fragments into an enduring structure.",
         solve: "SOLVE",
         coagula: "COAGULA",
         journal: {
@@ -191,8 +191,7 @@ export const translations = {
       },
       alchemist: {
         title: "Nhà Giả Kim",
-        subtitle: "Nghệ Thuật Chế Tác Đấng Sáng Tạo",
-        desc: "Lò rèn kỹ thuật số là nơi tôi từ bỏ con người cũ để trở thành chính mình của hiện tại. Tôi không chỉ viết cú pháp; tôi định hình kiến trúc vô hình cho sự tiến hóa của chính tâm hồn mình. Mỗi dòng mã là một mắt xích được tôi luyện, gắn kết sự hỗn loạn của những năm tháng tăm tối thành một cấu trúc trường tồn đầy mục đích. Đây là nơi nỗi đau gặp gỡ ý chí, và linh hồn được chuyển hóa thành những tạo vật.",
+        desc: "Nơi dòng mã trở thành thơ ca, khơi nguồn cho logic khiêu vũ cùng trí tưởng tượng để kết tinh những ý niệm thành thực tại hiện hữu. Tôi ban hình hài cho những gì vốn là hư ảo, và qua đó, tôi luyện nên một bản thể vững chãi trước mọi biến động. Mỗi tạo vật ra đời là một minh chứng cho sự chuyển hóa những vụn vỡ thành một cấu trúc trường tồn.",
         solve: "HÒA TAN",
         coagula: "KẾT TỤ",
         journal: {

@@ -59,40 +59,6 @@ export function TheAlchemist() {
       );
 
       gsap.fromTo(
-        ".the-alchemist-title.line-2 .char",
-        {
-          opacity: 0.3,
-          color: "#a3a3a3",
-          filter: "brightness(1)",
-          textShadow: "0 0 0px rgba(255,100,0,0)",
-        },
-        {
-          keyframes: [
-            {
-              opacity: 1,
-              color: "#ff6b35",
-              filter: "brightness(1.5)",
-              textShadow: "0 0 15px rgba(255,107,53,0.8), 0 0 30px rgba(255,107,53,0.4)",
-              duration: 0.25,
-            },
-            {
-              color: "#525252",
-              filter: "brightness(1)",
-              textShadow: "0 0 0px rgba(0,0,0,0)",
-              duration: 0.35,
-            },
-          ],
-          stagger: 0.03,
-          scrollTrigger: {
-            trigger: ".the-alchemist-title.line-2",
-            start: "top 85%",
-            end: "bottom 45%",
-            scrub: 1,
-          },
-        }
-      );
-
-      gsap.fromTo(
         ".the-alchemist-desc-1 .char",
         {
           opacity: 0.3,
@@ -248,17 +214,6 @@ export function TheAlchemist() {
             <div className="w-24 h-[1px] bg-neutral-500" />
             <span className="text-xl text-neutral-500 font-serif">✧</span>
             <div className="w-24 h-[1px] bg-neutral-500" />
-          </div>
-
-          <div
-            className="the-alchemist-title line-2 text-2xl font-kings md:text-3xl italic mt-0 text-neutral-600 relative z-20 tracking-wide"
-            aria-label={t.subtitle}
-          >
-            {t.subtitle.split("").map((char, idx) => (
-              <span key={idx} className="char inline-block" aria-hidden="true">
-                {char === " " ? "\u00A0" : char}
-              </span>
-            ))}
           </div>
         </div>
 
