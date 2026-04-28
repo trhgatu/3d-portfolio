@@ -17,8 +17,8 @@ interface GoldenSparksProps {
 
 export function GoldenSparks({
   isIgnited = false,
-  activeColor: customActiveColor = "#ffaa33",
-  idleColor: customIdleColor = "#4aa0ff",
+  activeColor: customActiveColor = "#ff4400", // Intense fire red
+  idleColor: customIdleColor = "#e0f2ff", // Cold sky white/blue
   count = 150,
   opacity = 0.9,
   blending = AdditiveBlending,

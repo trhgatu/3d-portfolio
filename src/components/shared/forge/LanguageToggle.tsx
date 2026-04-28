@@ -11,25 +11,25 @@ export function LanguageToggle({ className }: { className?: string }) {
 
   return (
     <div
-      className={cn("fixed bottom-6 right-6 z-[60] flex flex-col items-center gap-3", className)}
+      className={cn("fixed bottom-10 right-10 z-[60] flex flex-col items-center gap-4", className)}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.8 }}
-            className="flex flex-col gap-2 p-1.5 bg-black/80 backdrop-blur-xl border border-white/10 rounded-full shadow-[0_0_20px_rgba(0,0,0,0.5)]"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="flex font-playfair-display flex-col gap-2 p-1 bg-black border border-white/10 rounded-full shadow-2xl backdrop-blur-xl"
           >
             <button
               onClick={() => setLang("en")}
               className={cn(
-                "w-10 h-10 flex items-center justify-center text-[10px] font-space-mono transition-all duration-300 rounded-full border",
+                "w-12 h-12 flex items-center justify-center rounded-full transition-all duration-500 text-lg",
                 lang === "en"
-                  ? "bg-amber-500/20 border-amber-500 text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.3)]"
-                  : "border-transparent text-neutral-500 hover:text-neutral-300 hover:bg-white/5"
+                  ? "bg-white text-black shadow-lg"
+                  : "bg-transparent text-white/40 hover:text-white"
               )}
             >
               EN
@@ -37,26 +37,32 @@ export function LanguageToggle({ className }: { className?: string }) {
             <button
               onClick={() => setLang("vi")}
               className={cn(
-                "w-10 h-10 flex items-center justify-center text-[10px] font-space-mono transition-all duration-300 rounded-full border",
+                "w-12 h-12 flex items-center justify-center rounded-full transition-all duration-500 font-playfair-display text-lg",
                 lang === "vi"
-                  ? "bg-amber-500/20 border-amber-500 text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.3)]"
-                  : "border-transparent text-neutral-500 hover:text-neutral-300 hover:bg-white/5"
+                  ? "bg-white text-black shadow-lg"
+                  : "bg-transparent text-white/40 hover:text-white"
               )}
             >
-              VI
+              VN
             </button>
           </motion.div>
         )}
       </AnimatePresence>
 
       <motion.button
-        whileHover={{ scale: 1.1, rotate: 90 }}
-        whileTap={{ scale: 0.9 }}
-        className="w-12 h-12 flex items-center justify-center rounded-full bg-neutral-900 border border-white/10 text-amber-500 shadow-lg relative overflow-hidden group"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        className="w-16 h-16 flex items-center justify-center rounded-full bg-black border border-white/20 text-white shadow-xl relative overflow-hidden group"
       >
-        <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-        <span className="font-kings text-xl relative z-10">{lang === "en" ? "A" : "V"}</span>
-        <div className="absolute inset-0 border border-amber-500/20 rounded-full animate-[spin_10s_linear_infinite]" />
+        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+        <div className="relative z-10 flex flex-col items-center">
+          <span className="text-2xl tracking-widest font-playfair-display">
+            {lang === "en" ? "EN" : "VN"}
+          </span>
+        </div>
+
+        <div className="absolute inset-[3px] border border-white/5 rounded-full pointer-events-none" />
       </motion.button>
     </div>
   );

@@ -41,15 +41,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
         </defs>
       </svg>
 
-      <div
-        ref={overlayRef}
-        className="fixed inset-0 bg-black z-[100] pointer-events-auto"
-        style={{
-          maskImage: "radial-gradient(circle at center, transparent 0%, black 0%)",
-          WebkitMaskImage: "radial-gradient(circle at center, transparent 0%, black 0%)",
-          filter: "url(#ink-bleed-edge)",
-        }}
-      />
+      <div ref={overlayRef} className="fixed inset-0 bg-black z-[100] pointer-events-none" />
 
       {children}
 

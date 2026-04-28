@@ -37,9 +37,6 @@ export default function AlchemistPage() {
           <rect width="100%" height="100%" filter="url(#noise)" />
         </svg>
       </div>
-
-      {/* Vignette Overlay */}
-      <div className="fixed inset-0 pointer-events-none z-40 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
     </div>
   );
 }

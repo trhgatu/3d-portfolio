@@ -10,8 +10,8 @@ export const translations = {
     awakening: {
       subtitle: "Where Vision Becomes Masterpiece",
       intro: "I am",
-      firstTitle: "Digital",
-      secondTitle: "Alchemist",
+      firstTitle: "The Architect",
+      secondTitle: "Of Reality",
       desc: "Ideas are fleeting. Masterpieces are eternal. I transform the intangible into the unforgettable—forging reality from pure imagination.",
     },
     chronicles: {
@@ -175,9 +175,9 @@ export const translations = {
     awakening: {
       subtitle: "Nơi Tầm Nhìn Trở Thành Tuyệt Tác",
       intro: "Tôi là",
-      firstTitle: "Nhà Giả Kim",
-      secondTitle: "Số",
-      desc: "Ý tưởng là nhất thời. Tuyệt tác là vĩnh cửu. Tôi biến những thứ vô hình thành những điều không thể quên—đúc kết thực tại từ trí tưởng tượng thuần khiết.",
+      firstTitle: "The Architect",
+      secondTitle: "Of Reality",
+      desc: "Ý niệm là phù du, tuyệt tác mới là vĩnh cửu. Tôi tôi luyện những điều vô hình thành những dấu ấn không thể phai mờ—hiển lộ thực tại từ hư vô của trí tưởng tượng.",
     },
     chronicles: {
       transmutation: {
@@ -196,7 +196,7 @@ export const translations = {
         manuscripts: [
           "Luật Trao Đổi Đồng Giá: Để kiến tạo, ta phải trả giá bằng sự tập trung, thời gian và một phần linh hồn.",
           "Cú Pháp Của Những Vì Sao: Khi logic hòa quyện cùng trật tự vũ trụ, mã nguồn sẽ tự sinh ra hơi thở.",
-          "Nhà Giả Kim Số: Chúng ta không chỉ viết mệnh lệnh; chúng ta đang hiển lộ ý chí thành thực tại.",
+          "Nhà Giả Kim Mật Mã: Chúng ta không chỉ viết mệnh lệnh; chúng ta đang hiển lộ ý chí thành thực tại.",
           "Lò Luyện Của Thất Bại: Mỗi lỗi lầm là một mồi lửa, được thanh tẩy để lộ ra vàng ròng của sự thấu thị.",
         ],
       },

@@ -1,4 +1,4 @@
-import { ForgeFooter, NavbarForge, LanguageToggle } from "@/components/shared/forge";
+import { LanguageToggle, ForgeNavigationWrapper } from "@/components/shared/forge";
 import SplashCursor from "@/features/alchemist/shared/effects/SplashCursor";
 // import { View } from '@react-three/drei';
 // import InfinityLoopScene from '@/features/alchemist/chronicles/scenes/InfinityLoopScene';
@@ -18,15 +18,16 @@ export default async function ForgeLayout({ children }: { children: React.ReactN
 
       {!isVisited && <LoaderWithOverlay />}
 
-      <NavbarForge />
-      <div className="relative">
-        <main className=" overflow-x-hidden">{children}</main>
-        <div className="fixed bottom-6 left-6 z-50 pointer-events-auto">
-          <SplashCursor />
+      <ForgeNavigationWrapper>
+        <div className="relative">
+          <main className="overflow-x-hidden">{children}</main>
+          <div className="fixed bottom-6 left-6 z-50 pointer-events-auto">
+            <SplashCursor />
+          </div>
         </div>
-      </div>
+      </ForgeNavigationWrapper>
+
       <LanguageToggle />
-      <ForgeFooter />
     </div>
   );
 }

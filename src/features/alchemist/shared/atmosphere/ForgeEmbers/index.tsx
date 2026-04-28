@@ -23,26 +23,31 @@ export function MagicCircle({ isIgnited = false }: { isIgnited?: boolean }) {
   const meshRef = useRef<THREE.Mesh>(null);
   const texture = useLoader(TextureLoader, "/assets/images/craftings/magic_circle.png");
 
-  const currentColor = useRef(new Color("#4aa0ff"));
-  const idleColor = useMemo(() => new Color("#4aa0ff"), []);
-  const activeColor = useMemo(() => new Color("#ffaa33"), []);
+  const currentColor = useRef(new Color("#b87333"));
+  const idleColor = useMemo(() => new Color("#b87333"), []); // Warm copper/bronze
+  const activeColor = useMemo(() => new Color("#ff8c00"), []); // Glowing orange/gold (fire-like)
+
+  const speedRef = useRef(0.1);
 
   useFrame((state, delta) => {
     if (materialRef.current && meshRef.current) {
       materialRef.current.uTime = state.clock.elapsedTime;
 
-      const rotationSpeed = isIgnited ? 2.5 : 0.2;
-      meshRef.current.rotation.z -= delta * rotationSpeed;
+      // Smoothly accelerate speed based on ignition state
+      const targetSpeed = isIgnited ? 1.5 : 0.1;
+      const acceleration = isIgnited ? 0.8 : 2.0;
+      speedRef.current = THREE.MathUtils.lerp(speedRef.current, targetSpeed, delta * acceleration);
+      materialRef.current.uSpeed = speedRef.current;
 
       const time = state.clock.elapsedTime;
-      const breathingScale = 2.2 + Math.sin(time) * 0.12;
-      const targetScale = isIgnited ? 3.5 : breathingScale;
+      const breathingScale = 2.2 + Math.sin(time) * 0.1;
+      const targetScale = isIgnited ? 4.5 : breathingScale;
 
       const currentScale = meshRef.current.scale.x;
       const newScale = THREE.MathUtils.lerp(
         currentScale,
         targetScale,
-        delta * (isIgnited ? 0.8 : 1)
+        delta * (isIgnited ? 1.5 : 1)
       );
       meshRef.current.scale.set(newScale, newScale, newScale);
 
@@ -53,9 +58,7 @@ export function MagicCircle({ isIgnited = false }: { isIgnited?: boolean }) {
         materialRef.current.uColor.copy(currentColor.current);
       }
 
-      const breathingOpacity = 0.4 + Math.sin(time * 2) * 0.1;
-      const targetOpacity = isIgnited ? 1.0 : breathingOpacity;
-
+      const targetOpacity = isIgnited ? 0.9 : 0.3;
       materialRef.current.uOpacity = THREE.MathUtils.lerp(
         materialRef.current.uOpacity || 0,
         targetOpacity,
@@ -71,6 +74,7 @@ export function MagicCircle({ isIgnited = false }: { isIgnited?: boolean }) {
         ref={materialRef}
         uTexture={texture}
         uColor={idleColor}
+        uSpeed={0.2}
         transparent
         depthWrite={false}
         blending={AdditiveBlending}

@@ -15,7 +15,6 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
     return (
       <div ref={ref} className="w-1/3 h-full relative overflow-hidden">
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
-          {/* --- ASTROLABE / CELESTIAL CHART LAYERS --- */}
           <defs>
             <linearGradient id="orbitalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stopColor="#b45309" stopOpacity="0.02" />
