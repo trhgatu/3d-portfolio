@@ -19,64 +19,65 @@ export const useAtmosphereTimeline = ({
   useGSAP(
     () => {
       if (!containerRef.current || !starsRef.current || !embersRef.current) return;
+      gsap.set(starsRef.current, { autoAlpha: 0, opacity: 0 });
+      gsap.set(embersRef.current, { autoAlpha: 1, opacity: 1 });
+      setEmbersVisible(true);
 
-      if (window.scrollY < 100) {
-        gsap.set(starsRef.current, { autoAlpha: ATMOSPHERE_CONFIG.STARS_INITIAL_OPACITY });
-        gsap.set(embersRef.current, { autoAlpha: ATMOSPHERE_CONFIG.EMBERS_INITIAL_OPACITY });
+      const alchemistEl = document.getElementById("the-alchemist");
+      const techGrimoireEl = document.getElementById("tech-grimoire");
+      const craftingsEl = document.getElementById("craftings");
+
+      if (alchemistEl) {
+        ScrollTrigger.create({
+          trigger: alchemistEl,
+          start: "top 80%",
+          end: "top top",
+          scrub: true,
+          onUpdate: (self) => {
+            gsap.set(starsRef.current, {
+              opacity: self.progress,
+              autoAlpha: self.progress > 0.02 ? 1 : 0,
+            });
+          },
+        });
       }
 
-      ScrollTrigger.create({
-        trigger: "#tech-grimoire",
-        start: ATMOSPHERE_CONFIG.GRIMOIRE_FADE_START,
-        end: ATMOSPHERE_CONFIG.GRIMOIRE_FADE_END,
-        scrub: true,
-        onUpdate: (self) => {
-          gsap.set(starsRef.current, {
-            autoAlpha: self.progress > 0 ? 1 : 0,
-            opacity: self.progress * ATMOSPHERE_CONFIG.STARS_MID_OPACITY,
-          });
-        },
-      });
+      if (techGrimoireEl) {
+        ScrollTrigger.create({
+          trigger: techGrimoireEl,
+          start: "top 60%",
+          end: "top top",
+          scrub: true,
+          onUpdate: (self) => {
+            gsap.set(embersRef.current, {
+              opacity: 1 - self.progress,
+              autoAlpha: self.progress >= 1 ? 0 : 1,
+            });
+            setEmbersVisible(self.progress < 1);
+          },
+        });
+      }
 
-      ScrollTrigger.create({
-        trigger: "#tech-grimoire",
-        start: "top top",
-        end: ATMOSPHERE_CONFIG.SPARKS_FADE_DURATION,
-        scrub: true,
-        onUpdate: (self) => {
-          gsap.set(starsRef.current, {
-            opacity:
-              ATMOSPHERE_CONFIG.STARS_MID_OPACITY +
-              self.progress * ATMOSPHERE_CONFIG.STARS_MID_OPACITY,
-          });
+      if (craftingsEl) {
+        ScrollTrigger.create({
+          trigger: craftingsEl,
+          start: ATMOSPHERE_CONFIG.CRAFTINGS_FADE_START,
+          end: ATMOSPHERE_CONFIG.CRAFTINGS_FADE_END,
+          scrub: true,
+          onUpdate: (self) => {
+            const fadeProgress = gsap.utils.clamp(0, 1, (self.progress - 0.8) * 5);
+            gsap.set(starsRef.current, {
+              opacity: 1 - fadeProgress,
+              autoAlpha: fadeProgress >= 1 ? 0 : 1,
+            });
+          },
+        });
+      }
+      const timeout = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 500);
 
-          gsap.set(embersRef.current, {
-            opacity: 1 - self.progress,
-            autoAlpha: self.progress >= 1 ? 0 : 1,
-          });
-
-          const shouldBeVisible = self.progress < ATMOSPHERE_CONFIG.SPARKS_FADE_THRESHOLD;
-          setEmbersVisible(shouldBeVisible);
-        },
-      });
-
-      ScrollTrigger.create({
-        trigger: "#craftings",
-        start: ATMOSPHERE_CONFIG.CRAFTINGS_FADE_START,
-        end: ATMOSPHERE_CONFIG.CRAFTINGS_FADE_END,
-        scrub: true,
-        onUpdate: (self) => {
-          // Stay bright until background starts turning white (80% progress - near end of 3rd project)
-          // Then fade out quickly in the remaining 20%
-          const fadeProgress = gsap.utils.clamp(0, 1, (self.progress - 0.8) * 5);
-          gsap.set(starsRef.current, {
-            opacity: 1 - fadeProgress,
-            autoAlpha: fadeProgress >= 1 ? 0 : 1,
-          });
-          gsap.set(embersRef.current, { autoAlpha: 0 });
-          setEmbersVisible(false);
-        },
-      });
+      return () => clearTimeout(timeout);
     },
     { scope: containerRef }
   );

@@ -19,28 +19,25 @@ interface AppState {
 }
 
 const getStoredLang = (): Language => {
-  if (typeof window !== "undefined") {
-    const stored = localStorage.getItem("lang");
-    if (stored === "vi" || stored === "en") return stored;
-  }
-  return "vi";
+  return "en";
 };
 
 export const useAppStore = create<AppState>((set) => ({
   scenePhase: ScenePhase.LOADING,
-  setScenePhase: (phase) => {
+  setScenePhase: (phase: ScenePhase) => {
     console.log("🔁 Switching to:", phase);
     set({ scenePhase: phase });
   },
   emptySlotRef: null,
-  setEmptySlotRef: (ref) => set({ emptySlotRef: ref }),
+  setEmptySlotRef: (ref: HTMLDivElement | null) => set({ emptySlotRef: ref }),
   loadingProgress: 0,
-  setLoadingProgress: (progress) => set({ loadingProgress: progress }),
+  setLoadingProgress: (progress: number) => set({ loadingProgress: progress }),
   lang: getStoredLang(),
-  setLang: (lang) => {
+  setLang: (lang: Language) => {
     if (typeof window !== "undefined") {
       localStorage.setItem("lang", lang);
     }
     set({ lang });
   },
 }));
+

@@ -108,8 +108,8 @@ export const PARTICLE_ANIMATION = {
   /** Scale values */
   SCALE: {
     MIN: 0,
-    SCATTERED: 0.6,
-    FINAL: 0.45, // Adjusted from 0.35 for larger icons
+    SCATTERED: 0.35,
+    FINAL: 0.35,
   },
 
   /** Pulse animation */

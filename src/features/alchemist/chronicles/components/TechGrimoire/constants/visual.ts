@@ -235,12 +235,12 @@ export const SCATTERED_POSITIONS = {
   },
 
   /** Cylinder radius
-   * Bán kính hình trụ (4.0)
+   * Bán kính hình trụ thu nhỏ lại để không văng ra khỏi màn hình
    */
-  CYLINDER_RADIUS: 4.0,
+  CYLINDER_RADIUS: 3,
 
   /** Horizontal multiplier
-   * Hệ số ngang (1.5 = rộng hơn)
+   * Hệ số ngang
    */
   HORIZONTAL_MULTIPLIER: 1.5,
 

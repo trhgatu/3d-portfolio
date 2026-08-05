@@ -37,18 +37,18 @@ export const GlobalAtmosphere = ({
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-neutral-950"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
     >
       {showStars && (
         <div
           ref={starsRef}
-          className="absolute inset-0 z-0 global-stars pointer-events-none transition-opacity duration-1000 bg-neutral-950"
+          className="absolute inset-0 z-0 global-stars pointer-events-none transition-opacity duration-1000"
         >
           <StarField />
         </div>
       )}
 
-      <div ref={embersRef} className="absolute inset-0 z-10 global-embers pointer-events-none">
+      <div ref={embersRef} className="absolute inset-0 z-30 global-embers pointer-events-none">
         <View className="w-full h-full">
           {showSeal && <MagicCircle isIgnited={isIgnited} />}
           {showSeal && <CameraRig isIgnited={isIgnited} />}

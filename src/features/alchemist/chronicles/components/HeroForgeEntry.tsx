@@ -31,7 +31,7 @@ const AnimatedText = ({
 );
 
 export const HeroForgeEntry = () => {
-  const {} = useAppStore();
+  const { } = useAppStore();
   const scope = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const shakeRef = useRef<HTMLDivElement>(null);
@@ -53,165 +53,101 @@ export const HeroForgeEntry = () => {
 
   const handleIgniteStart = () => {
     setIsIgnited(true);
-    chargeTl.current = gsap.timeline({ onComplete: () => router.push("/chronicles") });
-    chargeTl.current
-      .to(shakeRef.current, {
-        x: "+=2",
-        y: "+=2",
-        yoyo: true,
-        repeat: -1,
-        duration: 0.05,
-        ease: "none",
-      })
-      .to(
-        contentRef.current,
-        { scale: 8, filter: "blur(30px)", opacity: 0, duration: 1.2, ease: "power2.in" },
-        0
-      )
-      .to(
-        ".hero-wrapper-content span",
-        {
-          opacity: 0,
-          scale: 0.5,
-          y: 100,
-          stagger: { amount: 0.4, from: "random" },
-          duration: 0.8,
-          ease: "power1.in",
-        },
-        0.2
-      );
   };
 
   const handleIgniteEnd = () => {
     setIsIgnited(false);
-    chargeTl.current?.kill();
-    gsap.to([contentRef.current, shakeRef.current], {
-      x: 0,
-      y: 0,
-      scale: 1,
-      opacity: 1,
-      filter: "blur(0px)",
-      duration: 0.5,
-    });
-    gsap.to(".hero-wrapper-content span", { opacity: 1, y: 0, scale: 1, duration: 0.5 });
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { clientX, clientY, currentTarget } = e;
-    const { width, height, left, top } = currentTarget.getBoundingClientRect();
-    const xPos = (clientX - left) / width - 0.5;
-    const yPos = (clientY - top) / height - 0.5;
-    gsap.to(contentRef.current, { x: xPos * 20, y: yPos * 20, duration: 1, ease: "power2.out" });
   };
 
   return (
     <section
       id="hero"
       ref={scope}
-      onMouseMove={handleMouseMove}
-      className="hero relative opacity-0 min-h-screen flex items-center justify-center text-center overflow-hidden bg-[#050810]"
+      className="hero relative opacity-0 min-h-screen w-full flex items-center justify-center text-center overflow-hidden py-16 px-4"
     >
-      <div
-        className={cn(
-          "absolute inset-0 z-0 transition-colors duration-[3000ms] ease-in-out",
-          isIgnited ? "bg-[#2a0800]" : "bg-[#1a202c]"
-        )}
+      <div 
+        className="absolute -top-12 -left-12 -right-12 bottom-8 z-0 pointer-events-none"
+        style={{ 
+          filter: "url(#torn-paper-filter)",
+          boxShadow: "0 0 40px rgba(255, 69, 0, 0.4), inset 0 0 60px rgba(255, 140, 0, 0.15)"
+        }}
       >
-        <div
-          className={cn(
-            "absolute inset-0 opacity-40 mix-blend-screen transition-colors duration-[3000ms] blur-[80px]",
-            isIgnited
-              ? "bg-[radial-gradient(circle,#ff4400_0%,transparent_70%)]"
-              : "bg-[radial-gradient(circle,#ffffff_0%,transparent_60%)]"
-          )}
-        />
-        <div
-          className={cn(
-            "absolute inset-0 opacity-30 mix-blend-overlay transition-colors duration-[3000ms] blur-[60px]",
-            isIgnited
-              ? "bg-[radial-gradient(circle_at_20%_30%,#ff8800_0%,transparent_50%)]"
-              : "bg-[radial-gradient(circle_at_80%_20%,#d1d5db_0%,transparent_50%)]"
-          )}
-        />
+        <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
+        <div className="absolute rotate-180 inset-0 opacity-40 mix-blend-multiply">
+          <div
+            style={{
+              backgroundImage: "url(/assets/images/craftings/texture_washi.png)",
+              backgroundSize: "cover",
+              backgroundRepeat: "repeat",
+            }}
+            className="absolute inset-0"
+          />
+        </div>
       </div>
 
-      <GlobalAtmosphere isIgnited={isIgnited} showSeal={true} showStars={false} sparkCount={500} />
 
+
+
+      {/* Content inside Full Screen Hero: Editorial Asymmetric Layout */}
       <div
         ref={contentRef}
-        className="relative z-30 w-full max-w-screen-xl px-4 py-12 will-change-transform flex flex-col items-center"
+        className="relative z-30 w-full max-w-screen-2xl h-full px-6 md:px-16 py-12 flex flex-col justify-between items-start text-left min-h-[85vh]"
       >
-        <div className="hero-wrapper-content w-full">
-          <div
-            className="cursor-pointer group select-none w-fit mx-auto"
-            onMouseEnter={handleIgniteStart}
-            onMouseLeave={handleIgniteEnd}
-            onClick={() => router.push("/chronicles")}
-          >
-            <div ref={shakeRef}>
-              <div className="flex flex-col md:flex-row items-center justify-center mb-4">
-                <AnimatedText
-                  text={t.intro}
-                  className={cn(
-                    "hero-text-mini md:mr-8 text-3xl md:text-4xl text-white/30 mb-4 md:mb-0 group-hover:text-amber-200/60 transition-colors duration-500",
-                    lang === "vi" ? "font-playfair-display italic" : "font-cinzel-decorative"
-                  )}
-                />
-                <h1
-                  className={cn(
-                    "hero-text-name text-7xl md:text-[10rem] font-bold leading-none transition-all duration-700",
-                    isIgnited
-                      ? "text-amber-100 drop-shadow-[0_0_45px_rgba(255,170,50,0.7)]"
-                      : "text-white/90"
-                  )}
-                  style={{ filter: !isIgnited ? "url(#ink-smudge)" : "none" }}
-                >
-                  <AnimatedText text="trhgatu" fontClass="font-kings" />
-                </h1>
-              </div>
+        {/* Top Section: Large Monumental Author Name on Left */}
+        <div className="w-full flex flex-col items-start mt-6 md:mt-12">
+          <div className="select-none">
+            <h1
+              className="hero-text-name text-8xl sm:text-[11rem] md:text-[14rem] font-bold leading-none tracking-tight text-neutral-900"
+              style={{ filter: "url(#ink-smudge)" }}
+            >
+              <AnimatedText text="trhgatu" fontClass="font-kings" />
+            </h1>
+          </div>
+        </div>
 
-              <h1
-                className={cn(
-                  "hero-title flex flex-wrap justify-center gap-3 text-3xl md:text-5xl font-bold transition-all duration-700",
-                  isIgnited ? "scale-105" : "scale-100"
-                )}
-              >
-                <AnimatedText
-                  text={t.firstTitle}
-                  className={cn(
-                    "transition-colors duration-700",
-                    isIgnited
-                      ? "text-amber-500 drop-shadow-[0_0_25px_rgba(245,158,11,0.9)]"
-                      : "text-white/60"
-                  )}
-                  fontClass={
-                    lang === "vi" ? "font-playfair-display italic" : "font-cinzel-decorative"
-                  }
-                />
-                <AnimatedText
-                  text={t.secondTitle}
-                  className={cn(
-                    "transition-colors duration-700",
-                    isIgnited
-                      ? "text-amber-500 drop-shadow-[0_0_25px_rgba(245,158,11,0.9)]"
-                      : "text-white/60"
-                  )}
-                  fontClass={
-                    lang === "vi" ? "font-playfair-display italic" : "font-cinzel-decorative"
-                  }
-                />
-              </h1>
+        {/* Middle/Bottom Split Section */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-end mt-12 md:mt-0">
+          {/* Left Column: Editorial Quote Note */}
+          <div className="md:col-span-6 space-y-4">
+            <div className="w-12 h-[2px] bg-amber-900/40 mb-4" />
+            <div className="hero-description relative">
+              <p className="font-playfair-display text-neutral-800 text-base md:text-xl leading-[1.8] italic opacity-95 max-w-xl">
+                {t.desc.split(" ").map((word, idx) => (
+                  <span key={idx} className="inline-block opacity-0 mr-2">
+                    {word}
+                  </span>
+                ))}
+              </p>
             </div>
           </div>
-
-          <div className="hero-description relative mt-8 md:mt-12 max-w-3xl mx-auto">
-            <p className="font-playfair-display text-white/60 text-base md:text-xl leading-[2] italic opacity-90">
-              {t.desc.split(" ").map((word, idx) => (
-                <span key={idx} className="inline-block opacity-0 mr-2">
-                  {word}
-                </span>
-              ))}
-            </p>
+          <div className="md:col-span-6 md:text-right flex flex-col items-start md:items-end justify-end space-y-6">
+            <h1
+              className={cn(
+                "hero-title text-3xl sm:text-4xl md:text-6xl font-bold transition-all duration-700 tracking-wide",
+                isIgnited ? "scale-105" : "scale-100"
+              )}
+            >
+              <AnimatedText
+                text={t.firstTitle}
+                className={cn(
+                  "block transition-colors duration-700",
+                  isIgnited ? "text-amber-800" : "text-neutral-800"
+                )}
+                fontClass={
+                  lang === "vi" ? "font-playfair-display italic" : "font-cinzel-decorative"
+                }
+              />
+              <AnimatedText
+                text={t.secondTitle}
+                className={cn(
+                  "block transition-colors duration-700 text-amber-900/80 mt-1",
+                  isIgnited ? "text-amber-800" : "text-amber-900/80"
+                )}
+                fontClass={
+                  lang === "vi" ? "font-playfair-display italic" : "font-cinzel-decorative"
+                }
+              />
+            </h1>
           </div>
         </div>
       </div>

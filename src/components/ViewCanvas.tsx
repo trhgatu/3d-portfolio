@@ -13,7 +13,7 @@ export default function ViewCanvas() {
           top: 0,
           overflow: "hidden",
           pointerEvents: "none",
-          zIndex: 20,
+          zIndex: 50,
         }}
         shadows
         dpr={[1, 1.5]}

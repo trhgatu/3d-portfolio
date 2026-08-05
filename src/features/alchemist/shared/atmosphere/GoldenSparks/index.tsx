@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useMemo, useEffect } from "react";
+import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { AdditiveBlending } from "three";
 
 interface GoldenSparksProps {
   isIgnited?: boolean;
@@ -15,182 +14,145 @@ interface GoldenSparksProps {
   visible?: boolean;
 }
 
+const SparkShaderMaterial = {
+  uniforms: {
+    uTime: { value: 0 },
+    uIgnited: { value: 0 },
+    uOpacity: { value: 1.0 },
+  },
+  vertexShader: `
+    uniform float uTime;
+    uniform float uIgnited;
+    
+    attribute float aScale;
+    attribute float aSpeed;
+    attribute float aRandom;
+    attribute vec3 aOffset;
+
+    varying float vProgress;
+    varying float vRandom;
+
+    void main() {
+      vRandom = aRandom;
+
+      // Slow down drift speed (0.03 to 0.08 speed factor for serene floating)
+      float speed = (0.03 + uIgnited * 0.05) * aSpeed;
+      float progress = mod(uTime * speed + aRandom * 100.0, 1.0);
+      vProgress = progress;
+
+      vec3 pos = aOffset;
+      pos.y = mix(-6.0, 6.0, progress);
+      
+      // Gentle natural turbulence sway
+      pos.x += sin(uTime * 0.6 + aRandom * 15.0) * 0.3;
+      pos.z += cos(uTime * 0.5 + aRandom * 12.0) * 0.3;
+
+      vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+      gl_Position = projectionMatrix * mvPosition;
+
+      // Medium-large ember spark size
+      float sizePulse = 0.8 + 0.3 * sin(uTime * 2.5 + aRandom * 25.0);
+      float fade = sin(progress * 3.14159);
+      gl_PointSize = aScale * 125.0 * fade * sizePulse / (-mvPosition.z);
+    }
+  `,
+  fragmentShader: `
+    uniform float uOpacity;
+    uniform float uIgnited;
+
+    varying float vProgress;
+    varying float vRandom;
+
+    void main() {
+      // Angular Spark Shard Shape (Diamond / Asymmetric Fragment)
+      vec2 st = gl_PointCoord - vec2(0.5);
+
+      // Rotate point coordinates slightly per particle to give angular variation
+      float angle = vRandom * 6.28318;
+      float cosA = cos(angle);
+      float sinA = sin(angle);
+      vec2 rotatedSt = vec2(
+        cosA * st.x - sinA * st.y,
+        sinA * st.x + cosA * st.y
+      );
+
+      // Diamond / Shard Manhattan distance shape instead of plain circle
+      float diamondDist = abs(rotatedSt.x) * 1.2 + abs(rotatedSt.y) * 0.8;
+      if (diamondDist > 0.45) discard;
+
+      // Sharp core with soft edge falloff
+      float strength = pow(1.0 - diamondDist / 0.45, 2.0);
+      
+      // Ember Color Ramp: Bright Gold Core -> Ember Orange -> Dark Red/Tro
+      vec3 core = vec3(1.0, 0.98, 0.85);
+      vec3 amber = vec3(1.0, 0.55, 0.08);
+      vec3 crimson = mix(vec3(0.85, 0.15, 0.05), vec3(0.3, 0.7, 1.0), 1.0 - uIgnited);
+
+      vec3 color = mix(core, amber, vProgress * 1.2);
+      color = mix(color, crimson, smoothstep(0.4, 1.0, vProgress));
+
+      gl_FragColor = vec4(color, strength * uOpacity * 0.85);
+    }
+  `,
+};
+
 export function GoldenSparks({
   isIgnited = false,
-  activeColor: customActiveColor = "#ff4400", // Intense fire red
-  idleColor: customIdleColor = "#e0f2ff", // Cold sky white/blue
-  count = 150,
-  opacity = 0.9,
-  blending = AdditiveBlending,
+  count = 400,
+  blending = THREE.NormalBlending,
+  opacity = 0.95,
   visible = true,
 }: GoldenSparksProps) {
-  const pointsRef = useRef<THREE.Points>(null);
+  const shaderMaterialRef = useRef<THREE.ShaderMaterial>(null);
 
-  const idleColorObj = useMemo(() => new THREE.Color(customIdleColor), [customIdleColor]);
-  const activeColorObj = useMemo(() => new THREE.Color(customActiveColor), [customActiveColor]);
-
-  const currentState = useRef({
-    speedMultiplier: 0.2,
-    color: new THREE.Color(customIdleColor),
-    size: 0.2,
-  });
-
-  const sparkTexture = useMemo(() => {
-    if (typeof document === "undefined") return null;
-    const canvas = document.createElement("canvas");
-    canvas.width = 128;
-    canvas.height = 128;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return null;
-    const shapeType = Math.floor(Math.random() * 4);
-
-    ctx.clearRect(0, 0, 128, 128);
-
-    if (shapeType === 0) {
-      const gradient = ctx.createLinearGradient(64, 30, 64, 100);
-      gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-      gradient.addColorStop(0.3, "rgba(255, 200, 100, 0.8)");
-      gradient.addColorStop(0.7, "rgba(255, 100, 50, 0.3)");
-      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.moveTo(64, 20);
-      ctx.lineTo(40, 100);
-      ctx.lineTo(88, 100);
-      ctx.closePath();
-      ctx.fill();
-    } else if (shapeType === 1) {
-      ctx.beginPath();
-      ctx.moveTo(64, 20);
-      ctx.bezierCurveTo(90, 40, 90, 80, 64, 110);
-      ctx.bezierCurveTo(38, 80, 38, 40, 64, 20);
-
-      const gradient = ctx.createRadialGradient(64, 50, 0, 64, 70, 50);
-      gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-      gradient.addColorStop(0.3, "rgba(255, 220, 100, 0.9)");
-      gradient.addColorStop(0.6, "rgba(255, 120, 50, 0.4)");
-      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = gradient;
-      ctx.fill();
-    } else if (shapeType === 2) {
-      ctx.beginPath();
-      for (let i = 0; i < 8; i++) {
-        const angle = (i / 8) * Math.PI * 2;
-        const radius = 30 + Math.random() * 25;
-        const x = 64 + Math.cos(angle) * radius;
-        const y = 64 + Math.sin(angle) * radius;
-        if (i === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.closePath();
-
-      const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 40);
-      gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-      gradient.addColorStop(0.2, "rgba(255, 200, 100, 0.8)");
-      gradient.addColorStop(0.5, "rgba(255, 100, 50, 0.3)");
-      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = gradient;
-      ctx.fill();
-    } else {
-      const gradient = ctx.createRadialGradient(64, 64, 0, 64, 64, 35);
-      gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-      gradient.addColorStop(0.3, "rgba(255, 220, 120, 0.9)");
-      gradient.addColorStop(0.7, "rgba(255, 100, 50, 0.3)");
-      gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(64, 64, 35, 0, Math.PI * 2);
-      ctx.fill();
-    }
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.premultiplyAlpha = true;
-    return texture;
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      sparkTexture?.dispose();
-    };
-  }, [sparkTexture]);
-
-  const { positions, velocities, phases } = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    const vel = new Float32Array(count * 3);
-    const ph = new Float32Array(count);
+  const { positions, offsets, scales, speeds, randoms } = useMemo(() => {
+    const posArr = new Float32Array(count * 3);
+    const offsetsArr = new Float32Array(count * 3);
+    const scalesArr = new Float32Array(count);
+    const speedsArr = new Float32Array(count);
+    const randomsArr = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 15;
-      pos[i * 3 + 1] = Math.random() * 10 - 5;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 5;
+      posArr[i * 3 + 0] = 0;
+      posArr[i * 3 + 1] = 0;
+      posArr[i * 3 + 2] = 0;
 
-      vel[i * 3] = (Math.random() - 0.5) * 0.05;
-      vel[i * 3 + 1] = 0.01 + Math.random() * 0.04;
-      vel[i * 3 + 2] = (Math.random() - 0.5) * 0.05;
+      offsetsArr[i * 3 + 0] = (Math.random() - 0.5) * 18;
+      offsetsArr[i * 3 + 1] = 0;
+      offsetsArr[i * 3 + 2] = (Math.random() - 0.5) * 10;
 
-      ph[i] = Math.random() * Math.PI * 2;
+      scalesArr[i] = 1.0 + Math.random() * 1.0;
+      speedsArr[i] = 0.5 + Math.random() * 0.8;
+      randomsArr[i] = Math.random();
     }
 
-    return { positions: pos, velocities: vel, phases: ph };
+    return {
+      positions: posArr,
+      offsets: offsetsArr,
+      scales: scalesArr,
+      speeds: speedsArr,
+      randoms: randomsArr,
+    };
   }, [count]);
 
   useFrame((state, delta) => {
-    if (!pointsRef.current) return;
-
-    const material = pointsRef.current.material as THREE.PointsMaterial;
-    if (material) {
-      material.opacity = THREE.MathUtils.lerp(material.opacity, visible ? opacity : 0, delta * 5);
-      if (material.opacity < 0.001) {
-        pointsRef.current.visible = false;
-        return;
-      }
-      pointsRef.current.visible = true;
-      material.color = currentState.current.color;
-      material.size = currentState.current.size;
-    }
-
-    const targetSpeed = isIgnited ? 0.4 : 0.15;
-    const targetColor = isIgnited ? activeColorObj : idleColorObj;
-    const targetSize = isIgnited ? 0.3 : 0.15;
-
-    const lerpFactor = Math.min(delta * 2, 1);
-    currentState.current.speedMultiplier = THREE.MathUtils.lerp(
-      currentState.current.speedMultiplier,
-      targetSpeed,
-      lerpFactor
+    if (!shaderMaterialRef.current) return;
+    shaderMaterialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
+    shaderMaterialRef.current.uniforms.uIgnited.value = THREE.MathUtils.lerp(
+      shaderMaterialRef.current.uniforms.uIgnited.value,
+      isIgnited ? 1 : 0,
+      delta * 3
     );
-    currentState.current.size = THREE.MathUtils.lerp(
-      currentState.current.size,
-      targetSize,
-      lerpFactor
+    const targetOpacity = visible ? opacity : 0.0;
+    shaderMaterialRef.current.uniforms.uOpacity.value = THREE.MathUtils.lerp(
+      shaderMaterialRef.current.uniforms.uOpacity.value,
+      targetOpacity,
+      Math.min(delta * 8, 1)
     );
-    currentState.current.color.lerp(targetColor, lerpFactor);
-
-    const time = state.clock.elapsedTime;
-    const positionsAttr = pointsRef.current?.geometry.attributes.position;
-    if (!positionsAttr) return;
-
-    for (let i = 0; i < count; i++) {
-      const speed = currentState.current.speedMultiplier;
-
-      positions[i * 3 + 0] +=
-        velocities[i * 3 + 0] * speed + Math.sin(time + phases[i]) * 0.002 * speed;
-      positions[i * 3 + 1] += velocities[i * 3 + 1] * speed;
-      positions[i * 3 + 2] += velocities[i * 3 + 2] * speed;
-
-      if (positions[i * 3 + 1] > 6) {
-        positions[i * 3 + 1] = -6;
-        positions[i * 3 + 0] = (Math.random() - 0.5) * 15;
-      }
-    }
-    positionsAttr.needsUpdate = true;
-
-    pointsRef.current.rotation.y = time * 0.05;
   });
 
   return (
-    <points ref={pointsRef}>
+    <points>
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
@@ -199,17 +161,43 @@ export function GoldenSparks({
           itemSize={3}
           args={[positions, 3]}
         />
+        <bufferAttribute
+          attach="attributes-aOffset"
+          count={count}
+          array={offsets}
+          itemSize={3}
+          args={[offsets, 3]}
+        />
+        <bufferAttribute
+          attach="attributes-aScale"
+          count={count}
+          array={scales}
+          itemSize={1}
+          args={[scales, 1]}
+        />
+        <bufferAttribute
+          attach="attributes-aSpeed"
+          count={count}
+          array={speeds}
+          itemSize={1}
+          args={[speeds, 1]}
+        />
+        <bufferAttribute
+          attach="attributes-aRandom"
+          count={count}
+          array={randoms}
+          itemSize={1}
+          args={[randoms, 1]}
+        />
       </bufferGeometry>
-      <pointsMaterial
-        map={sparkTexture}
-        size={0.4}
-        color="#ffffff"
+      <shaderMaterial
+        ref={shaderMaterialRef}
+        args={[SparkShaderMaterial]}
         transparent={true}
-        opacity={opacity}
-        blending={blending}
         depthWrite={false}
-        sizeAttenuation={true}
+        blending={blending}
       />
     </points>
   );
 }
+

@@ -102,38 +102,27 @@ export function TheAlchemist() {
       className="the-alchemist min-h-screen relative z-0 pb-32"
     >
       <div className="absolute inset-0 pointer-events-none z-0">
-        {}
+        { }
         <div
-          className="absolute inset-[2%] md:inset-[5%] bg-[#e8e4d9] z-0"
+          className="absolute -left-12 -right-12 top-[2%] md:top-[4%] bottom-0 bg-[#e8e4d9] z-0"
           style={{
             filter: "url(#torn-paper-filter)",
-            opacity: 0.85,
             boxShadow: "0 0 40px rgba(255, 69, 0, 0.4), inset 0 0 60px rgba(255, 140, 0, 0.15)",
           }}
         >
           <style jsx>{`
-            .burning-edge {
-              animation: burn-flicker 3s infinite alternate ease-in-out;
+            .burning-edge-glow {
+              animation: burn-flicker-opacity 3s infinite alternate ease-in-out;
+              box-shadow: 0 0 50px rgba(255, 140, 0, 0.5), inset 0 0 60px rgba(255, 69, 0, 0.2);
             }
-            @keyframes burn-flicker {
-              0% {
-                box-shadow:
-                  0 0 30px rgba(255, 69, 0, 0.3),
-                  inset 0 0 40px rgba(255, 140, 0, 0.1);
-              }
-              50% {
-                box-shadow:
-                  0 0 50px rgba(255, 140, 0, 0.5),
-                  inset 0 0 60px rgba(255, 69, 0, 0.2);
-              }
-              100% {
-                box-shadow:
-                  0 0 35px rgba(255, 69, 0, 0.35),
-                  inset 0 0 45px rgba(255, 140, 0, 0.15);
-              }
+            @keyframes burn-flicker-opacity {
+              0% { opacity: 0.4; }
+              50% { opacity: 1; }
+              100% { opacity: 0.6; }
             }
           `}</style>
-          <div className="absolute inset-0 bg-[#f5f2eb] opacity-90 burning-edge" />
+          <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
+          <div className="absolute inset-0 pointer-events-none burning-edge-glow mix-blend-screen" />
           <div className="absolute rotate-180 inset-0 opacity-40 mix-blend-multiply z-0">
             <div
               style={{
@@ -144,7 +133,7 @@ export function TheAlchemist() {
               className="absolute inset-0"
             />
           </div>
-          {}
+          { }
           <div
             className="absolute inset-0 -z-10 pointer-events-none"
             style={{
@@ -156,49 +145,10 @@ export function TheAlchemist() {
         </div>
       </div>
 
-      <div className="absolute inset-0 pointer-events-none z-50">
-        <div
-          className="absolute left-10 top-1/2 origin-center"
-          aria-hidden="true"
-          style={{
-            transform: "translateY(-50%) rotate(-90deg)",
-            transformOrigin: "left center",
-          }}
-        >
-          <div className="flex items-center gap-2 text-neutral-400/35 font-kings select-none mix-blend-multiply">
-            <span className="text-neutral-500/20 text-xl">◆</span>
-            <span className="text-4xl md:text-6xl tracking-[0.5em]">{t.solve}</span>
-            <span className="text-neutral-500/20 text-xl">◆</span>
-          </div>
-        </div>
 
-        <div
-          className="absolute right-10 top-1/2 origin-center"
-          aria-hidden="true"
-          style={{
-            transform: "translateY(-50%) rotate(90deg)",
-            transformOrigin: "right center",
-          }}
-        >
-          <div className="flex items-center gap-2 text-neutral-400/35 font-kings select-none mix-blend-multiply">
-            <span className="text-neutral-500/20 text-xl">◆</span>
-            <span className="text-4xl md:text-6xl tracking-[0.5em]">{t.coagula}</span>
-            <span className="text-neutral-500/20 text-xl">◆</span>
-          </div>
-        </div>
-      </div>
+      <div className="the-alchemist-wrapper max-w-7xl mx-auto pt-32 md:pt-68 pb-32 relative z-10 flex flex-col items-center px-4 h-full justify-center">
 
-      <div className="the-alchemist-wrapper max-w-7xl mx-auto py-12 relative z-10 flex flex-col items-center px-4 h-full justify-center">
-        <div className="relative w-40 h-40 md:w-40 md:h-40 opacity-40 mix-blend-multiply z-50 pointer-events-none">
-          <Image
-            src="/assets/images/craftings/eye_of_providence.png"
-            alt="Eye of Providence"
-            fill
-            className="object-contain"
-            priority
-          />
-        </div>
-        <div className="the-alchemist-title-container text-center text-neutral-900 mb-8 pt-32 md:pt-40">
+        <div className="the-alchemist-title-container text-center text-neutral-900 mb-8">
           <div
             className="the-alchemist-title line-1 text-5xl md:text-7xl font-kings tracking-wide relative z-20"
             aria-label={t.title}
@@ -234,7 +184,6 @@ export function TheAlchemist() {
               ))}
             </p>
           </div>
-
           <div className="w-full space-y-12 mt-12">
             <TheAlchemistJournal />
             <TheAlchemistRecipes />

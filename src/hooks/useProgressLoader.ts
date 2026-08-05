@@ -26,7 +26,7 @@ export function useProgressLoader(onDone: () => void) {
       // Use the greater of actual progress or simulated progress
       const targetProgress = Math.max(progress, simulatedProgressRef.current);
 
-      setCount((prev) => {
+      setCount((prev: number) => {
         const delta = (targetProgress - prev) * 0.1;
         const newCount = prev + delta;
 

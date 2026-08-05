@@ -11,7 +11,6 @@ export function AwakeningSection() {
   useGSAP(() => {
     if (!containerRef.current) return;
 
-    // 1. The Spark Ignition (Scale & intensity)
     gsap.fromTo(
       ".the-spark-core",
       { scale: 0, opacity: 0 },

@@ -32,9 +32,9 @@ export function BookScene({ scrollProgress }: BookSceneProps) {
       const entranceProgress = p / 0.2;
       const ease = 1 - Math.pow(1 - entranceProgress, 3);
 
-      // ĐIỀU CHỈNH VỊ TRÍ BAY VÀO: Sách bay từ trên cao (y=15) xuống giữa màn hình (y=0)
-      // Tăng số 15 để sách bay từ cao hơn, giảm để bay từ thấp hơn
-      bookRef.current.position.y = THREE.MathUtils.lerp(15, 0, ease);
+      // ĐIỀU CHỈNH VỊ TRÍ BAY VÀO: Sách bay từ trên cao xuống giữa màn hình (y=0)
+      // Bắt đầu ở y=6 (ngay sát mép trên của camera) để tạo cảm giác bay ra từ tờ giấy rách
+      bookRef.current.position.y = THREE.MathUtils.lerp(6, 0, ease);
 
       // ĐIỀU CHỈNH ROTATION KHI BAY VÀO:
       // rotation.x: Góc nghiêng trước/sau (Math.PI = ngược, -1.7 = hơi nghiêng về phía trước)

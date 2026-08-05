@@ -100,6 +100,7 @@ export function StarField() {
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "#ffffff";
 
       targetX += (mouseX - targetX) * 0.05;
       targetY += (mouseY - targetY) * 0.05;

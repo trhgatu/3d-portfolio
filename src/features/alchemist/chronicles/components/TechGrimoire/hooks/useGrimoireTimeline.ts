@@ -25,12 +25,6 @@ export interface UseGrimoireTimelineParams {
   /** Container element ref (ScrollTrigger target) */
   containerRef: HTMLElementRef;
 
-  /** Washi background element ref */
-  washiRef: HTMLElementRef;
-
-  /** Space background element ref */
-  spaceRef: HTMLElementRef;
-
   /** Flash overlay element ref */
   flashRef: HTMLElementRef;
 }
@@ -50,65 +44,37 @@ export interface UseGrimoireTimelineReturn {
  * ```tsx
  * const { scrollProgress } = useGrimoireTimeline({
  *   containerRef,
- *   introTextRef,
- *   washiRef,
- *   spaceRef,
  *   flashRef,
  * });
  * ```
  */
 export function useGrimoireTimeline({
   containerRef,
-  washiRef,
-  spaceRef,
   flashRef,
 }: UseGrimoireTimelineParams): UseGrimoireTimelineReturn {
   const scrollProgress = useRef(0);
 
   useGSAP(
     () => {
-      // Create main timeline
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: "top top",
+        end: `+=${TIMELINE_CONFIG.TOTAL_DURATION}`,
+        pin: true,
+        refreshPriority: TIMELINE_CONFIG.REFRESH_PRIORITY,
+      });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top top",
-          end: TIMELINE_CONFIG.TOTAL_DURATION,
-          pin: true,
+          start: "top bottom",
+          end: () => `+=${TIMELINE_CONFIG.TOTAL_DURATION + window.innerHeight}`,
           scrub: TIMELINE_CONFIG.SCRUB,
-          refreshPriority: TIMELINE_CONFIG.REFRESH_PRIORITY,
           onUpdate: (self) => {
             scrollProgress.current = self.progress;
           },
         },
       });
-
-      tl.to(
-        washiRef.current,
-        {
-          opacity: 0,
-          duration: BOOK_ENTRANCE_TIMING.DURATION,
-          ease: BOOK_ENTRANCE_TIMING.EASE,
-        },
-        BOOK_ENTRANCE_TIMING.START
-      ).to(
-        spaceRef.current,
-        {
-          opacity: 1,
-          duration: BOOK_ENTRANCE_TIMING.DURATION,
-          ease: BOOK_ENTRANCE_TIMING.EASE,
-        },
-        BOOK_ENTRANCE_TIMING.START
-      );
-
-      tl.to(
-        spaceRef.current,
-        {
-          scale: ZOOM_TIMING.SCALE,
-          duration: ZOOM_TIMING.DURATION,
-          ease: ZOOM_TIMING.EASE,
-        },
-        ZOOM_TIMING.START
-      );
 
       tl.to(
         flashRef.current,

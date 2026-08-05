@@ -210,12 +210,17 @@ export function TechParticles({ scrollProgress }: TechParticlesProps) {
         explosionEnd
       );
 
-      const easeExplosion = 1 - Math.pow(1 - particleExplosionFactor, 3);
+      // Vị trí bay ra chậm hơn một chút ở lúc đầu (easeOut nhẹ hơn)
+      const easePosition = 1 - Math.pow(1 - particleExplosionFactor, 2);
+      
+      // Kích thước to ra thật nhanh ngay từ đầu để người dùng nhìn thấy nó xuất phát từ tâm
+      const easeScale = 1 - Math.pow(1 - particleExplosionFactor, 5);
+      
       const easeConverge = convergeFactor * convergeFactor * (3 - 2 * convergeFactor);
 
-      let x = THREE.MathUtils.lerp(initial.x, scattered.x, easeExplosion);
-      let y = THREE.MathUtils.lerp(initial.y, scattered.y, easeExplosion);
-      let z = THREE.MathUtils.lerp(initial.z, scattered.z, easeExplosion);
+      let x = THREE.MathUtils.lerp(initial.x, scattered.x, easePosition);
+      let y = THREE.MathUtils.lerp(initial.y, scattered.y, easePosition);
+      let z = THREE.MathUtils.lerp(initial.z, scattered.z, easePosition);
 
       x = THREE.MathUtils.lerp(x, final.x, easeConverge);
       y = THREE.MathUtils.lerp(y, final.y, easeConverge);
@@ -226,7 +231,7 @@ export function TechParticles({ scrollProgress }: TechParticlesProps) {
       let scale = THREE.MathUtils.lerp(
         PARTICLE_ANIMATION.SCALE.MIN,
         PARTICLE_ANIMATION.SCALE.SCATTERED,
-        easeExplosion
+        easeScale
       );
 
       if (convergeFactor > 0.5) {
