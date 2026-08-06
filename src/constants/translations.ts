@@ -269,11 +269,11 @@ export const translations = {
           manifestation: {
             title: "Sự Hiển Lộ",
             poem: [
-              "Mỗi dòng mã tôi viết ra không chỉ là một chỉ thị kỹ thuật, mà là sự hiển lộ của ý chí và khát khao hiện thực hóa bản ngã.",
+              "Mỗi dòng mã viết ra không chỉ là một chỉ thị kỹ thuật, mà là sự hiển lộ của ý chí và khát khao hiện thực hóa bản ngã.",
               "Qua hàng ngàn lỗi lầm được gọt rửa và sự tinh luyện khắc nghiệt của logic, tôi đã ban sự sống cho hư vô.",
               "Sản phẩm cuối cùng không bao giờ chỉ là những dòng code—nó là sự kết tinh của quá trình tiến hóa, là minh chứng rằng tôi chính là lò rèn, là ngọn lửa, và là vàng ròng sau cùng.",
             ],
-            author: "~ Nhà Giả Kim",
+            author: "~ trhgatu",
           },
         },
       },

@@ -276,7 +276,7 @@ export function TheAlchemistRecipes() {
             <span className="text-xl text-neutral-500 font-serif">✧</span>
             <div className="w-24 h-[1px] bg-neutral-500" />
           </div>
-          <div className="font-kings text-3xl md:text-4xl text-[#2a1a10] text-center px-4 md:px-12 py-6 leading-relaxed">
+          <div className="font-bilbo text-4xl md:text-5xl text-[#2a1a10] text-center px-4 md:px-12 py-6 leading-relaxed">
             {t.manifestation.poem.map((line: string, i: number) => (
               <p key={i} className={i !== t.manifestation.poem.length - 1 ? "mb-8" : ""}>
                 {i === 0 ? "“" : ""}

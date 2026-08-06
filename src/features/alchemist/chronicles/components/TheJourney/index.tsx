@@ -49,7 +49,7 @@ export function TheJourney() {
       gsap.set(entries, { opacity: 0 });
       gsap.set(".narrative-char", { opacity: 0, x: -20, filter: "blur(10px)" });
 
-      gsap.set(bgAdventureRef.current, { opacity: 0, scale: 1.5, filter: "blur(10px)" });
+      gsap.set(bgAdventureRef.current, { opacity: 0, scale: 1.5 });
       gsap.set(mistLeftRef.current, { xPercent: 0, opacity: 1 });
       gsap.set(mistRightRef.current, { xPercent: 0, opacity: 1 });
 
@@ -60,6 +60,8 @@ export function TheJourney() {
           end: "+=600%",
           pin: true,
           scrub: 1.5,
+          anticipatePin: 1,
+          refreshPriority: 50,
         },
       });
 
@@ -109,7 +111,7 @@ export function TheJourney() {
       );
       tl.to(
         bgAdventureRef.current,
-        { opacity: 1, scale: 1, filter: "blur(0px)", duration: 2.5, ease: "power2.out" },
+        { opacity: 1, scale: 1, duration: 2.5, ease: "power2.out" },
         "<"
       );
 
@@ -197,7 +199,7 @@ export function TheJourney() {
 
       {}
       <div className="absolute inset-0 z-10 pointer-events-none flex">
-        <div ref={mistLeftRef} className="flex-1 h-full relative z-20">
+        <div ref={mistLeftRef} className="flex-1 h-full relative z-20 isolate">
           <Image
             src="/assets/images/cloud.png"
             alt="Mist"
@@ -206,7 +208,7 @@ export function TheJourney() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-amber-200 via-amber-200/50 to-transparent mix-blend-overlay" />
         </div>
-        <div ref={mistRightRef} className="flex-1 h-full relative z-20">
+        <div ref={mistRightRef} className="flex-1 h-full relative z-20 isolate">
           <Image
             src="/assets/images/cloud.png"
             alt="Mist"
@@ -217,7 +219,7 @@ export function TheJourney() {
         </div>
       </div>
 
-      <div className="bridge-bg absolute inset-0 z-30 pointer-events-none">
+      <div className="bridge-bg absolute inset-0 z-30 pointer-events-none isolate">
         <Image
           src="/assets/images/sun-clouds-bg.png"
           alt="Ethereal Sun and Clouds"
@@ -274,27 +276,39 @@ export function TheJourney() {
       <div className="relative z-50 w-full max-w-4xl px-6 h-full flex items-center justify-center pointer-events-none">
         <div className="narrative-entry absolute inset-0 flex items-center justify-center">
           <p className="font-playfair-display text-3xl md:text-5xl leading-tight italic text-neutral-800 drop-shadow-sm text-center">
-            {t.narrative1.split("").map((char, i) => (
-              <span key={i} className="narrative-char inline-block">
-                {char === " " ? "\u00A0" : char}
+            {t.narrative1.split(" ").map((word, wi) => (
+              <span key={wi} className="inline-block whitespace-nowrap mr-[0.25em]">
+                {word.split("").map((char, ci) => (
+                  <span key={ci} className="narrative-char inline-block">
+                    {char}
+                  </span>
+                ))}
               </span>
             ))}
           </p>
         </div>
         <div className="narrative-entry absolute inset-0 flex items-center justify-center">
           <p className="font-playfair-display text-3xl md:text-5xl leading-tight italic text-neutral-800 drop-shadow-sm text-center">
-            {t.narrative2.split("").map((char, i) => (
-              <span key={i} className="narrative-char inline-block">
-                {char === " " ? "\u00A0" : char}
+            {t.narrative2.split(" ").map((word, wi) => (
+              <span key={wi} className="inline-block whitespace-nowrap mr-[0.25em]">
+                {word.split("").map((char, ci) => (
+                  <span key={ci} className="narrative-char inline-block">
+                    {char}
+                  </span>
+                ))}
               </span>
             ))}
           </p>
         </div>
         <div className="narrative-entry absolute inset-0 flex items-center justify-center">
           <p className="font-playfair-display text-4xl md:text-6xl italic text-neutral-900 tracking-wide text-center">
-            {t.narrative3.split("").map((char, i) => (
-              <span key={i} className="narrative-char inline-block">
-                {char === " " ? "\u00A0" : char}
+            {t.narrative3.split(" ").map((word, wi) => (
+              <span key={wi} className="inline-block whitespace-nowrap mr-[0.25em]">
+                {word.split("").map((char, ci) => (
+                  <span key={ci} className="narrative-char inline-block">
+                    {char}
+                  </span>
+                ))}
               </span>
             ))}
           </p>

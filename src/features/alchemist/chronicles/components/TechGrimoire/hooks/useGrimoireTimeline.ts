@@ -13,7 +13,7 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { TIMELINE_CONFIG, BOOK_ENTRANCE_TIMING, ZOOM_TIMING, FLASH_TIMING } from "../constants";
+import { TIMELINE_CONFIG } from "../constants";
 import type { HTMLElementRef } from "../types";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -24,9 +24,6 @@ gsap.registerPlugin(ScrollTrigger);
 export interface UseGrimoireTimelineParams {
   /** Container element ref (ScrollTrigger target) */
   containerRef: HTMLElementRef;
-
-  /** Flash overlay element ref */
-  flashRef: HTMLElementRef;
 }
 
 /**
@@ -44,13 +41,11 @@ export interface UseGrimoireTimelineReturn {
  * ```tsx
  * const { scrollProgress } = useGrimoireTimeline({
  *   containerRef,
- *   flashRef,
  * });
  * ```
  */
 export function useGrimoireTimeline({
   containerRef,
-  flashRef,
 }: UseGrimoireTimelineParams): UseGrimoireTimelineReturn {
   const scrollProgress = useRef(0);
 
@@ -64,35 +59,21 @@ export function useGrimoireTimeline({
         refreshPriority: TIMELINE_CONFIG.REFRESH_PRIORITY,
       });
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: () => `+=${TIMELINE_CONFIG.TOTAL_DURATION + window.innerHeight}`,
-          scrub: TIMELINE_CONFIG.SCRUB,
-          onUpdate: (self) => {
-            scrollProgress.current = self.progress;
-          },
-        },
-      });
+      const mm = gsap.matchMedia();
 
-      tl.to(
-        flashRef.current,
-        {
-          opacity: 1,
-          duration: FLASH_TIMING.FADE_IN.duration,
-          ease: FLASH_TIMING.FADE_IN.ease,
-        },
-        FLASH_TIMING.FADE_IN.start
-      ).to(
-        flashRef.current,
-        {
-          opacity: 0,
-          duration: FLASH_TIMING.FADE_OUT.duration,
-          ease: FLASH_TIMING.FADE_OUT.ease,
-        },
-        FLASH_TIMING.FADE_OUT.start
-      );
+      mm.add("(min-width: 768px)", () => {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: () => `+=${TIMELINE_CONFIG.TOTAL_DURATION + window.innerHeight}`,
+            scrub: TIMELINE_CONFIG.SCRUB,
+            onUpdate: (self) => {
+              scrollProgress.current = self.progress;
+            },
+          },
+        });
+      });
     },
     { scope: containerRef }
   );

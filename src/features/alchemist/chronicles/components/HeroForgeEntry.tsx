@@ -1,153 +1,279 @@
 "use client";
 
-import { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import { useAppStore } from "@/hooks";
-import { GlobalAtmosphere } from "../../shared";
-import { useRouter } from "next/navigation";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/hooks/useLang";
 import { translations } from "@/constants/translations";
 import { cn } from "@/lib/utils";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-const AnimatedText = ({
-  text,
-  className,
-  fontClass = "",
-}: {
-  text: string;
-  className?: string;
-  fontClass?: string;
-}) => (
-  <span className={cn("inline-block", className)}>
-    {text.split("").map((char, idx) => (
-      <span key={idx} className={cn("inline-block opacity-0 translate-y-4", fontClass)}>
-        {char === " " ? "\u00A0" : char}
-      </span>
-    ))}
-  </span>
-);
+const AnimatedQuote = ({ text, className }: { text: string; className?: string }) => {
+  return (
+    <span className={cn("inline-block", className)}>
+      {text.split(" ").map((word, idx) => (
+        <span
+          key={idx}
+          className="inline-block opacity-0 translate-y-6 blur-md mr-3 md:mr-4 word will-change-transform"
+        >
+          {word}
+        </span>
+      ))}
+    </span>
+  );
+};
 
 export const HeroForgeEntry = () => {
-  const { } = useAppStore();
   const scope = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const shakeRef = useRef<HTMLDivElement>(null);
-  const chargeTl = useRef<gsap.core.Timeline | null>(null);
-  const router = useRouter();
   const lang = useLang();
-  const [isIgnited, setIsIgnited] = useState(false);
 
   const t = translations[lang].awakening;
 
   useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tl.to(scope.current, { autoAlpha: 1, duration: 0.5 })
-      .to(".hero-text-mini span", { opacity: 1, y: 0, stagger: 0.03, duration: 0.6 })
-      .to(".hero-text-name span", { opacity: 1, y: 0, stagger: 0.06, duration: 1 }, "-=0.4")
-      .to(".hero-title span", { opacity: 1, y: 0, stagger: 0.04, duration: 1 }, "-=0.6")
-      .to(".hero-description span", { opacity: 1, y: 0, stagger: 0.02, duration: 0.5 }, "-=0.4");
+    // Entrance animations
+    gsap.to(scope.current, { autoAlpha: 1, duration: 0.5 });
+
+    // Floating scroll indicator
+    gsap.to(".scroll-indicator-dot", {
+      y: 30,
+      opacity: 0,
+      duration: 1.5,
+      repeat: -1,
+      ease: "power1.inOut",
+    });
+
+    // The Awwwards Portal Mask Animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: scope.current,
+        start: "top top",
+        end: "+=8000", // Massive scroll distance to space out the quotes
+        scrub: 1,
+        pin: true,
+        refreshPriority: 1000,
+      },
+    });
+
+    // 1. Fade out the content text early
+    tl.to(
+      ".hero-fade-out",
+      {
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.5,
+        ease: "power2.inOut",
+      },
+      0
+    );
+
+    // 2. Scale the Washi paper to open the portal
+    tl.to(
+      ".washi-portal",
+      {
+        scale: 150,
+        duration: 1.5,
+        ease: "power3.in",
+      },
+      0
+    );
+
+    // Fade out the portal completely by time 1.5 so it doesn't block the quotes!
+    tl.to(
+      ".washi-portal",
+      {
+        opacity: 0,
+        duration: 0.5,
+      },
+      1.0
+    );
+
+    // 3. Cinematic Blur Text Reveal for Quotes
+
+    // Quote 1:
+    tl.fromTo(
+      ".quote-1 .word",
+      { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.9 },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        scale: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.04,
+      },
+      1.5
+    ).to(
+      ".quote-1",
+      { opacity: 0, y: -40, filter: "blur(8px)", duration: 0.6, ease: "power2.in" },
+      "+=1.0"
+    );
+
+    // Quote 2:
+    tl.fromTo(
+      ".quote-2 .word",
+      { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.9 },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        scale: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.04,
+      },
+      "+=0.5"
+    ).to(
+      ".quote-2",
+      { opacity: 0, y: -40, filter: "blur(8px)", duration: 0.6, ease: "power2.in" },
+      "+=1.0"
+    );
+
+    // Quote 3:
+    tl.fromTo(
+      ".quote-3-text .word",
+      { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.9 },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        scale: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        stagger: 0.06,
+      },
+      "+=0.5"
+    )
+      .fromTo(
+        ".quote-3-highlight .word",
+        { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.9 },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          scale: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.08,
+        },
+        "<+=0.4" // Starts 0.4s after the main text starts
+      )
+      .to(
+        ".quote-3",
+        { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.8, ease: "power2.in" },
+        "+=1.0"
+      );
+
+    // Pad the end of the timeline so the user has 1000px of scroll to see Quote 3 fade out
+    // before the pin releases and the next section scrolls up!
+    tl.to({}, { duration: 1.0 }, 7.0);
   }, []);
-
-  const handleIgniteStart = () => {
-    setIsIgnited(true);
-  };
-
-  const handleIgniteEnd = () => {
-    setIsIgnited(false);
-  };
 
   return (
     <section
       id="hero"
       ref={scope}
-      className="hero relative opacity-0 min-h-screen w-full flex items-center justify-center text-center overflow-hidden py-16 px-4"
+      className="hero relative opacity-0 h-screen w-full flex items-center justify-center text-center overflow-hidden"
     >
-      <div 
-        className="absolute -top-12 -left-12 -right-12 bottom-8 z-0 pointer-events-none"
-        style={{ 
-          filter: "url(#torn-paper-filter)",
-          boxShadow: "0 0 40px rgba(255, 69, 0, 0.4), inset 0 0 60px rgba(255, 140, 0, 0.15)"
-        }}
-      >
-        <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
-        <div className="absolute rotate-180 inset-0 opacity-40 mix-blend-multiply">
-          <div
-            style={{
-              backgroundImage: "url(/assets/images/craftings/texture_washi.png)",
-              backgroundSize: "cover",
-              backgroundRepeat: "repeat",
-            }}
-            className="absolute inset-0"
+      {/* Background Quotes in the Void (z-0) */}
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none">
+        <div className="quote-1 absolute max-w-4xl px-4 text-center">
+          <AnimatedQuote
+            text={translations[lang].chronicles.transmutation.text1}
+            className="font-playfair-display italic text-2xl md:text-5xl text-neutral-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+          />
+        </div>
+        <div className="quote-2 absolute max-w-4xl px-4 text-center">
+          <AnimatedQuote
+            text={translations[lang].chronicles.transmutation.text2}
+            className="font-playfair-display italic text-2xl md:text-5xl text-neutral-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+          />
+        </div>
+        <div className="quote-3 absolute max-w-4xl px-4 text-center flex flex-col items-center gap-6">
+          <AnimatedQuote
+            text={translations[lang].chronicles.transmutation.text3}
+            className="quote-3-text font-playfair-display italic text-3xl md:text-6xl text-amber-500 drop-shadow-[0_0_20px_rgba(245,158,11,0.8)]"
+          />
+          <AnimatedQuote
+            text={translations[lang].chronicles.transmutation.text3Highlight}
+            className="quote-3-highlight font-kings text-4xl md:text-7xl text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
           />
         </div>
       </div>
 
-
-
-
-      {/* Content inside Full Screen Hero: Editorial Asymmetric Layout */}
+      {/* Washi Portal Container - Isolated to allow mix-blend-mode hole punching */}
+      {/* We use a huge inset so when it scales, the edges never enter the screen */}
       <div
-        ref={contentRef}
-        className="relative z-30 w-full max-w-screen-2xl h-full px-6 md:px-16 py-12 flex flex-col justify-between items-start text-left min-h-[85vh]"
+        className="washi-portal absolute -inset-[100vh] flex items-center justify-center z-10 pointer-events-none"
+        style={{ isolation: "isolate", transformOrigin: "center center" }}
       >
-        {/* Top Section: Large Monumental Author Name on Left */}
-        <div className="w-full flex flex-col items-start mt-6 md:mt-12">
-          <div className="select-none">
-            <h1
-              className="hero-text-name text-8xl sm:text-[11rem] md:text-[14rem] font-bold leading-none tracking-tight text-neutral-900"
-              style={{ filter: "url(#ink-smudge)" }}
-            >
-              <AnimatedText text="trhgatu" fontClass="font-kings" />
+        {/* Washi Background Layers */}
+        <div className="absolute inset-0 bg-[#e8e4d9]">
+          <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
+          <div className="absolute rotate-180 inset-0 opacity-40 mix-blend-multiply">
+            <div
+              style={{
+                backgroundImage: "url(/assets/images/craftings/texture_washi.png)",
+                backgroundSize: "800px",
+                backgroundRepeat: "repeat",
+              }}
+              className="absolute inset-0"
+            />
+          </div>
+          {/* Burn Edge Simulation on the actual paper */}
+          <div
+            className="absolute inset-0 opacity-50"
+            style={{
+              boxShadow:
+                "inset 0 0 150px rgba(255, 100, 0, 0.4), inset 0 0 50px rgba(180, 83, 9, 0.2)",
+            }}
+          />
+        </div>
+
+        {/* The Hole Puncher (Text) */}
+        {/* Destination-out makes this text transparent AND makes everything behind it (in the isolated container) transparent! */}
+        <h1
+          className="hero-text-mask font-kings font-bold leading-none tracking-tight text-black mix-blend-destination-out relative z-20 select-none"
+          style={{ fontSize: "22vw", filter: "url(#ink-smudge)" }}
+        >
+          trhgatu
+        </h1>
+      </div>
+
+      {/* Content overlays (Description, Titles, Scroll Indicator) */}
+      <div className="hero-fade-out relative z-30 w-full max-w-screen-2xl h-full px-6 md:px-16 py-12 flex flex-col justify-between items-start text-left pointer-events-none">
+        {/* Top spacer */}
+        <div className="w-full flex-1"></div>
+
+        {/* Middle/Bottom Split Section */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-end mb-16">
+          <div className="md:col-span-6 space-y-4">
+            <div className="w-12 h-[2px] bg-amber-900/60 mb-4" />
+            <p className="font-playfair-display text-neutral-900 text-base md:text-xl leading-[1.8] italic opacity-95 max-w-xl font-medium drop-shadow-sm">
+              {t.desc}
+            </p>
+          </div>
+          <div className="md:col-span-6 md:text-right flex flex-col items-start md:items-end justify-end space-y-6">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-wide drop-shadow-sm">
+              <span className="block text-neutral-900 font-playfair-display italic">
+                {t.firstTitle}
+              </span>
+              <span className="block text-amber-900 mt-1 font-playfair-display italic">
+                {t.secondTitle}
+              </span>
             </h1>
           </div>
         </div>
 
-        {/* Middle/Bottom Split Section */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-8 items-end mt-12 md:mt-0">
-          {/* Left Column: Editorial Quote Note */}
-          <div className="md:col-span-6 space-y-4">
-            <div className="w-12 h-[2px] bg-amber-900/40 mb-4" />
-            <div className="hero-description relative">
-              <p className="font-playfair-display text-neutral-800 text-base md:text-xl leading-[1.8] italic opacity-95 max-w-xl">
-                {t.desc.split(" ").map((word, idx) => (
-                  <span key={idx} className="inline-block opacity-0 mr-2">
-                    {word}
-                  </span>
-                ))}
-              </p>
-            </div>
-          </div>
-          <div className="md:col-span-6 md:text-right flex flex-col items-start md:items-end justify-end space-y-6">
-            <h1
-              className={cn(
-                "hero-title text-3xl sm:text-4xl md:text-6xl font-bold transition-all duration-700 tracking-wide",
-                isIgnited ? "scale-105" : "scale-100"
-              )}
-            >
-              <AnimatedText
-                text={t.firstTitle}
-                className={cn(
-                  "block transition-colors duration-700",
-                  isIgnited ? "text-amber-800" : "text-neutral-800"
-                )}
-                fontClass={
-                  lang === "vi" ? "font-playfair-display italic" : "font-cinzel-decorative"
-                }
-              />
-              <AnimatedText
-                text={t.secondTitle}
-                className={cn(
-                  "block transition-colors duration-700 text-amber-900/80 mt-1",
-                  isIgnited ? "text-amber-800" : "text-amber-900/80"
-                )}
-                fontClass={
-                  lang === "vi" ? "font-playfair-display italic" : "font-cinzel-decorative"
-                }
-              />
-            </h1>
+        {/* Scroll Indicator */}
+        <div className="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center">
+          <span className="text-xs uppercase tracking-[0.3em] text-neutral-800 mb-2 font-serif font-bold">
+            Explore
+          </span>
+          <div className="w-[1px] h-16 bg-neutral-400 relative overflow-hidden">
+            <div className="scroll-indicator-dot absolute top-0 left-0 w-full h-6 bg-amber-800 shadow-[0_0_8px_rgba(180,83,9,0.8)]" />
           </div>
         </div>
       </div>
@@ -161,7 +287,7 @@ export const HeroForgeEntry = () => {
             seed="8"
             result="noise"
           />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="6" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
         </filter>
       </svg>
     </section>

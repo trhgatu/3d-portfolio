@@ -10,6 +10,7 @@ interface Star {
   opacity: number;
   twinkleSpeed: number;
   twinklePhase: number;
+  rotation: number;
 }
 
 interface ShootingStar {
@@ -65,7 +66,8 @@ export function StarField() {
 
     const initStars = () => {
       stars = [];
-      const starCount = Math.floor((width * height) / 5000);
+      // Tăng mẫu số để giảm mật độ sao (từ 5000 lên 15000)
+      const starCount = Math.floor((width * height) / 15000);
 
       for (let i = 0; i < starCount; i++) {
         const isLarge = Math.random() < 0.1;
@@ -77,6 +79,7 @@ export function StarField() {
           opacity: 0,
           twinkleSpeed: Math.random() * 0.03 + 0.01,
           twinklePhase: Math.random() * Math.PI * 2,
+          rotation: Math.random() * Math.PI * 2,
         });
       }
     };
@@ -128,9 +131,26 @@ export function StarField() {
         }
 
         ctx.globalAlpha = star.opacity;
+
+        const cx = star.x + paraX;
+        const cy = renderY;
+        const r = star.size * 1.5; // Slightly larger to compensate for sharp edges
+
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(star.rotation);
+
         ctx.beginPath();
-        ctx.arc(star.x + paraX, renderY, star.size / 2, 0, Math.PI * 2);
+        // Draw a 4-pointed star/diamond shape
+        ctx.moveTo(0, -r);
+        ctx.quadraticCurveTo(0, 0, r, 0);
+        ctx.quadraticCurveTo(0, 0, 0, r);
+        ctx.quadraticCurveTo(0, 0, -r, 0);
+        ctx.quadraticCurveTo(0, 0, 0, -r);
+
+        ctx.closePath();
         ctx.fill();
+        ctx.restore();
       });
 
       ctx.shadowBlur = 0;
