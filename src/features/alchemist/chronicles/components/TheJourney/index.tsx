@@ -7,57 +7,35 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useLang } from "@/hooks/useLang";
 import { translations } from "@/constants/translations";
+// Global GoldenThread used in ChroniclesPage
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function TheJourney() {
   const containerRef = useRef<HTMLDivElement>(null);
   const bgAdventureRef = useRef<HTMLDivElement>(null);
-  const mistLeftRef = useRef<HTMLDivElement>(null);
-  const mistRightRef = useRef<HTMLDivElement>(null);
   const legaciesContentRef = useRef<HTMLDivElement>(null);
+  const flashRef = useRef<HTMLDivElement>(null);
   const lang = useLang();
   const t = translations[lang].chronicles.journey;
 
   useGSAP(
     () => {
       if (!containerRef.current) return;
-      gsap.to(".sand-layer-1", {
-        backgroundPosition: "20% 100%",
-        duration: 40,
-        repeat: -1,
-        ease: "linear",
-        yoyo: true,
-      });
-
-      gsap.to(".sand-layer-2", {
-        backgroundPosition: "-20% 50%",
-        duration: 25,
-        repeat: -1,
-        ease: "linear",
-        yoyo: true,
-      });
-
-      gsap.to(".sand-layer-3", {
-        xPercent: -50,
-        duration: 15,
-        repeat: -1,
-        ease: "linear",
-      });
 
       const entries = containerRef.current.querySelectorAll(".narrative-entry");
-      gsap.set(entries, { opacity: 0 });
-      gsap.set(".narrative-char", { opacity: 0, x: -20, filter: "blur(10px)" });
+      gsap.set(entries, { opacity: 0, scale: 0.85, filter: "blur(30px)" });
 
-      gsap.set(bgAdventureRef.current, { opacity: 0, scale: 1.5 });
-      gsap.set(mistLeftRef.current, { xPercent: 0, opacity: 1 });
-      gsap.set(mistRightRef.current, { xPercent: 0, opacity: 1 });
+      gsap.set(bgAdventureRef.current, { opacity: 1 }); // We keep parent visible, animate children
+      gsap.set(".the-sun", { x: -100, scale: 1, opacity: 0, filter: "blur(10px)" });
+      gsap.set(".the-moon", { x: 100, scale: 1, opacity: 0, filter: "blur(10px)" });
+      gsap.set(".the-desert", { scale: 1.1, filter: "blur(10px)", opacity: 0 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=600%",
+          end: "+=800%", // Increased scroll distance for longer void reading time
           pin: true,
           scrub: 1.5,
           anticipatePin: 1,
@@ -65,55 +43,63 @@ export function TheJourney() {
         },
       });
 
-      entries.forEach((entry) => {
-        const chars = entry.querySelectorAll(".narrative-char");
-        tl.to(entry, { opacity: 1, duration: 0.1 })
+      // thread animation removed, handled globally
+
+      entries.forEach((entry, i) => {
+        const startTime = i * 6.0; // Slowed down from 4.0 to 6.0 seconds per entry
+        tl.to(
+          entry,
+          {
+            opacity: 1,
+            scale: 1,
+            filter: "blur(0px)",
+            duration: 2.0,
+            ease: "power2.out",
+          },
+          startTime
+        )
           .to(
-            chars,
-            {
-              opacity: 1,
-              x: 0,
-              filter: "blur(0px)",
-              stagger: 0.02,
-              duration: 0.8,
-              ease: "power2.out",
-            },
-            ">"
+            entry,
+            { opacity: 1, duration: 2.5 }, // Hold longer
+            startTime + 2.0
           )
-          .to(chars, { opacity: 1, duration: 1 })
           .to(
-            chars,
+            entry,
             {
               opacity: 0,
-              x: 40,
-              filter: "blur(15px)",
-              stagger: 0.01,
-              duration: 0.6,
+              scale: 1.15,
+              filter: "blur(30px)",
+              duration: 1.5,
               ease: "power2.in",
             },
-            ">"
-          )
-          .to(entry, { opacity: 0, duration: 0.1 });
+            startTime + 4.5
+          );
       });
 
-      tl.to([".bridge-bg"], { opacity: 0, duration: 1.5, ease: "power2.inOut" }, "+=0.2");
-      tl.to(containerRef.current, { backgroundColor: "#ffffff", duration: 2 }, "<");
+      // THE AWAKENING: Flash of Light
+      // Wait for 1.5s in pure blackness after the last quote
+      tl.to(flashRef.current, { opacity: 1, duration: 1.5, ease: "power2.in" }, "+=1.5");
 
-      tl.to(
-        mistLeftRef.current,
-        { xPercent: -120, opacity: 0, duration: 3, ease: "power2.inOut" },
-        "<+=0.5"
-      );
-      tl.to(
-        mistRightRef.current,
-        { xPercent: 120, opacity: 0, duration: 3, ease: "power2.inOut" },
-        "<"
-      );
-      tl.to(
-        bgAdventureRef.current,
-        { opacity: 1, scale: 1, duration: 2.5, ease: "power2.out" },
-        "<"
-      );
+      // The background transitions to a bright desert color exactly when the flash is fully white
+      tl.to(containerRef.current, { backgroundColor: "#FBF5E6", duration: 0.1 }, "<1.0");
+
+      // Flash fades out slowly, revealing the bright desert oasis dynamically
+      tl.to(flashRef.current, { opacity: 0, duration: 3.0, ease: "power2.out" })
+        .to(
+          ".the-desert",
+          { scale: 1, filter: "blur(0px)", opacity: 1, duration: 3.0, ease: "power2.out" },
+          "<"
+        )
+        .to(
+          ".the-sun",
+          { x: 0, opacity: 1, filter: "blur(0px)", duration: 2.5, ease: "power2.out" },
+          "<0.5"
+        )
+        .to(
+          ".the-moon",
+          { x: 0, opacity: 1, filter: "blur(0px)", duration: 2.5, ease: "power2.out" },
+          "<0.2"
+        );
 
       tl.fromTo(
         ".crafting-title span",
@@ -164,10 +150,15 @@ export function TheJourney() {
       className="relative w-full min-h-screen flex flex-col items-center justify-center bg-transparent text-neutral-800 overflow-hidden"
     >
       <div
+        ref={flashRef}
+        className="absolute inset-0 bg-white z-[60] pointer-events-none opacity-0"
+      />
+
+      <div
         ref={bgAdventureRef}
         className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none transition-colors duration-1000"
       >
-        <div className="absolute top-0 -left-2 w-40 h-40 md:w-60 md:h-60 z-20 pointer-events-none">
+        <div className="the-sun absolute top-0 -left-2 w-40 h-40 md:w-60 md:h-60 z-20 pointer-events-none">
           <Image
             src="/assets/images/the-sun-left.svg"
             alt="The Sun"
@@ -176,7 +167,7 @@ export function TheJourney() {
           />
         </div>
 
-        <div className="absolute top-0 right-0 w-40 h-40 md:w-60 md:h-60 z-20 pointer-events-none">
+        <div className="the-moon absolute top-0 right-0 w-40 h-40 md:w-60 md:h-60 z-20 pointer-events-none">
           <Image
             src="/assets/images/the-moon-right.svg"
             alt="The Moon"
@@ -184,133 +175,33 @@ export function TheJourney() {
             className="object-contain brightness-0 opacity-80 drop-shadow-[0_0_15px_rgba(0,0,0,0.2)]"
           />
         </div>
-        <div className="absolute inset-0 bg-white opacity-0 group-data-[final=true]:opacity-100 transition-opacity duration-1000" />
-        <Image
-          src="/assets/images/adventure.svg"
-          alt="Desert Adventure"
-          width={1000}
-          height={1000}
-          priority
-          className="object-contain w-full h-full opacity-5 md:opacity-[0.1]"
-        />
-        {}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-100/20 to-white opacity-80" />
-      </div>
-
-      {}
-      <div className="absolute inset-0 z-10 pointer-events-none flex">
-        <div ref={mistLeftRef} className="flex-1 h-full relative z-20 isolate">
+        <div className="the-desert absolute inset-0 flex items-center justify-center pointer-events-none opacity-50">
           <Image
-            src="/assets/images/cloud.png"
-            alt="Mist"
-            fill
-            className="object-cover scale-150 translate-x-1/4 sepia saturate-150 hue-rotate-15 contrast-110 opacity-90"
+            src="/assets/images/adventure.svg"
+            alt="Desert Adventure"
+            width={1000}
+            height={1000}
+            priority
+            className="object-contain w-full h-full opacity-5 md:opacity-[0.1]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-amber-200 via-amber-200/50 to-transparent mix-blend-overlay" />
-        </div>
-        <div ref={mistRightRef} className="flex-1 h-full relative z-20 isolate">
-          <Image
-            src="/assets/images/cloud.png"
-            alt="Mist"
-            fill
-            className="object-cover scale-150 -translate-x-1/4 sepia saturate-150 hue-rotate-15 contrast-110 opacity-90"
-          />
-          <div className="absolute inset-0 bg-gradient-to-l from-amber-200 via-amber-200/50 to-transparent mix-blend-overlay" />
         </div>
       </div>
+      {/* Global GoldenThread is layered over this container */}
 
-      <div className="bridge-bg absolute inset-0 z-30 pointer-events-none isolate">
-        <Image
-          src="/assets/images/sun-clouds-bg.png"
-          alt="Ethereal Sun and Clouds"
-          fill
-          className="object-cover opacity-90"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-amber-200/20 via-transparent to-amber-200/20 mix-blend-overlay opacity-60" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "radial-gradient(circle, transparent 40%, rgba(120, 60, 0, 0.3) 100%)",
-          }}
-        />
-        <div className="absolute inset-0 bg-white/20 mix-blend-overlay" />
-        <div className="absolute top-0 left-0 right-0 h-60 bg-gradient-to-b from-white via-white/80 to-transparent" />
-        <div
-          className="sand-layer-1 absolute inset-0 bg-repeat opacity-60 mix-blend-screen scale-110"
-          style={{
-            backgroundImage: `url(/assets/images/sandstorm-overlay.png)`,
-            backgroundSize: "cover",
-            filter: "sepia(1) saturate(1.5)",
-          }}
-        />
-        <div
-          className="sand-layer-2 absolute inset-0 bg-repeat opacity-50 mix-blend-screen scale-125"
-          style={{
-            backgroundImage: `url(/assets/images/sandstorm-overlay.png)`,
-            backgroundSize: "120% auto",
-            transform: "scaleX(-1)",
-            filter: "sepia(1) saturate(2) hue-rotate(-15deg)",
-          }}
-        />
-        <div className="sand-layer-3 absolute inset-0 w-[200%] h-full opacity-40 mix-blend-overlay flex">
-          <div
-            className="w-full h-full relative"
-            style={{
-              backgroundImage: `url(/assets/images/sandstorm-overlay.png)`,
-              backgroundSize: "cover",
-              filter: "blur(2px) sepia(1)",
-            }}
-          />
-          <div
-            className="w-full h-full relative"
-            style={{
-              backgroundImage: `url(/assets/images/sandstorm-overlay.png)`,
-              backgroundSize: "cover",
-              filter: "blur(2px) sepia(1)",
-              transform: "scaleX(-1)",
-            }}
-          />
-        </div>
-      </div>
       <div className="relative z-50 w-full max-w-4xl px-6 h-full flex items-center justify-center pointer-events-none">
-        <div className="narrative-entry absolute inset-0 flex items-center justify-center">
-          <p className="font-playfair-display text-3xl md:text-5xl leading-tight italic text-neutral-800 drop-shadow-sm text-center">
-            {t.narrative1.split(" ").map((word, wi) => (
-              <span key={wi} className="inline-block whitespace-nowrap mr-[0.25em]">
-                {word.split("").map((char, ci) => (
-                  <span key={ci} className="narrative-char inline-block">
-                    {char}
-                  </span>
-                ))}
-              </span>
-            ))}
+        <div className="narrative-entry absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-8 max-w-4xl mx-auto">
+          <p className="text-3xl md:text-5xl lg:text-6xl font-playfair-display italic text-white/90 tracking-widest leading-relaxed drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] text-center">
+            {t.narrative1}
           </p>
         </div>
-        <div className="narrative-entry absolute inset-0 flex items-center justify-center">
-          <p className="font-playfair-display text-3xl md:text-5xl leading-tight italic text-neutral-800 drop-shadow-sm text-center">
-            {t.narrative2.split(" ").map((word, wi) => (
-              <span key={wi} className="inline-block whitespace-nowrap mr-[0.25em]">
-                {word.split("").map((char, ci) => (
-                  <span key={ci} className="narrative-char inline-block">
-                    {char}
-                  </span>
-                ))}
-              </span>
-            ))}
+        <div className="narrative-entry absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-8 max-w-4xl mx-auto">
+          <p className="text-3xl md:text-5xl lg:text-6xl font-playfair-display italic text-white/90 tracking-widest leading-relaxed drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] text-center">
+            {t.narrative2}
           </p>
         </div>
-        <div className="narrative-entry absolute inset-0 flex items-center justify-center">
-          <p className="font-playfair-display text-4xl md:text-6xl italic text-neutral-900 tracking-wide text-center">
-            {t.narrative3.split(" ").map((word, wi) => (
-              <span key={wi} className="inline-block whitespace-nowrap mr-[0.25em]">
-                {word.split("").map((char, ci) => (
-                  <span key={ci} className="narrative-char inline-block">
-                    {char}
-                  </span>
-                ))}
-              </span>
-            ))}
+        <div className="narrative-entry absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-8 max-w-4xl mx-auto">
+          <p className="text-3xl md:text-5xl lg:text-6xl font-playfair-display italic text-white/90 tracking-widest leading-relaxed drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] text-center">
+            {t.narrative3}
           </p>
         </div>
       </div>

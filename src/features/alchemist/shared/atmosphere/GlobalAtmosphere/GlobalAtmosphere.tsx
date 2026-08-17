@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import { View } from "@react-three/drei";
 import { GoldenSparks } from "../GoldenSparks";
 import { StarField } from "../StarField";
+import { OglStarField } from "../StarField/OglStarField";
 import { MagicCircle, CameraRig } from "../ForgeEmbers";
 import { useAtmosphereTimeline } from "./hooks/useAtmosphereTimeline";
 
@@ -35,15 +36,13 @@ export const GlobalAtmosphere = ({
   });
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
-    >
+    <div ref={containerRef} className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       {showStars && (
         <div
           ref={starsRef}
           className="absolute inset-0 z-0 global-stars pointer-events-none transition-opacity duration-1000"
         >
+          <OglStarField />
           <StarField />
         </div>
       )}

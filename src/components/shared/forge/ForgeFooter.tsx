@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   IconBrandGithub,
   IconBrandLinkedin,
@@ -10,12 +9,14 @@ import {
 } from "@tabler/icons-react";
 import { useLang } from "@/hooks/useLang";
 import { translations } from "@/constants/translations";
+import { useTransitionRouter } from "@/hooks/useTransitionRouter";
 
 const year = new Date().getFullYear();
 
 export const ForgeFooter = () => {
   const lang = useLang();
   const t = translations[lang];
+  const { transitionTo } = useTransitionRouter();
 
   return (
     <footer className="w-full bg-black border-t border-white/10 text-white font-mono relative overflow-hidden">
@@ -51,18 +52,25 @@ export const ForgeFooter = () => {
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 items-center gap-10">
         <div className="flex flex-col gap-6 text-lg md:text-base order-2 md:order-1">
           {[
-            { name: t.nav.awakening, link: "/awakening" },
             { name: t.nav.chronicles, link: "/chronicles" },
             { name: t.nav.craftings, link: "/craftings" },
             { name: t.nav.alchemist, link: "/the-alchemist" },
             { name: t.nav.timeline, link: "/timeline" },
           ].map((item) => (
-            <Link key={item.link} href={item.link} className="nav-link relative w-fit group">
+            <a
+              key={item.link}
+              href={item.link}
+              onClick={(e) => {
+                e.preventDefault();
+                transitionTo(item.link);
+              }}
+              className="nav-link relative w-fit group"
+            >
               <span className="text-neutral-500 group-hover:text-amber-500 transition-colors duration-300 font-space-mono text-sm uppercase tracking-widest">
                 {item.name}
               </span>
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-amber-500 transition-all duration-300 group-hover:w-full" />
-            </Link>
+            </a>
           ))}
         </div>
 
@@ -72,10 +80,6 @@ export const ForgeFooter = () => {
               trhgatu
             </span>
           </div>
-
-          <span className="mt-8 text-xs md:text-sm italic text-neutral-400 tracking-[0.4em] font-playfair-display uppercase text-center max-w-lg">
-            {t.awakening.subtitle}
-          </span>
         </div>
 
         <div className="flex flex-col items-end gap-6 text-right order-3">

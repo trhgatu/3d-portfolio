@@ -16,6 +16,11 @@ interface AppState {
 
   lang: Language;
   setLang: (lang: Language) => void;
+
+  isTransitioning: boolean;
+  setIsTransitioning: (v: boolean) => void;
+  transitionHref: string | null;
+  setTransitionHref: (href: string | null) => void;
 }
 
 const getStoredLang = (): Language => {
@@ -39,5 +44,8 @@ export const useAppStore = create<AppState>((set) => ({
     }
     set({ lang });
   },
+  isTransitioning: false,
+  setIsTransitioning: (v) => set({ isTransitioning: v }),
+  transitionHref: null,
+  setTransitionHref: (href) => set({ transitionHref: href }),
 }));
-

@@ -3,17 +3,14 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { SKILLS } from "@/constants/Skills";
 
-import { ConstellationLine } from "./ConstellationLine";
 import { TechIcon } from "./TechIcon";
 import {
   CONSTELLATION_LAYOUT,
-  CONSTELLATION_EDGES,
   SCATTERED_POSITIONS,
   INITIAL_SPAWN,
   STAR_GLOW_CONFIG,
 } from "../../constants";
 import { PARTICLE_TIMING, PARTICLE_ANIMATION } from "../../constants";
-import { distance } from "../../utils/math";
 import { createStarTexture } from "../../utils/starTexture";
 
 export interface TechParticlesProps {
@@ -110,75 +107,6 @@ export function TechParticles({ scrollProgress }: TechParticlesProps) {
     });
   }, [sortedSkills]);
 
-  const edges = useMemo(() => {
-    const connections: [number, number][] = [];
-    const n = sortedSkills.length;
-    if (n === 0) return connections;
-
-    const positions = finalPositions;
-
-    const visited = new Array(n).fill(false);
-    const minDist = new Array(n).fill(Infinity);
-    const parent = new Array(n).fill(-1);
-
-    minDist[0] = 0;
-
-    for (let count = 0; count < n - 1; count++) {
-      let u = -1;
-      let minVal = Infinity;
-      for (let i = 0; i < n; i++) {
-        if (!visited[i] && minDist[i] < minVal) {
-          minVal = minDist[i];
-          u = i;
-        }
-      }
-
-      if (u === -1) break;
-      visited[u] = true;
-
-      for (let v = 0; v < n; v++) {
-        if (!visited[v]) {
-          const dist = distance(positions[u], positions[v]);
-          if (dist < minDist[v]) {
-            minDist[v] = dist;
-            parent[v] = u;
-          }
-        }
-      }
-    }
-
-    const mstEdges = new Set<string>();
-    for (let i = 1; i < n; i++) {
-      if (parent[i] !== -1) {
-        const u = Math.min(parent[i], i);
-        const v = Math.max(parent[i], i);
-        const key = `${u}-${v}`;
-        mstEdges.add(key);
-        connections.push([u, v]);
-      }
-    }
-
-    const extraEdges: { u: number; v: number; d: number }[] = [];
-    for (let i = 0; i < n; i++) {
-      for (let j = i + 1; j < n; j++) {
-        const key = `${i}-${j}`;
-        if (!mstEdges.has(key)) {
-          const d = distance(positions[i], positions[j]);
-          if (d < CONSTELLATION_EDGES.MAX_EXTRA_EDGE_LENGTH) {
-            extraEdges.push({ u: i, v: j, d });
-          }
-        }
-      }
-    }
-    extraEdges.sort((a, b) => a.d - b.d);
-
-    for (let k = 0; k < Math.min(CONSTELLATION_EDGES.EXTRA_EDGE_COUNT, extraEdges.length); k++) {
-      connections.push([extraEdges[k].u, extraEdges[k].v]);
-    }
-
-    return connections;
-  }, [finalPositions, sortedSkills.length]);
-
   const staggerDelays = useMemo(() => {
     return sortedSkills.map(() => Math.random() * PARTICLE_TIMING.MAX_STAGGER_DELAY);
   }, [sortedSkills]);
@@ -212,10 +140,10 @@ export function TechParticles({ scrollProgress }: TechParticlesProps) {
 
       // Vị trí bay ra chậm hơn một chút ở lúc đầu (easeOut nhẹ hơn)
       const easePosition = 1 - Math.pow(1 - particleExplosionFactor, 2);
-      
+
       // Kích thước to ra thật nhanh ngay từ đầu để người dùng nhìn thấy nó xuất phát từ tâm
       const easeScale = 1 - Math.pow(1 - particleExplosionFactor, 5);
-      
+
       const easeConverge = convergeFactor * convergeFactor * (3 - 2 * convergeFactor);
 
       let x = THREE.MathUtils.lerp(initial.x, scattered.x, easePosition);
@@ -358,15 +286,6 @@ export function TechParticles({ scrollProgress }: TechParticlesProps) {
           )}
           <TechIcon url={skill.iconPath} />
         </group>
-      ))}
-      {edges.map(([start, end], i) => (
-        <ConstellationLine
-          key={`line-${i}`}
-          startIdx={start}
-          endIdx={end}
-          groupRef={groupRef}
-          scrollProgress={scrollProgress}
-        />
       ))}
     </group>
   );

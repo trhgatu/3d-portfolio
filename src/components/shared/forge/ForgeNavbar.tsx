@@ -16,17 +16,15 @@ import {
 import { useState } from "react";
 import { useScroll, useMotionValueEvent } from "motion/react";
 import { useScrambleText } from "@/hooks/useScrambleText";
+import { useTransitionRouter } from "@/hooks/useTransitionRouter";
 
 export function NavbarForge() {
   useScrambleText();
+  const { transitionTo } = useTransitionRouter();
   const lang = useLang();
   const t = translations[lang].nav;
 
   const navItems = [
-    {
-      name: t.awakening,
-      link: "/awakening",
-    },
     {
       name: t.chronicles,
       link: "/chronicles",
@@ -93,7 +91,11 @@ export function NavbarForge() {
             <a
               key={`mobile-link-${idx}`}
               href={item.link}
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                setIsMobileMenuOpen(false);
+                transitionTo(item.link);
+              }}
               className="nav-link relative text-neutral-600 dark:text-neutral-300"
             >
               <span className="nav-anim block">{item.name}</span>

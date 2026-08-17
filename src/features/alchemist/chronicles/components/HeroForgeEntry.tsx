@@ -29,13 +29,11 @@ export const HeroForgeEntry = () => {
   const scope = useRef<HTMLDivElement>(null);
   const lang = useLang();
 
-  const t = translations[lang].awakening;
+  const t = translations[lang].hero;
 
   useGSAP(() => {
-    // Entrance animations
     gsap.to(scope.current, { autoAlpha: 1, duration: 0.5 });
 
-    // Floating scroll indicator
     gsap.to(".scroll-indicator-dot", {
       y: 30,
       opacity: 0,
@@ -44,19 +42,16 @@ export const HeroForgeEntry = () => {
       ease: "power1.inOut",
     });
 
-    // The Awwwards Portal Mask Animation
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: scope.current,
         start: "top top",
-        end: "+=8000", // Massive scroll distance to space out the quotes
+        end: "+=8000",
         scrub: 1,
         pin: true,
         refreshPriority: 1000,
       },
     });
-
-    // 1. Fade out the content text early
     tl.to(
       ".hero-fade-out",
       {
@@ -68,107 +63,102 @@ export const HeroForgeEntry = () => {
       0
     );
 
-    // 2. Scale the Washi paper to open the portal
     tl.to(
       ".washi-portal",
       {
-        scale: 150,
+        scale: 80,
         duration: 1.5,
         ease: "power3.in",
       },
       0
     );
 
-    // Fade out the portal completely by time 1.5 so it doesn't block the quotes!
     tl.to(
       ".washi-portal",
       {
         opacity: 0,
+        display: "none",
         duration: 0.5,
       },
       1.0
     );
 
-    // 3. Cinematic Blur Text Reveal for Quotes
-
-    // Quote 1:
+    // 🌟 QUOTE 1: In the alchemical dance...
     tl.fromTo(
       ".quote-1 .word",
-      { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.9 },
+      { opacity: 0, y: 40, filter: "blur(16px)", scale: 0.9 },
       {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
         scale: 1,
-        duration: 0.8,
+        duration: 1.0,
         ease: "power3.out",
         stagger: 0.04,
       },
-      1.5
+      1.6
     ).to(
       ".quote-1",
-      { opacity: 0, y: -40, filter: "blur(8px)", duration: 0.6, ease: "power2.in" },
-      "+=1.0"
+      { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.8, ease: "power2.in" },
+      "+=2.0"
     );
 
-    // Quote 2:
+    // 🌟 QUOTE 2: Life is a sacred furnace... (starts after generous void pause)
     tl.fromTo(
       ".quote-2 .word",
-      { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.9 },
+      { opacity: 0, y: 40, filter: "blur(16px)", scale: 0.9 },
       {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
         scale: 1,
-        duration: 0.8,
+        duration: 1.0,
         ease: "power3.out",
         stagger: 0.04,
       },
-      "+=0.5"
+      "+=1.5"
     ).to(
       ".quote-2",
-      { opacity: 0, y: -40, filter: "blur(8px)", duration: 0.6, ease: "power2.in" },
-      "+=1.0"
+      { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.8, ease: "power2.in" },
+      "+=2.0"
     );
 
-    // Quote 3:
+    // 🌟 QUOTE 3: And from the crucible, we rise... (starts after generous void pause)
     tl.fromTo(
       ".quote-3-text .word",
-      { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.9 },
+      { opacity: 0, y: 40, filter: "blur(16px)", scale: 0.9 },
       {
         opacity: 1,
         y: 0,
         filter: "blur(0px)",
         scale: 1,
-        duration: 0.8,
+        duration: 1.0,
         ease: "power3.out",
-        stagger: 0.06,
+        stagger: 0.05,
       },
-      "+=0.5"
+      "+=1.5"
     )
       .fromTo(
         ".quote-3-highlight .word",
-        { opacity: 0, y: 40, filter: "blur(12px)", scale: 0.9 },
+        { opacity: 0, y: 40, filter: "blur(16px)", scale: 0.9 },
         {
           opacity: 1,
           y: 0,
           filter: "blur(0px)",
           scale: 1,
-          duration: 0.8,
+          duration: 1.0,
           ease: "power3.out",
-          stagger: 0.08,
+          stagger: 0.06,
         },
-        "<+=0.4" // Starts 0.4s after the main text starts
+        "+=0.6"
       )
       .to(
         ".quote-3",
-        { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.8, ease: "power2.in" },
-        "+=1.0"
+        { opacity: 0, y: -40, filter: "blur(14px)", duration: 1.0, ease: "power2.in" },
+        "+=2.5"
       );
 
-    // Pad the end of the timeline so the user has 1000px of scroll to see Quote 3 fade out
-    // before the pin releases and the next section scrolls up!
-    tl.to({}, { duration: 1.0 }, 7.0);
+    tl.to({}, { duration: 1.5 }, "+=0.5");
   }, []);
 
   return (
@@ -177,28 +167,27 @@ export const HeroForgeEntry = () => {
       ref={scope}
       className="hero relative opacity-0 h-screen w-full flex items-center justify-center text-center overflow-hidden"
     >
-      {/* Background Quotes in the Void (z-0) */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none">
-        <div className="quote-1 absolute max-w-4xl px-4 text-center">
+        <div className="quote-1 absolute max-w-4xl px-6 text-center">
           <AnimatedQuote
             text={translations[lang].chronicles.transmutation.text1}
-            className="font-playfair-display italic text-2xl md:text-5xl text-neutral-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+            className="font-playfair-display italic text-2xl md:text-5xl text-white leading-[1.6] drop-shadow-[0_0_20px_rgba(255,255,255,0.45)]"
           />
         </div>
-        <div className="quote-2 absolute max-w-4xl px-4 text-center">
+        <div className="quote-2 absolute max-w-4xl px-6 text-center">
           <AnimatedQuote
             text={translations[lang].chronicles.transmutation.text2}
-            className="font-playfair-display italic text-2xl md:text-5xl text-neutral-200 drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+            className="font-playfair-display italic text-2xl md:text-5xl text-white leading-[1.6] drop-shadow-[0_0_20px_rgba(255,255,255,0.45)]"
           />
         </div>
-        <div className="quote-3 absolute max-w-4xl px-4 text-center flex flex-col items-center gap-6">
+        <div className="quote-3 absolute max-w-4xl px-6 text-center flex flex-col items-center gap-8 md:gap-12">
           <AnimatedQuote
             text={translations[lang].chronicles.transmutation.text3}
-            className="quote-3-text font-playfair-display italic text-3xl md:text-6xl text-amber-500 drop-shadow-[0_0_20px_rgba(245,158,11,0.8)]"
+            className="quote-3-text font-playfair-display italic text-3xl md:text-6xl text-amber-300 leading-[1.5] drop-shadow-[0_0_25px_rgba(245,158,11,0.8)]"
           />
           <AnimatedQuote
             text={translations[lang].chronicles.transmutation.text3Highlight}
-            className="quote-3-highlight font-kings text-4xl md:text-7xl text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]"
+            className="quote-3-highlight font-kings text-4xl md:text-7xl text-white leading-tight drop-shadow-[0_0_25px_rgba(255,255,255,0.6)]"
           />
         </div>
       </div>
@@ -236,7 +225,7 @@ export const HeroForgeEntry = () => {
         {/* Destination-out makes this text transparent AND makes everything behind it (in the isolated container) transparent! */}
         <h1
           className="hero-text-mask font-kings font-bold leading-none tracking-tight text-black mix-blend-destination-out relative z-20 select-none"
-          style={{ fontSize: "22vw", filter: "url(#ink-smudge)" }}
+          style={{ fontSize: "22vw" }}
         >
           trhgatu
         </h1>
@@ -277,19 +266,6 @@ export const HeroForgeEntry = () => {
           </div>
         </div>
       </div>
-
-      <svg className="absolute w-0 h-0 pointer-events-none">
-        <filter id="ink-smudge">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.04"
-            numOctaves="4"
-            seed="8"
-            result="noise"
-          />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="8" />
-        </filter>
-      </svg>
     </section>
   );
 };

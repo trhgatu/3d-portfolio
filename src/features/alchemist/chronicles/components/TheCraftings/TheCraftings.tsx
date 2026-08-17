@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -49,38 +48,9 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
     () => {
       if (!backgroundRef.current || !gridRef.current || projects.length === 0) return;
 
-      // ⚙️ CONFIG: BACKGROUND COLOR TRANSITION (Chuyển màu nền)
-      // ═══════════════════════════════════════════════════════════
-      // Start: #000000 (Đen - Space)
-      // End: #ffffff (Trắng - Desert)
-      // Timeline: 300% (3 màn hình scroll)
-      //
-      // ĐIỀU CHỈNH:
-      // - Đổi #ffffff để thay đổi màu cuối (vd: #f5f5dc = Beige)
-      // - Tăng end để transition chậm hơn (vd: 300% → 500%)
-      // - Đổi scrub để thay đổi độ mượt (vd: 1 → 1.5)
       gsap.set(backgroundRef.current, {
         backgroundColor: "transparent",
       });
-
-      // Background color transition (Delayed to 50% progress)
-      const bgTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: gridRef.current,
-          start: "top top",
-          end: "+=300%",
-          scrub: 1,
-        },
-      });
-
-      bgTl.to(
-        backgroundRef.current,
-        {
-          backgroundColor: "#ffffff",
-          ease: "power4.in", // Sharper transition at the end
-        },
-        0.8
-      ); // Starts at 80% of the 300% scroll (near end of 3rd project)
 
       // ⚙️ CONFIG: ATMOSPHERE LAYER (Lớp khí quyển)
       // ═══════════════════════════════════════════════════════════
@@ -152,19 +122,51 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
   useGSAP(
     () => {
       if (!sectionRef.current || !gridRef.current || projects.length === 0) return;
-      gsap.from(".craftings-title span", {
-        opacity: 0,
-        y: 20,
-        filter: "blur(5px)",
-        stagger: 0.05,
-        duration: 0.8,
-        ease: "power2.out",
+
+      const entranceTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 60%",
+          start: "top 70%",
           toggleActions: "play none none reverse",
         },
       });
+
+      // 1. Title characters ignite with deep optical defocus & scale
+      entranceTl.fromTo(
+        ".craftings-title span",
+        { opacity: 0, y: 35, filter: "blur(16px)", scale: 1.15 },
+        {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          scale: 1,
+          stagger: 0.035,
+          duration: 1.2,
+          ease: "power2.out",
+        }
+      );
+
+      // 3. Astrolabe golden divider expands from center
+      entranceTl.fromTo(
+        ".craftings-divider",
+        { opacity: 0, scaleX: 0 },
+        { opacity: 1, scaleX: 1, duration: 1.0, ease: "power2.inOut" },
+        "-=0.7"
+      );
+      entranceTl.fromTo(
+        ".craftings-divider-star",
+        { rotation: -180, scale: 0 },
+        { rotation: 0, scale: 1, duration: 0.9, ease: "back.out(1.7)" },
+        "<"
+      );
+
+      // 4. Poetic Lore desc softly manifests
+      entranceTl.fromTo(
+        ".craftings-desc",
+        { opacity: 0, y: 20, filter: "blur(10px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 1.2, ease: "power3.out" },
+        "-=0.6"
+      );
 
       const items = sectionRef.current?.querySelectorAll(".sidebar-item");
       if (items && projects.length > 0) {
@@ -321,31 +323,28 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
       <BackgroundLayers projects={projects} activeIndex={activeIndex} />
 
       <div className="w-full relative z-20">
-        <div className="absolute top-10 left-0 right-0 w-full z-10 cloud-parallax pointer-events-none">
-          <Image
-            src="/assets/images/cloud.avif"
-            alt="Cloud"
-            width={1600}
-            height={500}
-            className="w-full object-contain opacity-70"
-          />
-        </div>
-
-        <div className="relative z-30 text-center pt-20 pb-2 md:pt-24 md:pb-6 shrink-0 flex flex-col items-center">
-          <h2 className="craftings-title text-5xl md:text-8xl font-kings tracking-wide drop-shadow-sm mb-2">
+        <div className="relative z-30 text-center pt-20 pb-4 md:pt-28 md:pb-8 shrink-0 flex flex-col items-center max-w-4xl mx-auto px-4">
+          {/* 👑 Monumental Display Title */}
+          <h2 className="craftings-title text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-kings tracking-wider text-white leading-none drop-shadow-[0_4px_35px_rgba(245,158,11,0.25)] mb-3">
             {t.title.split("").map((char, i) => (
               <span key={i} className="inline-block">
                 {char === " " ? "\u00A0" : char}
               </span>
             ))}
           </h2>
-          <div className="flex items-center justify-center gap-4 my-6 relative z-20 opacity-70">
-            <div className="w-24 h-[1px] bg-neutral-500" />
-            <span className="text-xl text-neutral-500 font-serif">✧</span>
-            <div className="w-24 h-[1px] bg-neutral-500" />
+
+          {/* ✧ 3. Expanding Astrolabe Rule */}
+          <div className="craftings-divider flex items-center justify-center gap-4 my-4 relative z-20 w-full max-w-xs opacity-0">
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-amber-400/50 to-amber-300" />
+            <span className="craftings-divider-star text-lg text-amber-300 drop-shadow-[0_0_8px_#f59e0b] select-none">
+              ✧
+            </span>
+            <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-amber-400/50 to-amber-300" />
           </div>
-          <p className="font-kings italic text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-neutral-400 px-4">
-            {t.desc}
+
+          {/* 📜 4. Poetic Lore Inscription in Bilbo */}
+          <p className="craftings-desc font-bilbo text-2xl md:text-3xl lg:text-4xl max-w-2xl mx-auto leading-relaxed text-white/90 text-center opacity-0">
+            &ldquo;{t.desc}&rdquo;
           </p>
         </div>
         <div ref={gridRef} className="h-screen w-full flex overflow-hidden relative z-20 min-h-0">

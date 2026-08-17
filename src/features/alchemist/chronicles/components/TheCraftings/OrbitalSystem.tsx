@@ -13,7 +13,7 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
     const centerX = -radius + 140;
 
     return (
-      <div ref={ref} className="w-1/3 h-full relative overflow-hidden">
+      <div ref={ref} className="w-1/3 h-full relative overflow-visible z-10">
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
           <defs>
             <linearGradient id="orbitalGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -170,14 +170,14 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
                               ${i === activeIndex ? "scale-110" : "opacity-90 scale-75"}`}
                 >
                   {i === activeIndex && (
-                    <div className="absolute inset-0 bg-amber-500/10 blur-3xl rounded-full" />
+                    <div className="absolute inset-0 bg-amber-400/25 blur-2xl rounded-full scale-125 pointer-events-none" />
                   )}
                   <div className="relative group-hover:scale-110 transition-transform duration-500">
                     <svg
                       width="100"
                       height="100"
                       viewBox="0 0 100 100"
-                      className={`transition-all duration-700 ${i === activeIndex ? "drop-shadow-[0_0_15px_rgba(245,158,11,0.8)]" : "drop-shadow-none opacity-60 grayscale"}`}
+                      className={`transition-all duration-700 ${i === activeIndex ? "drop-shadow-[0_0_20px_rgba(245,158,11,0.9)] drop-shadow-[0_0_40px_rgba(245,158,11,0.5)]" : "drop-shadow-none opacity-50 grayscale"}`}
                     >
                       <defs>
                         <linearGradient
@@ -187,133 +187,95 @@ export const OrbitalSystem = forwardRef<HTMLDivElement, OrbitalSystemProps>(
                           x2="100%"
                           y2="100%"
                         >
-                          <stop offset="0%" stopColor="#fef3c7" />
-                          <stop offset="50%" stopColor="#f59e0b" />
+                          <stop offset="0%" stopColor="#ffffff" />
+                          <stop offset="25%" stopColor="#fef3c7" />
+                          <stop offset="65%" stopColor="#f59e0b" />
                           <stop offset="100%" stopColor="#b45309" />
+                        </linearGradient>
+
+                        <linearGradient
+                          id={`diagonalStarGrad-${i}`}
+                          x1="0%"
+                          y1="0%"
+                          x2="100%"
+                          y2="100%"
+                        >
+                          <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
+                          <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.8" />
+                          <stop offset="100%" stopColor="#78350f" stopOpacity="0.4" />
                         </linearGradient>
                       </defs>
 
-                      <path
-                        d="M50 20 L60 40 L80 50 L60 60 L50 80 L40 60 L20 50 L40 40 Z"
-                        fill={i === activeIndex ? "#f59e0b" : "#8b5a2b"}
-                        opacity={i === activeIndex ? "0.6" : "0.3"}
-                        className="transition-all duration-700"
-                      />
+                      {/* 🌟 UNIFIED 8-POINTED STAR (Khối 8 cánh liền mạch tĩnh lặng, sắc nét) */}
+                      <g>
+                        {/* 4 Cánh Chéo 45 độ */}
+                        <path
+                          d="M50 10 L57 43 L90 50 L57 57 L50 90 L43 57 L10 50 L43 43 Z"
+                          transform="rotate(45 50 50)"
+                          fill={`url(#diagonalStarGrad-${i})`}
+                          className="transition-all duration-700"
+                        />
 
-                      <path
-                        d="M50 0 L58 42 L100 50 L58 58 L50 100 L42 58 L0 50 L42 42 Z"
-                        fill={`url(#starGradient-${i})`}
-                        className={`transition-all duration-700 ${i === activeIndex ? "brightness-110" : "brightness-75"}`}
-                      />
+                        {/* 4 Cánh Chính Thẳng Đứng */}
+                        <path
+                          d="M50 0 L58 42 L100 50 L58 58 L50 100 L42 58 L0 50 L42 42 Z"
+                          fill={`url(#starGradient-${i})`}
+                          className={`transition-all duration-700 ${i === activeIndex ? "brightness-125" : "brightness-75"}`}
+                        />
+                      </g>
 
+                      {/* 🌟 3. CELESTIAL ASTROLABE INNER RINGS (Vòng tròn thiên văn trung tâm tĩnh) */}
+                      {i === activeIndex && (
+                        <>
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="18"
+                            fill="none"
+                            stroke="#fde68a"
+                            strokeWidth="0.75"
+                            strokeDasharray="2 3"
+                            opacity="0.8"
+                          />
+                          <circle
+                            cx="50"
+                            cy="50"
+                            r="12"
+                            fill="none"
+                            stroke="#f59e0b"
+                            strokeWidth="0.5"
+                            opacity="0.6"
+                          />
+                          <path
+                            d="M50 12 L50 88 M12 50 L88 50"
+                            stroke="#ffffff"
+                            strokeWidth="0.75"
+                            opacity="0.8"
+                          />
+                        </>
+                      )}
+
+                      {/* 🌟 4. LUMINOUS CORE JEWEL (Tâm ngọc phát sáng) */}
                       <circle
                         cx="50"
                         cy="50"
                         r="6"
-                        fill="white"
-                        className={`transition-all duration-500 ${i === activeIndex ? "shadow-[0_0_20px_white]" : ""}`}
+                        fill="#ffffff"
+                        className={`transition-all duration-500 ${i === activeIndex ? "shadow-[0_0_25px_#ffffff]" : ""}`}
                       />
-
-                      {i === activeIndex && (
-                        <>
-                          <circle cx="50" cy="50" r="3" fill="#fef3c7" />
-                          <path
-                            d="M50 10 L50 90 M10 50 L90 50"
-                            stroke="#fcd34d"
-                            strokeWidth="0.5"
-                            opacity="0.7"
-                          />
-                        </>
-                      )}
+                      <circle cx="50" cy="50" r="3" fill="#fef3c7" />
                     </svg>
 
+                    {/* High-intensity Lens Flare on Active Star */}
                     {i === activeIndex && (
                       <div className="absolute inset-0 z-20 pointer-events-none mix-blend-screen">
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-1 bg-amber-200 blur-md opacity-40" />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-40 bg-amber-200 blur-md opacity-40" />
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-amber-500/20 blur-xl rounded-full" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-52 h-1 bg-gradient-to-r from-transparent via-amber-100 to-transparent blur-[1px] opacity-90" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-52 bg-gradient-to-b from-transparent via-amber-100 to-transparent blur-[1px] opacity-90" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-amber-400/30 blur-2xl rounded-full" />
                       </div>
                     )}
                   </div>
                 </div>
-              </div>
-
-              <div
-                className={`relative transition-all duration-1000 ease-out flex items-center -ml-8 scale-110
-                             ${i === activeIndex ? "w-56 md:w-96 opacity-100 translate-x-0" : "w-0 opacity-0"}`}
-              >
-                <svg
-                  width="100%"
-                  height="200"
-                  className="overflow-visible"
-                  preserveAspectRatio="none"
-                >
-                  <defs>
-                    <linearGradient id={`godRayGradient-${i}`} x1="0%" y1="50%" x2="100%" y2="50%">
-                      <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.8" />
-                      <stop offset="50%" stopColor="#b45309" stopOpacity="0.4" />
-                      <stop offset="100%" stopColor="#78350f" stopOpacity="0" />
-                    </linearGradient>
-                    <linearGradient
-                      id={`coreBeamGradient-${i}`}
-                      x1="0%"
-                      y1="50%"
-                      x2="100%"
-                      y2="50%"
-                    >
-                      <stop offset="0%" stopColor="#fef3c7" stopOpacity="1" />
-                      <stop offset="90%" stopColor="#f59e0b" stopOpacity="0.8" />
-                      <stop offset="100%" stopColor="#b45309" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-
-                  <path
-                    d="M0 100 L100% 0 L100% 200 Z"
-                    fill={`url(#godRayGradient-${i})`}
-                    opacity="0.4"
-                  />
-
-                  <path
-                    d="M0 100 L100% 0 M0 100 L100% 200"
-                    stroke="#f59e0b"
-                    strokeWidth="0.5"
-                    opacity="0.2"
-                  />
-
-                  <path
-                    d="M0 100 L95% 40 L95% 160 Z"
-                    fill={`url(#coreBeamGradient-${i})`}
-                    opacity="0.8"
-                    style={{ filter: "blur(3px)" }}
-                  />
-
-                  <circle
-                    cx="10%"
-                    cy="100"
-                    r="2"
-                    fill="#fef3c7"
-                    className="animate-[flow-right_2s_linear_infinite]"
-                    opacity="1"
-                  />
-                  <circle
-                    cx="20%"
-                    cy="90"
-                    r="1.5"
-                    fill="#f59e0b"
-                    className="animate-[flow-right_3s_linear_infinite]"
-                    style={{ animationDelay: "0.4s" }}
-                    opacity="0.9"
-                  />
-                  <circle
-                    cx="15%"
-                    cy="110"
-                    r="2.5"
-                    fill="#fcd34d"
-                    className="animate-[flow-right_4s_linear_infinite]"
-                    style={{ animationDelay: "1.2s" }}
-                    opacity="1"
-                  />
-                </svg>
               </div>
             </div>
           ))}

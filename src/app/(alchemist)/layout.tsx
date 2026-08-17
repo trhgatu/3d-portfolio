@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import LoaderWithOverlay from "@/components/PreLoaderOverlay";
 import ViewCanvas from "@/components/ViewCanvas";
 import { AlchemicalFilters } from "@/features/alchemist/shared/effects";
+import { GlobalTransitionOverlay } from "@/components/GlobalTransitionOverlay";
 
 export default async function ForgeLayout({ children }: { children: React.ReactNode }) {
   const cookieStore = await cookies();
@@ -17,6 +18,7 @@ export default async function ForgeLayout({ children }: { children: React.ReactN
       <AlchemicalFilters />
 
       {!isVisited && <LoaderWithOverlay />}
+      <GlobalTransitionOverlay />
 
       <ForgeNavigationWrapper>
         <div className="relative">

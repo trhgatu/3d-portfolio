@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
+import { useTransitionRouter } from "@/hooks/useTransitionRouter";
 
 import React, { useRef, useState } from "react";
 
@@ -139,6 +140,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const { transitionTo } = useTransitionRouter();
 
   return (
     <motion.div
@@ -151,7 +153,11 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
+          onClick={(e) => {
+            e.preventDefault();
+            if (onItemClick) onItemClick();
+            transitionTo(item.link);
+          }}
           className="relative nav-link px-4 py-2 text-neutral-600 dark:text-neutral-300"
           key={`link-${idx}`}
           href={item.link}
@@ -240,7 +246,7 @@ export const MobileNavToggle = ({ isOpen, onClick }: { isOpen: boolean; onClick:
 export const NavbarLogo = () => {
   return (
     <a
-      href="/awakening"
+      href="/chronicles"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
       <span className="font-medium font-mono text-black dark:text-white">trhgatu</span>

@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 import {
   HeroForgeEntry,
   TechGrimoire,
@@ -12,6 +14,7 @@ import { GlobalAtmosphere } from "@/features/alchemist/shared/atmosphere";
 import { AlchemicalFilters } from "@/features/alchemist/shared/effects";
 import { usePublicProjects } from "@/features/alchemist/craftings/hooks";
 import { useLang } from "@/hooks";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function ChroniclesPage() {
   const lang = useLang();

@@ -4,7 +4,6 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useGSAP } from "@gsap/react";
-import Image from "next/image";
 import { TheAlchemistJournal } from "./TheAlchemistJournal";
 import { TheAlchemistRecipes } from "./TheAlchemistRecipes";
 import { useLang } from "@/hooks/useLang";
@@ -99,10 +98,10 @@ export function TheAlchemist() {
     <section
       id="the-alchemist"
       ref={containerRef}
-      className="the-alchemist min-h-screen relative z-0 pb-32"
+      className="the-alchemist min-h-screen relative z-0 pb-16"
     >
       <div className="absolute inset-0 pointer-events-none z-0">
-        { }
+        {}
         <div
           className="absolute -left-12 -right-12 top-[2%] md:top-[4%] bottom-0 bg-[#e8e4d9] z-0"
           style={{
@@ -113,12 +112,20 @@ export function TheAlchemist() {
           <style jsx>{`
             .burning-edge-glow {
               animation: burn-flicker-opacity 3s infinite alternate ease-in-out;
-              box-shadow: 0 0 50px rgba(255, 140, 0, 0.5), inset 0 0 60px rgba(255, 69, 0, 0.2);
+              box-shadow:
+                0 0 50px rgba(255, 140, 0, 0.5),
+                inset 0 0 60px rgba(255, 69, 0, 0.2);
             }
             @keyframes burn-flicker-opacity {
-              0% { opacity: 0.4; }
-              50% { opacity: 1; }
-              100% { opacity: 0.6; }
+              0% {
+                opacity: 0.4;
+              }
+              50% {
+                opacity: 1;
+              }
+              100% {
+                opacity: 0.6;
+              }
             }
           `}</style>
           <div className="absolute inset-0 bg-[#f5f2eb] opacity-90" />
@@ -133,7 +140,7 @@ export function TheAlchemist() {
               className="absolute inset-0"
             />
           </div>
-          { }
+          {}
           <div
             className="absolute inset-0 -z-10 pointer-events-none"
             style={{
@@ -145,9 +152,7 @@ export function TheAlchemist() {
         </div>
       </div>
 
-
-      <div className="the-alchemist-wrapper max-w-7xl mx-auto pt-32 md:pt-68 pb-32 relative z-10 flex flex-col items-center px-4 h-full justify-center">
-
+      <div className="the-alchemist-wrapper max-w-7xl mx-auto pt-64 md:pt-96 pb-16 relative z-10 flex flex-col items-center px-4 h-full justify-center">
         <div className="the-alchemist-title-container text-center text-neutral-900 mb-8">
           <div
             className="the-alchemist-title line-1 text-5xl md:text-7xl font-kings tracking-wide relative z-20"

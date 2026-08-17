@@ -25,7 +25,11 @@ export const TechGrimoire = () => {
       className="relative w-full min-h-screen z-20 overflow-hidden"
     >
       <div className="absolute inset-0 z-10">
-        <Canvas camera={{ position: [0, 2, 8], fov: 35 }} gl={{ antialias: true, alpha: true }}>
+        <Canvas
+          dpr={[1, 1.5]}
+          camera={{ position: [0, 2, 8], fov: 35 }}
+          gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+        >
           <ambientLight intensity={0.3} />
           <spotLight
             position={[5, 8, 5]}

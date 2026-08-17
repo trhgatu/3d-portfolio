@@ -6,7 +6,8 @@ export const MOCK_PROJECTS: Project[] = [
     _id: "proj-1",
     slug: "the-alchemist",
     name: "The Alchemist",
-    description: "An interactive 3D digital grimoire portfolio powered by Next.js 15, R3F, GSAP, and custom SVG filters.",
+    description:
+      "An interactive 3D digital grimoire portfolio powered by Next.js 15, R3F, GSAP, and custom SVG filters.",
     thumbnail: "/images/projects/alchemist.jpg",
     images: ["/images/projects/alchemist-1.jpg"],
     tech: [{ name: "Next.js" }, { name: "Three.js" }, { name: "GSAP" }, { name: "Tailwind CSS" }],
@@ -66,7 +67,8 @@ export const getMockProjects = async (
   return result;
 };
 
-export const getMockProjectBySlug = async (slug: string, lang: string): Promise<Project> => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getMockProjectBySlug = async (slug: string, _lang?: string): Promise<Project> => {
   const project = MOCK_PROJECTS.find((p) => p.slug === slug);
   if (!project) {
     throw new Error(`Project with slug '${slug}' not found.`);

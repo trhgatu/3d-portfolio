@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import { Project } from "@/types";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,196 +11,156 @@ interface ProphecyCardProps {
 
 export function ProphecyCard({ project: p, index: i, activeIndex }: ProphecyCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedImg, setSelectedImg] = useState<string>(p.thumbnail || (p.images?.[0] ?? ""));
+  const isActive = i === activeIndex;
 
-  // Function to generate a torn circle mask as a data URI
-  // This is the most reliable way to get a consistent "torn" edge that scales perfectly
-  const getTornMask = (seed: number, scale: number = 40) => {
-    const svg = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">
-        <filter id="f">
-          <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" seed="${seed}" />
-          <feDisplacementMap in="SourceGraphic" scale="${scale}" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-        <circle cx="200" cy="200" r="160" fill="white" filter="url(#f)" />
-      </svg>
-    `
-      .trim()
-      .replace(/\n/g, "")
-      .replace(/"/g, "'");
+  const allImages = [
+    ...(p.thumbnail ? [p.thumbnail] : []),
+    ...(p.images || []).filter((img) => img !== p.thumbnail),
+  ];
 
-    return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
-  };
-
-  const mainMask = getTornMask(i + 100, 50);
-  const subMask = getTornMask(i + 200, 40);
+  const currentDisplayImage = selectedImg || p.thumbnail || p.images?.[0];
 
   return (
-    <div className="min-h-screen w-full flex flex-col justify-center pr-4 md:pr-12">
+    <div className="min-h-screen w-full flex flex-col justify-center pr-4 md:pr-16 pl-2 md:pl-8 py-8">
+      {/* 🌌 Borderless Spatial Project Showcase */}
       <div
         ref={containerRef}
-        className={`relative group/card p-8 md:p-12 rounded-sm transition-all duration-1000 ease-out transform-gpu overflow-hidden min-h-[65vh] flex flex-col border
-                      bg-[#f5f2eb] border-[#8b5a2b]/30 text-[#3d2817] shadow-xl
-                      ${
-                        i === activeIndex
-                          ? "translate-x-0 opacity-100 scale-100"
-                          : "translate-x-20 opacity-20 scale-95 grayscale"
-                      }`}
-        style={{
-          boxShadow: i === activeIndex ? "0 20px 50px rgba(61, 40, 23, 0.15)" : "none",
-        }}
+        className={`relative w-full transition-all duration-700 ease-out transform-gpu flex flex-col justify-center
+                   ${
+                     isActive
+                       ? "translate-x-0 opacity-100 scale-100 filter-none pointer-events-auto"
+                       : "translate-x-8 opacity-25 scale-[0.96] blur-[0.5px] grayscale-[30%] pointer-events-none"
+                   }`}
       >
-        {/* Paper Texture Overlay */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-40 mix-blend-multiply">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url("/assets/images/craftings/texture_washi.png")`,
-              backgroundSize: "cover",
-            }}
-          />
+        {/* Giant Ghosted Background Folio Number */}
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 text-[20vw] leading-none font-kings text-amber-500/[0.03] select-none pointer-events-none -z-10 font-normal">
+          {(i + 1).toString().padStart(2, "0")}
         </div>
 
-        {/* Decorative Corners */}
-        {i === activeIndex && (
-          <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-            <div className="absolute top-8 left-8 w-12 h-12 border-l border-t border-[#8b5a2b]/40" />
-            <div className="absolute top-8 right-8 w-12 h-12 border-r border-t border-[#8b5a2b]/40" />
-            <div className="absolute bottom-8 left-8 w-12 h-12 border-l border-b border-[#8b5a2b]/40" />
-            <div className="absolute bottom-8 right-8 w-12 h-12 border-r border-b border-[#8b5a2b]/40" />
+        {/* 🌟 1. Top Horizon: Folio Inscription & Tech Signature */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-amber-500/15 mb-6">
+          <div className="flex items-center gap-3">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_#f59e0b]" />
+            <span className="font-space-mono text-[11px] tracking-[0.45em] uppercase text-white font-semibold">
+              CHRONICLE № 0{i + 1}
+            </span>
+            <span className="w-6 h-[1px] bg-amber-500/30" />
+            <span className="font-space-mono text-[10px] tracking-[0.3em] uppercase text-neutral-400">
+              VOL. I
+            </span>
           </div>
-        )}
 
-        <div className="relative z-10 flex-1 flex flex-col lg:flex-row gap-12 items-center">
-          {/* Content Side */}
-          <div className="flex-1 flex flex-col w-full">
-            <div className="mb-8 border-b-2 border-double border-[#8b5a2b]/20 pb-6 flex justify-between items-start">
-              <div className="flex-1">
-                <span className="font-space-mono text-[10px] tracking-[0.5em] uppercase block mb-4 text-[#8b5a2b]/60">
-                  Codex Fragment 0{i + 1}
+          {/* Minimalist Tech Stack Line (No Clunky Pills) */}
+          {p.tech && p.tech.length > 0 && (
+            <div className="flex items-center gap-2 text-xs font-space-mono text-neutral-300 tracking-widest">
+              {p.tech.slice(0, 5).map((t, idx, arr) => (
+                <span key={idx} className="flex items-center gap-2">
+                  <span className="text-white font-medium">{t.name}</span>
+                  {idx < arr.length - 1 && <span className="text-amber-500/50 text-[8px]">•</span>}
                 </span>
-                <h2 className="font-kings leading-tight text-5xl md:text-6xl text-[#3d2817]">
-                  {p.name}
-                </h2>
-              </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* 👑 2. Majestic Monumental Display Title */}
+        <h2 className="font-kings text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white leading-[0.95] tracking-wide mb-8 drop-shadow-[0_4px_35px_rgba(245,158,11,0.2)]">
+          {p.name}
+        </h2>
+
+        {/* 🏛️ 3. Main Stage: Split Layout (Lore on Left, Floating Art on Right) */}
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center justify-between">
+          {/* Left: Lore & Signature Action Link */}
+          <div className="flex-1 flex flex-col justify-between max-w-xl">
+            {/* Narrative Quote */}
+            <div className="font-bilbo text-2xl md:text-3xl lg:text-4xl leading-relaxed text-white/90 mb-10 text-justify">
+              <p>&ldquo;{p.description}&rdquo;</p>
             </div>
 
-            <div className="mb-8 font-bilbo text-2xl md:text-3xl leading-relaxed max-w-none text-[#5c3a21]/90 text-justify">
-              <p>{p.description}</p>
-            </div>
+            {/* Signature Editorial Action Links */}
+            <div className="flex flex-wrap items-center gap-10 pt-4 border-t border-amber-500/10">
+              <Link
+                href={`/project/${p.slug}`}
+                className="group/link inline-flex items-center gap-4 py-2 relative"
+              >
+                <span className="font-kings text-2xl md:text-3xl text-white group-hover/link:text-amber-300 transition-colors">
+                  Examine Chronicle
+                </span>
+                <span className="text-lg text-amber-400 group-hover/link:translate-x-2 transition-transform duration-300">
+                  ⟶
+                </span>
+                {/* Glowing Underline Accent */}
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-amber-500/50 via-amber-400/80 to-transparent group-hover/link:h-[2px] group-hover/link:from-amber-400 transition-all duration-300" />
+              </Link>
 
-            <div className="mt-auto">
-              <div className="mb-8 pt-6 border-t border-[#8b5a2b]/10">
-                <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-3 text-[#8b5a2b]/80">
-                  <span className="w-6 h-[1px] bg-[#8b5a2b]/40" />
-                  Runes & Sigils
-                </h4>
-                <div className="flex flex-wrap gap-x-6 gap-y-3">
-                  {p.tech?.slice(0, 5).map((t, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs uppercase tracking-widest font-space-mono text-[#8b5a2b]"
-                    >
-                      <span className="opacity-40 mr-1">#</span>
-                      {t.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-8 pt-4">
+              {p.link && (
                 <Link
-                  href={`/project/${p.slug}`}
-                  className="group/link flex items-center gap-4 py-2 relative overflow-hidden"
+                  href={p.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/live inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-white/80 hover:text-amber-300 transition-colors"
                 >
-                  <span className="font-kings text-2xl text-[#3d2817] group-hover/link:translate-x-1 transition-transform">
-                    Access Archives
+                  <span>Live Manifestation</span>
+                  <span className="group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5 transition-transform duration-300">
+                    ↗
                   </span>
-                  <span className="w-12 h-[1px] bg-[#3d2817]/30" />
                 </Link>
-
-                {p.link && (
-                  <Link
-                    href={p.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group/link flex items-center gap-4 py-2 relative overflow-hidden"
-                  >
-                    <span className="font-kings text-2xl text-[#78350f] group-hover/link:translate-x-1 transition-transform">
-                      Live Signal
-                    </span>
-                    <span className="w-12 h-[1px] bg-[#78350f]/30" />
-                  </Link>
-                )}
-              </div>
+              )}
             </div>
           </div>
 
-          {/* Multi-Hole Reveal Section */}
-          <div className="relative w-full lg:w-[480px] aspect-square shrink-0 flex items-center justify-center">
-            {/* Main Thumbnail Hole */}
-            <div className="relative w-[75%] h-[75%] z-10">
-              <div className="absolute inset-0 bg-amber-500/5 blur-[100px] rounded-full -z-10" />
-              <div
-                className="relative w-full h-full overflow-hidden bg-neutral-950 shadow-2xl"
-                style={{
-                  maskImage: mainMask,
-                  WebkitMaskImage: mainMask,
-                  maskSize: "cover",
-                  WebkitMaskSize: "cover",
-                  maskRepeat: "no-repeat",
-                  WebkitMaskRepeat: "no-repeat",
-                }}
-              >
-                {p.thumbnail && (
-                  <Image src={p.thumbnail} alt={p.name} fill className="object-cover" />
-                )}
-                <div className="absolute inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.8)] z-20 pointer-events-none" />
-              </div>
-            </div>
-
-            {/* Sub-Holes for other images */}
-            {p.images && p.images.length > 0 && (
-              <>
-                {/* Sub Hole 1: Top-Right */}
-                <div className="absolute top-0 right-0 w-[40%] aspect-square z-20 -translate-y-6 translate-x-6 rotate-6">
-                  <div
-                    className="relative w-full h-full overflow-hidden bg-neutral-950 shadow-xl"
-                    style={{
-                      maskImage: subMask,
-                      WebkitMaskImage: subMask,
-                      maskSize: "cover",
-                      WebkitMaskSize: "cover",
-                    }}
-                  >
-                    <Image src={p.images[0]} alt="Fragment 1" fill className="object-cover" />
-                    <div className="absolute inset-0 bg-black/20 mix-blend-multiply" />
-                  </div>
+          {/* Right: Floating Masterpiece Artwork Frame */}
+          <div className="w-full lg:w-[480px] shrink-0 flex flex-col gap-4">
+            {/* Art Canvas */}
+            <div className="relative w-full aspect-[16/10] rounded-sm overflow-hidden border border-amber-500/30 bg-[#0c0c10] shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_40px_rgba(180,83,9,0.15)] group/art">
+              {currentDisplayImage ? (
+                <Image
+                  src={currentDisplayImage}
+                  alt={p.name}
+                  fill
+                  className="object-cover opacity-90 transition-transform duration-1000 ease-out group-hover/art:scale-105 group-hover/art:opacity-100"
+                  sizes="(max-width: 1024px) 100vw, 480px"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-neutral-600 font-space-mono text-xs">
+                  ✦ Inscription Visual ✦
                 </div>
+              )}
 
-                {/* Sub Hole 2: Bottom-Left */}
-                {p.images.length > 1 && (
-                  <div className="absolute bottom-0 left-0 w-[35%] aspect-square z-20 translate-y-8 -translate-x-10 -rotate-12">
-                    <div
-                      className="relative w-full h-full overflow-hidden bg-neutral-900 shadow-xl"
-                      style={{
-                        maskImage: subMask,
-                        WebkitMaskImage: subMask,
-                        maskSize: "cover",
-                        WebkitMaskSize: "cover",
-                      }}
-                    >
-                      <Image src={p.images[1]} alt="Fragment 2" fill className="object-cover" />
-                      <div className="absolute inset-0 bg-black/30 mix-blend-multiply" />
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-
-            {/* Background Index Number */}
-            <div className="absolute -right-8 -bottom-12 text-[14rem] leading-none font-kings text-[#8b5a2b]/10 select-none pointer-events-none z-0 rotate-[-5deg]">
-              {(i + 1).toString().padStart(2, "0")}
+              {/* Fine Gold Edge Highlight & Vignette */}
+              <div className="absolute inset-0 ring-1 ring-inset ring-amber-400/25 pointer-events-none" />
+              <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(0,0,0,0.8)] pointer-events-none" />
             </div>
+
+            {/* Thumbnail Plate Switcher Strip */}
+            {allImages.length > 1 && (
+              <div className="flex items-center gap-2.5 pt-1 overflow-x-auto pb-1 scrollbar-none">
+                {allImages.map((img, imgIdx) => {
+                  const isSelected = img === currentDisplayImage;
+                  return (
+                    <button
+                      key={imgIdx}
+                      type="button"
+                      onClick={() => setSelectedImg(img)}
+                      className={`relative w-16 h-11 rounded-sm overflow-hidden border transition-all duration-300 shrink-0 ${
+                        isSelected
+                          ? "border-amber-400 ring-1 ring-amber-400/50 scale-105 opacity-100"
+                          : "border-neutral-800 opacity-40 hover:opacity-90 hover:border-amber-500/40"
+                      }`}
+                    >
+                      <Image
+                        src={img}
+                        alt={`Plate ${imgIdx + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="64px"
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

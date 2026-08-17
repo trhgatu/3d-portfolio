@@ -61,15 +61,12 @@ export function BookScene({ scrollProgress }: BookSceneProps) {
       bookRef.current.rotation.y = THREE.MathUtils.lerp(1.5, 1.7, rangeProgress);
       bookRef.current.rotation.z = -4.1; // Giữ nguyên góc Z
 
-      bookRef.current.visible = true;
-
       // Reset position
       bookRef.current.position.x = 0;
       bookRef.current.position.z = 0;
     }
     // Phase 3: Hold (0.7 - 0.8)
     else if (p < 0.8) {
-      bookRef.current.visible = true;
       bookRef.current.position.y = 0;
       bookRef.current.scale.setScalar(1);
       bookRef.current.rotation.x = -1.6;
@@ -85,7 +82,6 @@ export function BookScene({ scrollProgress }: BookSceneProps) {
         (BOOK_EXIT_CONFIG.TIMING.END - BOOK_EXIT_CONFIG.TIMING.START);
 
       if (exitProgress < 1) {
-        bookRef.current.visible = true;
         const ease = exitProgress * exitProgress;
 
         // Dignified upward ascent
@@ -100,8 +96,7 @@ export function BookScene({ scrollProgress }: BookSceneProps) {
         // Gentle fade out
         bookRef.current.scale.setScalar(THREE.MathUtils.lerp(1, BOOK_EXIT_CONFIG.SCALE_MIN, ease));
       } else {
-        // Completely hidden
-        bookRef.current.visible = false;
+        // Completely hidden via frustum culling
         bookRef.current.position.y = 999;
       }
     }

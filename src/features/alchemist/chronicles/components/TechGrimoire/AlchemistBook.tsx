@@ -39,3 +39,5 @@ export const AlchemistBook = forwardRef<Group, AlchemistBookProps>(
   }
 );
 AlchemistBook.displayName = "AlchemistBook";
+
+useGLTF.preload("/models/book_of_alchemy.glb");

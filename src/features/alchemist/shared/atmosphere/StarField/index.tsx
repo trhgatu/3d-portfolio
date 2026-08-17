@@ -11,6 +11,8 @@ interface Star {
   twinkleSpeed: number;
   twinklePhase: number;
   rotation: number;
+  driftX: number;
+  driftY: number;
 }
 
 interface ShootingStar {
@@ -79,7 +81,9 @@ export function StarField() {
           opacity: 0,
           twinkleSpeed: Math.random() * 0.03 + 0.01,
           twinklePhase: Math.random() * Math.PI * 2,
-          rotation: Math.random() * Math.PI * 2,
+          rotation: Math.random() * Math.PI,
+          driftX: (Math.random() - 0.5) * 0.2, // Slow horizontal drift
+          driftY: (Math.random() - 0.5) * 0.2, // Slow vertical drift
         });
       }
     };
@@ -103,7 +107,9 @@ export function StarField() {
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "#ffffff";
+
+      // Star colors: Ivory to pale gold
+      ctx.fillStyle = "#fef3c7";
 
       targetX += (mouseX - targetX) * 0.05;
       targetY += (mouseY - targetY) * 0.05;
@@ -111,6 +117,15 @@ export function StarField() {
       const scrollY = window.scrollY;
 
       stars.forEach((star) => {
+        star.x += star.driftX;
+        star.y += star.driftY;
+
+        // Wrap around screen
+        if (star.x > width) star.x = 0;
+        if (star.x < 0) star.x = width;
+        if (star.y > height) star.y = 0;
+        if (star.y < 0) star.y = height;
+
         star.twinklePhase += star.twinkleSpeed;
         const twinkle = Math.sin(star.twinklePhase) * 0.5 + 0.5;
         star.opacity = star.baseOpacity + twinkle * 0.4;
@@ -124,8 +139,8 @@ export function StarField() {
         if (renderY < 0) renderY += height;
 
         if (star.size > 2) {
-          ctx.shadowBlur = 8;
-          ctx.shadowColor = "rgba(255, 255, 255, 0.8)";
+          ctx.shadowBlur = 15;
+          ctx.shadowColor = "rgba(245, 158, 11, 0.8)"; // Amber trail glow
         } else {
           ctx.shadowBlur = 0;
         }
@@ -206,9 +221,8 @@ export function StarField() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 z-0 w-full h-full pointer-events-none mix-blend-screen"
-    />
+    <div className="absolute inset-0 w-full h-full pointer-events-none z-10">
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
+    </div>
   );
 }

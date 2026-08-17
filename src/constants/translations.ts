@@ -1,13 +1,12 @@
 export const translations = {
   en: {
     nav: {
-      awakening: "Awakening",
       chronicles: "Chronicles",
       craftings: "Craftings",
       alchemist: "The Alchemist",
       timeline: "Timeline",
     },
-    awakening: {
+    hero: {
       subtitle: "Where Vision Becomes Masterpiece",
       intro: "I am",
       firstTitle: "The Architect",
@@ -166,13 +165,12 @@ export const translations = {
   },
   vi: {
     nav: {
-      awakening: "Thức Tỉnh",
       chronicles: "Biên Niên Sử",
       craftings: "Chế Tác",
       alchemist: "Nhà Giả Kim",
       timeline: "Dòng Thời Gian",
     },
-    awakening: {
+    hero: {
       subtitle: "Nơi Tầm Nhìn Trở Thành Tuyệt Tác",
       intro: "Tôi là",
       firstTitle: "The Architect",
@@ -278,7 +276,7 @@ export const translations = {
         },
       },
       craftings: {
-        title: "Tác Phẩm Chế Tác",
+        title: "Những Tạo Tác Giả Kim",
         desc: "Những cổ vật được rèn nên từ dòng lệnh và sự kiên trì, mỗi tạo tác là một mảnh linh hồn được hữu hình hóa.",
       },
       journey: {
