@@ -7,6 +7,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { useLang } from "@/hooks/useLang";
 import { translations } from "@/constants/translations";
+import { DesertDustCanvas } from "./components/DesertDustCanvas";
 // Global GoldenThread used in ChroniclesPage
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -30,6 +31,7 @@ export function TheJourney() {
       gsap.set(".the-sun", { x: -100, scale: 1, opacity: 0, filter: "blur(10px)" });
       gsap.set(".the-moon", { x: 100, scale: 1, opacity: 0, filter: "blur(10px)" });
       gsap.set(".the-desert", { scale: 1.1, filter: "blur(10px)", opacity: 0 });
+      gsap.set(".desert-dust-layer", { opacity: 0 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -90,6 +92,7 @@ export function TheJourney() {
           { scale: 1, filter: "blur(0px)", opacity: 1, duration: 3.0, ease: "power2.out" },
           "<"
         )
+        .to(".desert-dust-layer", { opacity: 1, duration: 3.0, ease: "power2.out" }, "<")
         .to(
           ".the-sun",
           { x: 0, opacity: 1, filter: "blur(0px)", duration: 2.5, ease: "power2.out" },
@@ -137,7 +140,7 @@ export function TheJourney() {
         .fromTo(
           "#maktub",
           { opacity: 0, scale: 1.2, filter: "blur(10px)" },
-          { opacity: 0.4, scale: 1, filter: "blur(0px)", duration: 1.5, ease: "power2.out" },
+          { opacity: 0.9, scale: 1, filter: "blur(0px)", duration: 1.5, ease: "power2.out" },
           "+=0.3"
         );
     },
@@ -187,6 +190,11 @@ export function TheJourney() {
             className="object-contain w-full h-full opacity-5 md:opacity-[0.1]"
           />
         </div>
+
+        {/* 🌟 Golden Sandstorm & Desert Dust Particles */}
+        <div className="desert-dust-layer absolute inset-0 z-10 pointer-events-none opacity-0">
+          <DesertDustCanvas particleCount={130} />
+        </div>
       </div>
       {/* Global GoldenThread is layered over this container */}
 
@@ -212,10 +220,13 @@ export function TheJourney() {
       </div>
       <div
         ref={legaciesContentRef}
-        className="absolute inset-0 z-40 flex flex-col items-center justify-center text-center px-6 pointer-events-none"
+        className="absolute inset-0 z-40 flex flex-col items-center justify-center text-center px-4 sm:px-6 pointer-events-none"
       >
-        <div key={`legacies-${lang}`} className="crafting-content relative">
-          <h2 className="crafting-title text-3xl md:text-5xl lg:text-6xl font-kings tracking-wide mb-8 text-amber-600 drop-shadow-[0_0_15px_rgba(251,191,36,0.2)]">
+        <div
+          key={`legacies-${lang}`}
+          className="crafting-content relative w-full max-w-4xl mx-auto flex flex-col items-center justify-center"
+        >
+          <h2 className="crafting-title text-3xl sm:text-4xl md:text-5xl font-kings tracking-wide mb-2 sm:mb-3 text-amber-600 drop-shadow-[0_0_15px_rgba(251,191,36,0.2)]">
             {t.legacies.split("").map((char, i) => (
               <span key={i} className="inline-block">
                 {char === " " ? "\u00A0" : char}
@@ -223,40 +234,40 @@ export function TheJourney() {
             ))}
           </h2>
 
-          <p className="crafting-text text-xl md:text-2xl leading-relaxed max-w-3xl mx-auto text-neutral-600 font-playfair-display">
+          <p className="crafting-text text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto text-neutral-600 font-playfair-display mb-6 sm:mb-8">
             {t.legaciesDesc.split(" ").map((word, i) => (
-              <span key={i} className="inline-block mr-2">
+              <span key={i} className="inline-block mr-1.5">
                 {word}
               </span>
             ))}
           </p>
 
-          <div className="crafting-quote relative mt-16 italic text-lg md:text-2xl max-w-4xl mx-auto text-neutral-600">
+          <div className="crafting-quote relative max-w-3xl mx-auto text-neutral-600 px-6 sm:px-10">
             <Image
               src="/assets/images/apos.svg"
               alt="quote open mark"
-              width={80}
-              height={80}
-              className="absolute -top-10 -left-12 opacity-20 invert select-none pointer-events-none"
+              width={40}
+              height={40}
+              className="absolute -top-4 -left-2 sm:-left-4 opacity-20 invert select-none pointer-events-none"
             />
             <Image
               src="/assets/images/apos.svg"
               alt="quote close mark"
-              width={80}
-              height={80}
-              className="absolute -bottom-10 -right-12 opacity-20 invert rotate-180 select-none pointer-events-none"
+              width={40}
+              height={40}
+              className="absolute -bottom-4 -right-2 sm:-right-4 opacity-20 invert rotate-180 select-none pointer-events-none"
             />
-            <span className="relative z-10 block leading-relaxed text-3xl md:text-5xl font-playfair-display text-neutral-900">
+            <span className="relative z-10 block leading-relaxed text-xl sm:text-2xl md:text-3xl lg:text-4xl font-playfair-display italic text-neutral-900 drop-shadow-sm">
               {t.quote}
             </span>
 
-            <div className="mt-8 relative z-10 font-space-mono text-xs uppercase tracking-[0.3em] text-neutral-600">
+            <div className="mt-4 sm:mt-5 relative z-10 font-space-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-neutral-600">
               {t.author}
             </div>
 
             <div
               id="maktub"
-              className="mt-20 font-kings text-4xl md:text-6xl tracking-[0.6em] text-amber-500 select-none pointer-events-none drop-shadow-[0_0_20px_rgba(245,158,11,0.5)]"
+              className="mt-6 sm:mt-8 font-kings text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-[0.35em] text-amber-500 select-none pointer-events-none drop-shadow-[0_2px_15px_rgba(245,158,11,0.35)]"
             >
               {t.maktub}
             </div>

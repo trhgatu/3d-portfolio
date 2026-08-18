@@ -8,11 +8,11 @@ export const MOCK_PROJECTS_EN: Project[] = [
     name: "Magnum Opus",
     description:
       "The Great Work — A sovereign digital sanctuary of memory and reflection, forged through unyielding architectural mastery and the alchemy of code.",
-    thumbnail: "/assets/images/craftings/eye_of_providence.png",
+    thumbnail: "/assets/images/craftings/magnum-opus.png",
     images: [
+      "/assets/images/craftings/magnum-opus.png",
       "/assets/images/craftings/eye_of_providence.png",
       "/assets/images/craftings/magic_circle.png",
-      "/assets/images/craftings/ouroboros.png",
     ],
     tech: [
       { name: "Turborepo" },
@@ -39,11 +39,11 @@ export const MOCK_PROJECTS_EN: Project[] = [
     name: "The Ronin",
     description:
       "An ethereal Japanese Sumi-e interactive experience — Chronicling the path of the masterless warrior through traditional ink artistry and dynamic 3D physics.",
-    thumbnail: "/assets/images/craftings/bg_sumi_e_snow.png",
+    thumbnail: "/assets/images/craftings/the-ronin.png",
     images: [
+      "/assets/images/craftings/the-ronin.png",
       "/assets/images/craftings/bg_sumi_e_snow.png",
       "/assets/images/craftings/sumi_tree.png",
-      "/assets/images/craftings/sumi_e_pine.png",
     ],
     tech: [
       { name: "Next.js" },
@@ -99,12 +99,12 @@ export const MOCK_PROJECTS_VI: Project[] = [
     slug: "magnum-opus",
     name: "Magnum Opus",
     description:
-      "Đại Tạo Tác tối thượng — Thánh địa kỹ thuật số lưu giữ ký ức và tâm thức, được đúc kết từ hàng vạn dòng lệnh bất hoại và quy luật kiến trúc vĩnh hằng.",
-    thumbnail: "/assets/images/craftings/eye_of_providence.png",
+      "The Great Work — Thánh địa kỹ thuật số lưu giữ ký ức và tâm thức, được đúc kết từ hàng vạn dòng lệnh bất hoại và quy luật kiến trúc vĩnh hằng.",
+    thumbnail: "/assets/images/craftings/magnum-opus.png",
     images: [
+      "/assets/images/craftings/magnum-opus.png",
       "/assets/images/craftings/eye_of_providence.png",
       "/assets/images/craftings/magic_circle.png",
-      "/assets/images/craftings/ouroboros.png",
     ],
     tech: [
       { name: "Turborepo" },
@@ -131,11 +131,11 @@ export const MOCK_PROJECTS_VI: Project[] = [
     name: "The Ronin",
     description:
       "Tuyệt tác thủy mặc tương tác sống động — Khắc họa hành trình kiếm sĩ vô danh qua nghệ thuật Sumi-e truyền thống và công nghệ 3D tân tiến.",
-    thumbnail: "/assets/images/craftings/bg_sumi_e_snow.png",
+    thumbnail: "/assets/images/craftings/the-ronin.png",
     images: [
+      "/assets/images/craftings/the-ronin.png",
       "/assets/images/craftings/bg_sumi_e_snow.png",
       "/assets/images/craftings/sumi_tree.png",
-      "/assets/images/craftings/sumi_e_pine.png",
     ],
     tech: [
       { name: "Next.js" },
