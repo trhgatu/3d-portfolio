@@ -276,7 +276,7 @@ export const translations = {
         },
       },
       craftings: {
-        title: "Những Tạo Tác Giả Kim",
+        title: "Tuyệt Tác Giả Kim",
         desc: "Những cổ vật được rèn nên từ dòng lệnh và sự kiên trì, mỗi tạo tác là một mảnh linh hồn được hữu hình hóa.",
       },
       journey: {

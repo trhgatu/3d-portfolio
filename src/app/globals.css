@@ -5,43 +5,44 @@
 
 @layer utilities {
   .font-mono {
-    font-family: var(--font-space-mono);
+    font-family: var(--font-space-mono), monospace;
   }
 
   .font-bilbo {
-    font-family: var(--font-bilbo);
+    font-family: var(--font-bilbo), var(--font-playfair-display), serif;
   }
 
   .font-playfair-display {
-    font-family: var(--font-playfair-display);
+    font-family: var(--font-playfair-display), serif;
   }
 
   .font-texturina {
-    font-family: var(--font-texturina);
+    font-family: var(--font-texturina), serif;
   }
 
   .font-share-tech-mono {
-    font-family: var(--font-share-tech-mono);
+    font-family: var(--font-share-tech-mono), monospace;
   }
 
   .font-kings {
-    font-family: var(--font-kings);
+    font-family:
+      var(--font-kings), var(--font-cinzel-decorative), var(--font-playfair-display), serif;
   }
 
   .font-beau-rivage {
-    font-family: var(--font-beau-rivage);
+    font-family: var(--font-beau-rivage), cursive;
   }
 
   .font-metamorphous {
-    font-family: var(--font-metamorphous);
+    font-family: var(--font-metamorphous), serif;
   }
 
   .font-cinzel-decorative {
-    font-family: var(--font-cinzel-decorative);
+    font-family: var(--font-cinzel-decorative), serif;
   }
 
   .font-oldenburg {
-    font-family: var(--font-oldenburg);
+    font-family: var(--font-oldenburg), serif;
   }
 }
 

@@ -39,7 +39,7 @@ const cinzelDecorative = Cinzel_Decorative({
 });
 
 const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   weight: ["400", "700", "900", "500", "600", "800"],
   variable: "--font-playfair-display",
   display: "swap",
@@ -81,7 +81,7 @@ const shareTechMono = Share_Tech_Mono({
 });
 
 const texTurina = Texturina({
-  subsets: ["latin"],
+  subsets: ["latin", "vietnamese"],
   weight: ["400", "100", "200", "300", "500", "700", "600", "800", "900"],
   variable: "--font-texturina",
   display: "swap",

@@ -79,11 +79,11 @@ export function TheAlchemistJournal() {
         );
       });
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [lang], revertOnUpdate: true }
   );
 
   return (
-    <div ref={containerRef} className="space-y-12 max-w-5xl mx-auto px-4">
+    <div key={lang} ref={containerRef} className="space-y-12 max-w-5xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 items-center relative overflow-visible group journal-phase">
         <div className="text-left space-y-4 order-2 md:order-1 journal-text">
           <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">

@@ -102,7 +102,7 @@ export function TheAlchemistRecipes() {
         }
       );
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [lang], revertOnUpdate: true }
   );
 
   return (
@@ -111,7 +111,10 @@ export function TheAlchemistRecipes() {
       <div className="relative z-10 w-full max-w-5xl mx-auto md:p-8">
         {/* Title Area */}
         <div className="text-center mb-16 relative flex flex-col items-center recipe-anim">
-          <h3 className="magnum-opus-title font-kings text-5xl md:text-7xl text-[#3d2817] mb-4 relative">
+          <h3
+            key={`magnum-title-${lang}`}
+            className="magnum-opus-title font-kings text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-[#3d2817] mb-4 relative"
+          >
             {t.magnumOpus.split("").map((char, idx) => (
               <span key={idx} className="char inline-block" aria-hidden="true">
                 {char === " " ? "\u00A0" : char}
@@ -264,7 +267,10 @@ export function TheAlchemistRecipes() {
 
         {/* The Manifestation */}
         <div className="mt-20 pt-10 recipe-anim flex flex-col items-center">
-          <h4 className="manifestation-title font-kings text-5xl md:text-7xl text-[#3d2817] mb-4 relative">
+          <h4
+            key={`manifest-title-${lang}`}
+            className="manifestation-title font-kings text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-[#3d2817] mb-4 relative"
+          >
             {t.manifestation.title.split("").map((char, idx) => (
               <span key={idx} className="char inline-block" aria-hidden="true">
                 {char === " " ? "\u00A0" : char}
@@ -276,7 +282,10 @@ export function TheAlchemistRecipes() {
             <span className="text-xl text-neutral-500 font-serif">✧</span>
             <div className="w-24 h-[1px] bg-neutral-500" />
           </div>
-          <div className="font-bilbo text-4xl md:text-5xl text-[#2a1a10] text-center px-4 md:px-12 py-6 leading-relaxed">
+          <div
+            key={`manifest-poem-${lang}`}
+            className="font-bilbo text-4xl md:text-5xl text-[#2a1a10] text-center px-4 md:px-12 py-6 leading-relaxed"
+          >
             {t.manifestation.poem.map((line: string, i: number) => (
               <p key={i} className={i !== t.manifestation.poem.length - 1 ? "mb-8" : ""}>
                 {i === 0 ? "“" : ""}

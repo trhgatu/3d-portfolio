@@ -63,16 +63,16 @@ const fragmentShader = `
     // Nebula Effect (FBM)
     // Layer 1: Deepest layer moves slowest
     vec2 q = vec2(0.);
-    q.x = fbm(nebulaSt + vec2(0.0, uScroll * 0.1) + 0.00 * uTime);
-    q.y = fbm(nebulaSt + vec2(0.0, uScroll * 0.15) + vec2(1.0));
+    q.x = fbm(nebulaSt + vec2(0.0, uScroll * 0.05) + 0.00 * uTime);
+    q.y = fbm(nebulaSt + vec2(0.0, uScroll * 0.08) + vec2(1.0));
 
     // Layer 2: Middle layer moves slightly faster
     vec2 r = vec2(0.);
-    r.x = fbm(nebulaSt + 1.0 * q + vec2(1.7, 9.2) + 0.15 * uTime + uMouse.x * 0.5 + vec2(0.0, uScroll * 0.25));
-    r.y = fbm(nebulaSt + 1.0 * q + vec2(8.3, 2.8) + 0.126 * uTime + uMouse.y * 0.5 + vec2(0.0, uScroll * 0.3));
+    r.x = fbm(nebulaSt + 1.0 * q + vec2(1.7, 9.2) + 0.15 * uTime + uMouse.x * 0.5 + vec2(0.0, uScroll * 0.12));
+    r.y = fbm(nebulaSt + 1.0 * q + vec2(8.3, 2.8) + 0.126 * uTime + uMouse.y * 0.5 + vec2(0.0, uScroll * 0.15));
 
     // Layer 3: Top layer moves fastest, creating volumetric separation
-    float f = fbm(nebulaSt + r + vec2(0.0, uScroll * 0.45));
+    float f = fbm(nebulaSt + r + vec2(0.0, uScroll * 0.22));
 
     // Deep Amber/Gold color palette
     vec3 color = mix(vec3(0.01, 0.01, 0.01), vec3(0.1, 0.03, 0.0), clamp((f * f) * 3.0, 0.0, 1.0));
@@ -135,6 +135,8 @@ export function OglStarField() {
     let targetMouseY = 0;
     let currentMouseX = 0;
     let currentMouseY = 0;
+    let targetScroll = 0;
+    let currentScroll = 0;
 
     const handleResize = () => {
       const width = window.innerWidth;
@@ -158,7 +160,11 @@ export function OglStarField() {
       lastTime = now;
 
       program.uniforms.uTime.value += delta;
-      program.uniforms.uScroll.value = window.scrollY || 0;
+
+      // Smooth scroll interpolation normalized by viewport height
+      targetScroll = (window.scrollY || 0) / Math.max(window.innerHeight, 1);
+      currentScroll += (targetScroll - currentScroll) * 0.08;
+      program.uniforms.uScroll.value = currentScroll;
 
       // Smooth mouse interpolation
       currentMouseX += (targetMouseX - currentMouseX) * 0.05;

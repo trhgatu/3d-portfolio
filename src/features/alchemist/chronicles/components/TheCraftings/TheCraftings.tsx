@@ -265,7 +265,7 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
         });
       }
     },
-    { scope: sectionRef, dependencies: [projects.length, dimensions] }
+    { scope: sectionRef, dependencies: [projects.length, dimensions, lang], revertOnUpdate: true }
   );
 
   useGSAP(
@@ -292,10 +292,10 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
   if (isLoading) {
     return (
       <section className="relative w-full h-screen bg-neutral-950 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
-          <p className="font-kings text-xl text-amber-500/80 animate-pulse tracking-widest">
-            Summoning Artifacts...
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 border-2 border-amber-500/20 border-t-amber-500 rounded-full animate-spin mx-auto" />
+          <p className="font-kings text-xl text-amber-200/60 tracking-wider">
+            {translations[lang].common.loading}
           </p>
         </div>
       </section>
@@ -324,8 +324,10 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
 
       <div className="w-full relative z-20">
         <div className="relative z-30 text-center pt-20 pb-4 md:pt-28 md:pb-8 shrink-0 flex flex-col items-center max-w-4xl mx-auto px-4">
-          {/* 👑 Monumental Display Title */}
-          <h2 className="craftings-title text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-kings tracking-wider text-white leading-none drop-shadow-[0_4px_35px_rgba(245,158,11,0.25)] mb-3">
+          <h2
+            key={`craftings-title-${lang}`}
+            className="craftings-title text-4xl sm:text-6xl md:text-6xl lg:text-8xl font-kings tracking-wider text-white leading-none drop-shadow-[0_4px_35px_rgba(245,158,11,0.25)] mb-3"
+          >
             {t.title.split("").map((char, i) => (
               <span key={i} className="inline-block">
                 {char === " " ? "\u00A0" : char}
@@ -343,7 +345,10 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
           </div>
 
           {/* 📜 4. Poetic Lore Inscription in Bilbo */}
-          <p className="craftings-desc font-bilbo text-2xl md:text-3xl lg:text-4xl max-w-2xl mx-auto leading-relaxed text-white/90 text-center opacity-0">
+          <p
+            key={`craftings-desc-${lang}`}
+            className="craftings-desc font-bilbo text-2xl sm:text-3xl md:text-4xl text-white/90 max-w-2xl text-center leading-relaxed tracking-wide opacity-0"
+          >
             &ldquo;{t.desc}&rdquo;
           </p>
         </div>

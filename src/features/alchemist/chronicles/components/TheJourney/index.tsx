@@ -141,11 +141,12 @@ export function TheJourney() {
           "+=0.3"
         );
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [lang], revertOnUpdate: true }
   );
 
   return (
     <section
+      id="the-journey"
       ref={containerRef}
       className="relative w-full min-h-screen flex flex-col items-center justify-center bg-transparent text-neutral-800 overflow-hidden"
     >
@@ -175,6 +176,7 @@ export function TheJourney() {
             className="object-contain brightness-0 opacity-80 drop-shadow-[0_0_15px_rgba(0,0,0,0.2)]"
           />
         </div>
+
         <div className="the-desert absolute inset-0 flex items-center justify-center pointer-events-none opacity-50">
           <Image
             src="/assets/images/adventure.svg"
@@ -188,7 +190,10 @@ export function TheJourney() {
       </div>
       {/* Global GoldenThread is layered over this container */}
 
-      <div className="relative z-50 w-full max-w-4xl px-6 h-full flex items-center justify-center pointer-events-none">
+      <div
+        key={`narratives-${lang}`}
+        className="relative w-full h-full flex items-center justify-center pointer-events-none"
+      >
         <div className="narrative-entry absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-8 max-w-4xl mx-auto">
           <p className="text-3xl md:text-5xl lg:text-6xl font-playfair-display italic text-white/90 tracking-widest leading-relaxed drop-shadow-[0_0_20px_rgba(255,255,255,0.4)] text-center">
             {t.narrative1}
@@ -209,7 +214,7 @@ export function TheJourney() {
         ref={legaciesContentRef}
         className="absolute inset-0 z-40 flex flex-col items-center justify-center text-center px-6 pointer-events-none"
       >
-        <div className="crafting-content relative">
+        <div key={`legacies-${lang}`} className="crafting-content relative">
           <h2 className="crafting-title text-3xl md:text-5xl lg:text-6xl font-kings tracking-wide mb-8 text-amber-600 drop-shadow-[0_0_15px_rgba(251,191,36,0.2)]">
             {t.legacies.split("").map((char, i) => (
               <span key={i} className="inline-block">

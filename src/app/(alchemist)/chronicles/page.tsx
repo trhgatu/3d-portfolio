@@ -24,6 +24,13 @@ export default function ChroniclesPage() {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [lang]);
+
   return (
     <main className="relative w-full">
       <GlobalAtmosphere isIgnited={true} />

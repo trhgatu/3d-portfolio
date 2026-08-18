@@ -8,7 +8,6 @@ export function ManuscriptNotes() {
   const t = translations[lang].chronicles.techGrimoire;
   const manuscripts = t.manuscripts || [];
 
-  // Fixed positions for predictability but styled to look scattered
   const positions = [
     { top: "15%", left: "10%", rotate: "-5deg", width: "250px" },
     { top: "20%", right: "12%", rotate: "3deg", width: "280px" },
@@ -17,7 +16,7 @@ export function ManuscriptNotes() {
   ];
 
   return (
-    <div className="absolute inset-0 z-10 pointer-events-none p-10 overflow-hidden">
+    <div key={lang} className="absolute inset-0 z-10 pointer-events-none p-10 overflow-hidden">
       {manuscripts.map((text, idx) => {
         const pos = positions[idx % positions.length];
         return (

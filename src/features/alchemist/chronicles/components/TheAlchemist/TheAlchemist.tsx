@@ -91,7 +91,7 @@ export function TheAlchemist() {
         }
       );
     },
-    { scope: containerRef }
+    { scope: containerRef, dependencies: [lang], revertOnUpdate: true }
   );
 
   return (
@@ -155,7 +155,8 @@ export function TheAlchemist() {
       <div className="the-alchemist-wrapper max-w-7xl mx-auto pt-64 md:pt-96 pb-16 relative z-10 flex flex-col items-center px-4 h-full justify-center">
         <div className="the-alchemist-title-container text-center text-neutral-900 mb-8">
           <div
-            className="the-alchemist-title line-1 text-5xl md:text-7xl font-kings tracking-wide relative z-20"
+            key={`alchemist-title-${lang}`}
+            className="the-alchemist-title line-1 text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-kings tracking-wide relative z-20"
             aria-label={t.title}
           >
             {t.title.split("").map((char, idx) => (
@@ -175,6 +176,7 @@ export function TheAlchemist() {
         <div className="the-alchemist-content-container font-serif relative z-10 w-full flex flex-col items-center gap-16">
           <div className="space-y-6 p-6 md:p-0 relative z-20 text-center max-w-5xl mx-auto mb-12">
             <p
+              key={`alchemist-desc-${lang}`}
               className="the-alchemist-desc-1 text-3xl sm:text-4xl lg:text-5xl leading-[1.6] text-neutral-900 font-medium font-bilbo relative"
               aria-label={theAlchemistText}
             >
