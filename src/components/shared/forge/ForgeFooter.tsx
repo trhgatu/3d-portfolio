@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   IconBrandGithub,
   IconBrandLinkedin,
@@ -14,6 +15,7 @@ import { useTransitionRouter } from "@/hooks/useTransitionRouter";
 const year = new Date().getFullYear();
 
 export const ForgeFooter = () => {
+  const [isColophonOpen, setIsColophonOpen] = useState(false);
   const lang = useLang();
   const t = translations[lang];
   const { transitionTo } = useTransitionRouter();
@@ -48,6 +50,56 @@ export const ForgeFooter = () => {
           letter-spacing: -0.02em;
         }
       `}</style>
+
+      {/* Colophon / Author's Note - Manuscript Fold Ribbon */}
+      <div className="w-full border-b border-white/[0.04] bg-neutral-950/20 backdrop-blur-sm relative z-10">
+        <div className="max-w-3xl mx-auto px-6 py-4 flex flex-col items-center">
+          <button
+            onClick={() => setIsColophonOpen((prev) => !prev)}
+            className="group/ribbon inline-flex items-center gap-4 py-1 cursor-pointer select-none text-neutral-400 hover:text-amber-400 transition-colors duration-300"
+            aria-expanded={isColophonOpen}
+          >
+            {/* Left Antique Rule */}
+            <div className="h-[1px] w-12 sm:w-20 bg-gradient-to-r from-transparent via-amber-500/30 to-amber-500/60 group-hover/ribbon:via-amber-400/50 group-hover/ribbon:to-amber-400 transition-all duration-300" />
+
+            <div className="flex items-center gap-2.5">
+              <span className="text-amber-500/60 text-xs group-hover/ribbon:rotate-45 group-hover/ribbon:text-amber-400 transition-all duration-300">
+                ✧
+              </span>
+              <span className="font-bilbo text-2xl sm:text-3xl text-neutral-300 group-hover/ribbon:text-amber-300 transition-colors duration-300">
+                {t.colophon.badge}
+              </span>
+              <span className="text-xs text-amber-500/40 font-serif transition-transform duration-300 group-hover/ribbon:text-amber-400">
+                {isColophonOpen ? "▴" : "▾"}
+              </span>
+            </div>
+
+            {/* Right Antique Rule */}
+            <div className="h-[1px] w-12 sm:w-20 bg-gradient-to-l from-transparent via-amber-500/30 to-amber-500/60 group-hover/ribbon:via-amber-400/50 group-hover/ribbon:to-amber-400 transition-all duration-300" />
+          </button>
+
+          {/* Smooth Grid Accordion Expansion */}
+          <div
+            className={`grid transition-all duration-500 ease-out w-full ${
+              isColophonOpen
+                ? "grid-rows-[1fr] opacity-100 mt-4 pb-4"
+                : "grid-rows-[0fr] opacity-0 mt-0 pb-0"
+            }`}
+          >
+            <div className="overflow-hidden flex flex-col items-center">
+              <div className="p-6 rounded-2xl bg-amber-950/[0.08] border border-amber-500/15 max-w-2xl relative shadow-inner">
+                <p className="font-playfair-display italic text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed text-center">
+                  “{t.colophon.quote}”
+                </p>
+
+                <div className="font-bilbo text-xl sm:text-2xl text-amber-400/90 mt-3 text-right tracking-wider">
+                  {t.colophon.signature}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 items-center gap-10">
         <div className="flex flex-col gap-6 text-lg md:text-base order-2 md:order-1">

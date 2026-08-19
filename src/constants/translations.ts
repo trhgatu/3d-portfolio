@@ -43,22 +43,22 @@ export const translations = {
         journal: {
           nigredo: {
             title: "Nigredo: The Void",
-            desc: "The years of darkness where every preconception was shattered. It was the necessary destruction—the blackening of the spirit. Before I could build again, I had to learn to exist within the shards of my own broken logic.",
+            desc: "The years of darkness where every preconception was shattered on the brink of surrender. It was the necessary destruction—the blackening of the spirit. Before anything could be rebuilt, the first lesson was learning to exist among the shards of shattered logic.",
             initial: "N",
           },
           albedo: {
             title: "Albedo: Purification",
-            desc: "From the ashes of that collapse, I began to wash the mirror. I purged the noise, refined my intent, and chose clarity over the clever distractions of the past. The soul was scrubbed until it could finally reflect the light again.",
+            desc: "From the ashes of that collapse, the mirror of consciousness began to clear. Purging the noise, sitting at the keys day after day, code was forged into a steady rhythm over years of discipline. The soul was cleansed in silent ritual until it could reflect original light.",
             initial: "A",
           },
           citrinitas: {
             title: "Citrinitas: Awakening",
-            desc: "Suddenly, the silence of the forge was broken by a new spark. The system within me stirred. My hands began to move not from fear, but from a fluid grace. What was once a rigid, frozen script became a living, breathing destiny.",
+            desc: "Suddenly, the silence of the forge was broken by a new spark as the Personal Legend unfolded. Shedding every confining title, the hands moved no longer from fear, but in pure harmony with the joy of transmuting abstract ideas into living reality.",
             initial: "C",
           },
           rubedo: {
             title: "Rubedo: Realization",
-            desc: "I stand resilient now, holding structure against the chaos that once consumed me. The journey is not complete, but it is realized. I have stepped out of the local forge and into the world—a true testament to the alchemy of survival.",
+            desc: "I stand resilient now, holding structure against the chaos that once consumed. The journey is not complete, but the masterpiece is realized—stepping out from one's own forge into the vast world, a living testament to the alchemy of transmutation.",
             initial: "R",
           },
         },
@@ -115,6 +115,8 @@ export const translations = {
       craftings: {
         title: "The Craftings",
         desc: "Artifacts forged from code and persistence, each creation is a fragment of the soul made manifest.",
+        examineChronicle: "Examine Chronicle",
+        liveManifestation: "Live Manifestation",
       },
       journey: {
         quote:
@@ -156,6 +158,12 @@ export const translations = {
           desc: "The first sparks of creation ignited. Learning the ancient arts of web development, each tutorial a step closer to mastery.",
         },
       ],
+    },
+    colophon: {
+      badge: "Author's Colophon",
+      quote:
+        "This sanctuary was not born from commercial constraints or predefined templates, but purely from a spontaneous creative flow demanding to be manifest. Forged with pure devotion to code and the alchemy of transmuting thought into form.",
+      signature: "— trhgatu • 2026",
     },
     common: {
       loading: "Communing with the Ether...",
@@ -206,28 +214,28 @@ export const translations = {
         journal: {
           nigredo: {
             title: "Nigredo: Hư Vô",
-            desc: "Những năm tháng bóng tối nơi mọi định kiến bị đập tan. Đó là sự hủy diệt cần thiết—giai đoạn đen hóa của tâm hồn. Trước khi có thể xây dựng lại bất cứ điều gì, tôi phải học cách tồn tại giữa những mảnh vỡ của chính logic đã vụn vỡ của mình.",
+            desc: "Những năm tháng bóng tối nơi mọi định kiến bị đập tan trước bờ vực buông xuôi. Đó là sự hủy diệt cần thiết—giai đoạn đen hóa của tâm hồn. Trước khi có thể tái thiết bất cứ điều gì, bài học đầu tiên là học cách tồn tại giữa những mảnh vỡ của chính logic đã vụn tàn.",
             initial: "N",
           },
           albedo: {
             title: "Albedo: Thanh Tẩy",
-            desc: "Từ đống tro tàn của sự sụp đổ đó, tôi bắt đầu lau sạch tấm gương của chính mình. Tôi loại bỏ những tạp âm, tinh luyện ý chí, và chọn sự minh triết thay vì những sự xao nhãng của quá khứ. Linh hồn được gột rửa cho đến khi nó có thể phản chiếu lại ánh sáng một lần nữa.",
+            desc: "Từ đống tro tàn đổ nát, tấm gương tâm thức bắt đầu được lau sạch. Gạt bỏ mọi tạp âm, kiên nhẫn ngồi lại bên bàn phím mỗi ngày và biến từng dòng lệnh thành nhịp thở bền bỉ suốt nhiều năm ròng. Linh hồn được gột rửa trong kỷ luật thầm lặng cho đến khi có thể phản chiếu lại ánh sáng nguyên bản.",
             initial: "A",
           },
           citrinitas: {
             title: "Citrinitas: Thức Tỉnh",
-            desc: "Đột nhiên, sự tĩnh lặng của lò rèn bị phá vỡ bởi một tia lửa mới. Hệ thống bên trong tôi bắt đầu chuyển động. Đôi tay tôi bắt đầu làm việc không còn vì nỗi sợ, mà vì một sự uyển chuyển thanh thoát. Những gì từng là một kịch bản đông cứng, cứng nhắc đã trở thành một vận mệnh sống động và rực rỡ.",
+            desc: "Đột nhiên, sự tĩnh lặng của lò rèn bị phá vỡ bởi một tia lửa mới khi Vận Mệnh được khai mở. Rũ bỏ mọi danh xưng trói buộc, đôi tay chuyển động không còn vì nỗi sợ, mà hòa cùng niềm say mê thuần khiết khi biến những ý niệm trừu tượng thành thực tại sống động.",
             initial: "C",
           },
           rubedo: {
             title: "Rubedo: Hiện Thực",
-            desc: "Giờ đây tôi đứng vững vàng, giữ vững cấu trúc trước sự hỗn loạn từng một thời nuốt chửng mình. Hành trình chưa kết thúc, nhưng nó đã thành hình. Tôi bước ra khỏi lò rèn cục bộ và đi vào thế giới—một minh chứng thực sự cho thuật giả kim của sự sinh tồn.",
+            desc: "Giờ đây tôi đứng vững vàng, giữ vững cấu trúc trước sự hỗn loạn từng một thời nuốt chửng. Hành trình chưa kết thúc, nhưng tạo tác đã thành hình—bước ra khỏi lò rèn của chính mình để tiến vào thế giới rộng lớn, như một minh chứng sống động cho thuật giả kim của sự chuyển hóa.",
             initial: "R",
           },
         },
         recipes: {
           finalFormula: "Công Thức Cuối Cùng",
-          magnumOpus: "Tuyệt Tác Để Đời",
+          magnumOpus: "Đại Tạo Tác",
           desc: "Một công thức chính xác để chuyển hóa tư tưởng trừu tượng thành cấu trúc trường tồn.",
           materiaPrima: "Nguyên Liệu Sơ Khai",
           ingredients: {
@@ -253,14 +261,14 @@ export const translations = {
             discipline: "Kỷ Luật",
             disciplineDesc: "Rèn luyện mỗi ngày",
             solitude: "Sự Tĩnh Lặng",
-            solitudeDesc: "Nơi trú ẩn bình yên",
+            solitudeDesc: "Khoảng không thuần khiết",
           },
           process: {
             title: "Quy Trình",
             step1:
               "Nung chảy cái tôi trong lò luyện của những thất bại liên tiếp. Mã nguồn có thể vỡ; nhưng tôi thì không.",
             step2:
-              "Áp dụng sức nóng không ngừng của sự Ám ảnh. Lặp lại cho đến khi logic hỗn loạn trở thành cấu trúc thanh nhã.",
+              "Áp dụng sức nóng không ngừng của sự Ám ảnh. Lặp lại cho đến khi logic hỗn loạn kết tinh thành cấu trúc hoàn mỹ.",
             step3:
               "Nhận ra chân lý cuối cùng: Tôi không chỉ đang rèn giũa những tạo vật. Chính những tạo vật đó là ngọn lửa đang rèn giũa tôi.",
           },
@@ -278,6 +286,8 @@ export const translations = {
       craftings: {
         title: "Tuyệt Tác Giả Kim",
         desc: "Những cổ vật được rèn nên từ dòng lệnh và sự kiên trì, mỗi tạo tác là một mảnh linh hồn được hữu hình hóa.",
+        examineChronicle: "Khám Phá",
+        liveManifestation: "Trải Nghiệm",
       },
       journey: {
         quote:
@@ -319,6 +329,12 @@ export const translations = {
           desc: "Những tia lửa sáng tạo đầu tiên bùng cháy. Học những nghệ thuật cổ xưa của phát triển web.",
         },
       ],
+    },
+    colophon: {
+      badge: "Lời Bạt Của Tác Giả",
+      quote:
+        "Tác phẩm này được tạo nên không từ bất kỳ khuôn mẫu hay toan tính thương mại nào, mà đơn thuần là khoảnh khắc những ý niệm tự do tuôn trào và đòi được hữu hình hóa. Được rèn đúc bằng tình yêu thuần khiết dành cho dòng lệnh và niềm say mê chuyển hóa tư tưởng thành thực tại trường tồn.",
+      signature: "— trhgatu • 2026",
     },
     common: {
       loading: "Đang kết nối với Ether...",

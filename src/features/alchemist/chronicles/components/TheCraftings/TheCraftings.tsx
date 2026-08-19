@@ -219,7 +219,10 @@ export function TheCraftings({ projects, isLoading, isError }: ProjectHomeProps)
           },
           onUpdate: () => {
             const p = progressObj.value;
-            const index = Math.min(Math.floor(p * projects.length), projects.length - 1);
+            const index = Math.min(
+              Math.max(0, Math.round(p * (projects.length - 1))),
+              projects.length - 1
+            );
             setActiveIndex(index);
             if (prophecyListRef.current && prophecyListRef.current.parentElement) {
               const totalDist =

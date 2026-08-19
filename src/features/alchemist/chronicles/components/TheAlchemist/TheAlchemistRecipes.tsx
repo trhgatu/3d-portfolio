@@ -30,8 +30,8 @@ export function TheAlchemistRecipes() {
       gsap.fromTo(
         ".magnum-opus-title .char",
         {
-          opacity: 0.3,
-          color: "#3d2817",
+          opacity: 0.35,
+          color: "#8c7e72",
           filter: "brightness(1)",
           textShadow: "0 0 0px rgba(255,100,0,0)",
           y: 0,
@@ -41,13 +41,14 @@ export function TheAlchemistRecipes() {
             {
               opacity: 1,
               color: "#ff6b35",
-              filter: "brightness(1.5)",
-              textShadow: "0 0 20px rgba(255,107,53,0.9), 0 0 40px rgba(255,107,53,0.5)",
+              filter: "brightness(1.6)",
+              textShadow: "0 0 20px rgba(255,107,53,0.95), 0 0 40px rgba(245,158,11,0.6)",
               y: -5,
               duration: 0.25,
             },
             {
-              color: "#3d2817",
+              opacity: 1,
+              color: "#1c1917",
               filter: "brightness(1)",
               textShadow: "0 0 0px rgba(0,0,0,0)",
               y: 0,
@@ -68,8 +69,8 @@ export function TheAlchemistRecipes() {
       gsap.fromTo(
         ".manifestation-title .char",
         {
-          opacity: 0.3,
-          color: "#3d2817",
+          opacity: 0.35,
+          color: "#8c7e72",
           filter: "brightness(1)",
           textShadow: "0 0 0px rgba(255,100,0,0)",
           y: 0,
@@ -79,13 +80,14 @@ export function TheAlchemistRecipes() {
             {
               opacity: 1,
               color: "#ff6b35",
-              filter: "brightness(1.5)",
-              textShadow: "0 0 20px rgba(255,107,53,0.9), 0 0 40px rgba(255,107,53,0.5)",
+              filter: "brightness(1.6)",
+              textShadow: "0 0 20px rgba(255,107,53,0.95), 0 0 40px rgba(245,158,11,0.6)",
               y: -5,
               duration: 0.25,
             },
             {
-              color: "#3d2817",
+              opacity: 1,
+              color: "#1c1917",
               filter: "brightness(1)",
               textShadow: "0 0 0px rgba(0,0,0,0)",
               y: 0,
@@ -113,7 +115,7 @@ export function TheAlchemistRecipes() {
         <div className="text-center mb-16 relative flex flex-col items-center recipe-anim">
           <h3
             key={`magnum-title-${lang}`}
-            className="magnum-opus-title font-kings text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-[#3d2817] mb-4 relative"
+            className="magnum-opus-title font-kings text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-[#1c1917] mb-4 relative"
           >
             {t.magnumOpus.split("").map((char, idx) => (
               <span key={idx} className="char inline-block" aria-hidden="true">
@@ -126,7 +128,7 @@ export function TheAlchemistRecipes() {
             <span className="text-xl text-neutral-500 font-serif">✧</span>
             <div className="w-24 h-[1px] bg-neutral-500" />
           </div>
-          <p className="font-bilbo text-3xl text-neutral-700 max-w-2xl mx-auto italic mt-4">
+          <p className="font-bilbo text-2xl sm:text-3xl md:text-4xl text-neutral-800/90 max-w-3xl mx-auto mt-4 leading-relaxed tracking-wide">
             {t.desc}
           </p>
         </div>
@@ -139,7 +141,7 @@ export function TheAlchemistRecipes() {
               <h4 className="font-kings text-4xl text-[#5c3a21] border-b border-[#5c3a21]/20 pb-3 mb-6 flex items-center gap-4">
                 <span className="text-3xl opacity-60">☿</span> {t.materiaPrima}
               </h4>
-              <ul className="space-y-6 font-serif text-[#3d2817]">
+              <ul className="space-y-6 font-playfair-display text-[#3d2817]">
                 <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
                   <span>
                     <strong className="font-kings text-2xl">{t.ingredients.fluidity}</strong>{" "}
@@ -187,7 +189,7 @@ export function TheAlchemistRecipes() {
               <h4 className="font-kings text-4xl text-[#5c3a21] border-b border-[#5c3a21]/20 pb-3 mb-6 flex items-center gap-4">
                 <span className="text-3xl opacity-60">⚗</span> {t.catalysts.title}
               </h4>
-              <ul className="space-y-6 font-serif text-[#3d2817]">
+              <ul className="space-y-6 font-playfair-display text-[#3d2817]">
                 <li className="flex justify-between items-end border-b border-dotted border-[#8b5a2b]/40 pb-1">
                   <span>
                     <strong className="font-kings text-2xl">{t.catalysts.obsession}</strong>
@@ -224,43 +226,42 @@ export function TheAlchemistRecipes() {
             </div>
           </div>
 
-          {/* Right Column (The Process & Circle) */}
+          {/* Right Column (The Process & Steps) */}
           <div className="flex flex-col h-full recipe-anim">
-            <h4 className="font-kings text-4xl text-[#5c3a21] border-b border-[#5c3a21]/20 pb-3 mb-8 flex items-center gap-4">
+            <h4 className="font-kings text-4xl text-[#5c3a21] border-b border-[#5c3a21]/20 pb-3 mb-6 flex items-center gap-4">
               <span className="text-3xl opacity-60">☉</span> {t.process.title}
             </h4>
 
-            <div className="relative w-48 h-48 md:w-56 md:h-56 mx-auto mb-10 mt-4 group flex-shrink-0">
-              {/* Transmutation Circle Image */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/assets/images/craftings/transmutation_circle.png"
-                alt="Transmutation Circle"
-                className="absolute inset-0 w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-700 animate-[spin_40s_linear_infinite]"
-                style={{ filter: "sepia(0.5) hue-rotate(-20deg) contrast(1.2)" }}
-              />
-              <div className="absolute inset-0 bg-amber-600/10 rounded-full blur-2xl opacity-40 mix-blend-multiply pointer-events-none" />
-            </div>
-
-            <div className="font-serif text-[#3d2817] space-y-8 text-justify leading-relaxed flex-grow text-lg">
-              <p>
-                <span className="float-left text-6xl font-kings text-[#78350f] pr-3 pt-2 leading-none">
+            <div className="space-y-4 flex-grow flex flex-col justify-between">
+              {/* Step I */}
+              <div className="flex items-start gap-4 sm:gap-6 p-4 rounded-xl bg-amber-950/[0.03] border border-[#8b5a2b]/20 hover:border-[#8b5a2b]/50 hover:bg-amber-950/[0.06] transition-all duration-300 group/step">
+                <span className="font-kings text-4xl sm:text-5xl text-[#78350f] shrink-0 min-w-[42px] leading-none pt-1 select-none group-hover/step:text-amber-600 transition-colors">
                   I.
                 </span>
-                {t.process.step1}
-              </p>
-              <p>
-                <span className="float-left text-6xl font-kings text-[#78350f] pr-3 pt-2 leading-none">
+                <p className="flex-1 font-bilbo text-2xl sm:text-3xl text-neutral-800 leading-relaxed text-left">
+                  {t.process.step1}
+                </p>
+              </div>
+
+              {/* Step II */}
+              <div className="flex items-start gap-4 sm:gap-6 p-4 rounded-xl bg-amber-950/[0.03] border border-[#8b5a2b]/20 hover:border-[#8b5a2b]/50 hover:bg-amber-950/[0.06] transition-all duration-300 group/step">
+                <span className="font-kings text-4xl sm:text-5xl text-[#78350f] shrink-0 min-w-[42px] leading-none pt-1 select-none group-hover/step:text-amber-600 transition-colors">
                   II.
                 </span>
-                {t.process.step2}
-              </p>
-              <p>
-                <span className="float-left text-6xl font-kings text-[#78350f] pr-3 pt-2 leading-none">
+                <p className="flex-1 font-bilbo text-2xl sm:text-3xl text-neutral-800 leading-relaxed text-left">
+                  {t.process.step2}
+                </p>
+              </div>
+
+              {/* Step III */}
+              <div className="flex items-start gap-4 sm:gap-6 p-4 rounded-xl bg-amber-950/[0.03] border border-[#8b5a2b]/20 hover:border-[#8b5a2b]/50 hover:bg-amber-950/[0.06] transition-all duration-300 group/step">
+                <span className="font-kings text-4xl sm:text-5xl text-[#78350f] shrink-0 min-w-[42px] leading-none pt-1 select-none group-hover/step:text-amber-600 transition-colors">
                   III.
                 </span>
-                {t.process.step3}
-              </p>
+                <p className="flex-1 font-bilbo text-2xl sm:text-3xl text-neutral-800 leading-relaxed text-left">
+                  {t.process.step3}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -269,7 +270,7 @@ export function TheAlchemistRecipes() {
         <div className="mt-20 pt-10 recipe-anim flex flex-col items-center">
           <h4
             key={`manifest-title-${lang}`}
-            className="manifestation-title font-kings text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-[#3d2817] mb-4 relative"
+            className="manifestation-title font-kings text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-[#1c1917] mb-4 relative"
           >
             {t.manifestation.title.split("").map((char, idx) => (
               <span key={idx} className="char inline-block" aria-hidden="true">

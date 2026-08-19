@@ -23,8 +23,8 @@ export function TheAlchemist() {
       gsap.fromTo(
         ".the-alchemist-title.line-1 .char",
         {
-          opacity: 0.3,
-          color: "#a3a3a3",
+          opacity: 0.35,
+          color: "#8c7e72",
           filter: "brightness(1)",
           textShadow: "0 0 0px rgba(255,100,0,0)",
           y: 0,
@@ -34,13 +34,14 @@ export function TheAlchemist() {
             {
               opacity: 1,
               color: "#ff6b35",
-              filter: "brightness(1.5)",
-              textShadow: "0 0 20px rgba(255,107,53,0.9), 0 0 40px rgba(255,107,53,0.5)",
+              filter: "brightness(1.6)",
+              textShadow: "0 0 20px rgba(255,107,53,0.95), 0 0 40px rgba(245,158,11,0.6)",
               y: -5,
               duration: 0.25,
             },
             {
-              color: "#171717",
+              opacity: 1,
+              color: "#1c1917",
               filter: "brightness(1)",
               textShadow: "0 0 0px rgba(0,0,0,0)",
               y: 0,
@@ -173,7 +174,7 @@ export function TheAlchemist() {
           </div>
         </div>
 
-        <div className="the-alchemist-content-container font-serif relative z-10 w-full flex flex-col items-center gap-16">
+        <div className="the-alchemist-content-container font-playfair-display relative z-10 w-full flex flex-col items-center gap-16">
           <div className="space-y-6 p-6 md:p-0 relative z-20 text-center max-w-5xl mx-auto mb-12">
             <p
               key={`alchemist-desc-${lang}`}

@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { Project } from "@/types";
 import Link from "next/link";
 import { MasterpieceCanvas } from "./components/MasterpieceCanvas";
+import { useLang } from "@/hooks/useLang";
+import { translations } from "@/constants/translations";
 
 interface ProphecyCardProps {
   project: Project;
@@ -12,6 +14,8 @@ interface ProphecyCardProps {
 export function ProphecyCard({ project: p, index: i, activeIndex }: ProphecyCardProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isActive = i === activeIndex;
+  const lang = useLang();
+  const t = translations[lang].chronicles.craftings;
 
   return (
     <div className="min-h-screen w-full flex flex-col justify-center pr-4 md:pr-16 pl-2 md:pl-8 py-8">
@@ -57,20 +61,21 @@ export function ProphecyCard({ project: p, index: i, activeIndex }: ProphecyCard
               <p>&ldquo;{p.description}&rdquo;</p>
             </div>
 
-            {/* Signature Editorial Action Links */}
-            <div className="flex flex-wrap items-center gap-10 pt-4 border-t border-amber-500/10">
+            {/* Signature Artisanal Editorial Action Links */}
+            <div className="flex flex-wrap items-center gap-6 sm:gap-8 pt-4">
               <Link
                 href={`/project/${p.slug}`}
-                className="group/link inline-flex items-center gap-4 py-2 relative"
+                className="group/link relative inline-flex items-center gap-2 py-1.5 text-amber-300 hover:text-amber-200 transition-colors duration-300 whitespace-nowrap"
               >
-                <span className="font-kings text-2xl md:text-3xl text-white group-hover/link:text-amber-300 transition-colors">
-                  Examine Chronicle
+                <span className="font-playfair-display italic text-base sm:text-lg tracking-wide text-amber-300 group-hover/link:text-amber-200">
+                  {t.examineChronicle}
                 </span>
-                <span className="text-lg text-amber-400 group-hover/link:translate-x-2 transition-transform duration-300">
+                <span className="text-base text-amber-400 group-hover/link:translate-x-1.5 transition-transform duration-300">
                   ⟶
                 </span>
-                {/* Glowing Underline Accent */}
-                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-amber-500/50 via-amber-400/80 to-transparent group-hover/link:h-[2px] group-hover/link:from-amber-400 transition-all duration-300" />
+
+                {/* Gilded Underline Rule */}
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-amber-400/80 via-amber-400/40 to-transparent group-hover/link:from-amber-300 group-hover/link:via-amber-300/80 group-hover/link:to-amber-300/20 transition-all duration-300" />
               </Link>
 
               {p.link && (
@@ -78,12 +83,17 @@ export function ProphecyCard({ project: p, index: i, activeIndex }: ProphecyCard
                   href={p.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group/live inline-flex items-center gap-2 font-space-mono text-xs uppercase tracking-widest text-white/80 hover:text-amber-300 transition-colors"
+                  className="group/live relative inline-flex items-center gap-1.5 py-1.5 text-neutral-400 hover:text-amber-300 transition-colors duration-300 whitespace-nowrap"
                 >
-                  <span>Live Manifestation</span>
-                  <span className="group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5 transition-transform duration-300">
+                  <span className="font-playfair-display italic text-sm sm:text-base tracking-wide">
+                    {t.liveManifestation}
+                  </span>
+                  <span className="text-sm text-amber-500/70 group-hover/live:text-amber-300 group-hover/live:translate-x-0.5 group-hover/live:-translate-y-0.5 transition-all duration-300">
                     ↗
                   </span>
+
+                  {/* Subtle Underline on hover */}
+                  <span className="absolute bottom-0 left-0 w-0 group-hover/live:w-full h-[1px] bg-amber-400/50 transition-all duration-300" />
                 </Link>
               )}
             </div>

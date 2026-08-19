@@ -86,11 +86,11 @@ export function TheAlchemistJournal() {
     <div key={lang} ref={containerRef} className="space-y-12 max-w-5xl mx-auto px-4">
       <div className="grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 items-center relative overflow-visible group journal-phase">
         <div className="text-left space-y-4 order-2 md:order-1 journal-text">
-          <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
+          <h3 className="text-3xl sm:text-4xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
             {t.nigredo.title}
           </h3>
-          <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
-            <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
+          <p className="font-bilbo text-2xl sm:text-3xl leading-relaxed text-neutral-700 text-justify">
+            <span className="float-left text-7xl font-kings text-neutral-900 mr-3 mt-[-6px] leading-none drop-shadow-sm">
               {t.nigredo.initial}
             </span>
             {t.nigredo.desc}
@@ -120,11 +120,11 @@ export function TheAlchemistJournal() {
           </div>
         </div>
         <div className="text-left space-y-4 order-2 journal-text">
-          <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
+          <h3 className="text-3xl sm:text-4xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
             {t.albedo.title}
           </h3>
-          <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
-            <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
+          <p className="font-bilbo text-2xl sm:text-3xl leading-relaxed text-neutral-700 text-justify">
+            <span className="float-left text-7xl font-kings text-neutral-900 mr-3 mt-[-6px] leading-none drop-shadow-sm">
               {t.albedo.initial}
             </span>
             {t.albedo.desc}
@@ -140,11 +140,11 @@ export function TheAlchemistJournal() {
 
       <div className="grid grid-cols-1 md:grid-cols-[7fr_3fr] gap-8 items-center group journal-phase">
         <div className="text-left space-y-4 order-2 md:order-1 journal-text">
-          <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
+          <h3 className="text-3xl sm:text-4xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
             {t.citrinitas.title}
           </h3>
-          <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
-            <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
+          <p className="font-bilbo text-2xl sm:text-3xl leading-relaxed text-neutral-700 text-justify">
+            <span className="float-left text-7xl font-kings text-neutral-900 mr-3 mt-[-6px] leading-none drop-shadow-sm">
               {t.citrinitas.initial}
             </span>
             {t.citrinitas.desc}
@@ -180,11 +180,11 @@ export function TheAlchemistJournal() {
           </div>
         </div>
         <div className="text-left space-y-4 order-2 journal-text">
-          <h3 className="text-3xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
+          <h3 className="text-3xl sm:text-4xl font-kings text-neutral-800 tracking-wide border-b border-neutral-400/30 pb-2 inline-block">
             {t.rubedo.title}
           </h3>
-          <p className="font-bilbo text-xl md:text-2xl leading-relaxed text-neutral-600 text-justify">
-            <span className="float-left text-6xl font-kings text-neutral-800 mr-2 mt-[-8px] leading-none drop-shadow-sm">
+          <p className="font-bilbo text-2xl sm:text-3xl leading-relaxed text-neutral-700 text-justify">
+            <span className="float-left text-7xl font-kings text-neutral-900 mr-3 mt-[-6px] leading-none drop-shadow-sm">
               {t.rubedo.initial}
             </span>
             {t.rubedo.desc}
