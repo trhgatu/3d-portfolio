@@ -59,8 +59,8 @@ export const MOCK_PROJECTS_EN: Project[] = [
     repo: "https://github.com/trhgatu",
     featured: true,
     downloads: 215,
-    year: 2025,
-    publishedAt: "2025-10-10T00:00:00.000Z",
+    year: 2026,
+    publishedAt: "2026-01-01T00:00:00.000Z",
   },
   {
     _id: "proj-3",
@@ -151,8 +151,8 @@ export const MOCK_PROJECTS_VI: Project[] = [
     repo: "https://github.com/trhgatu",
     featured: true,
     downloads: 215,
-    year: 2025,
-    publishedAt: "2025-10-10T00:00:00.000Z",
+    year: 2026,
+    publishedAt: "2026-01-01T00:00:00.000Z",
   },
   {
     _id: "proj-3",
