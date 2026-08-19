@@ -25,11 +25,11 @@ export function ProphecyCard({ project: p, index: i, activeIndex }: ProphecyCard
                        : "translate-x-8 opacity-25 scale-[0.96] blur-[0.5px] grayscale-[30%] pointer-events-none"
                    }`}
       >
-        {/* 🌟 1. Top Horizon: Folio Inscription & Tech Signature */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-amber-500/15 mb-6">
+        {/* 🌟 1. Top Horizon: Category & Year Inscription */}
+        <div className="flex items-center justify-between gap-4 pb-3 border-b border-amber-500/15 mb-6">
           <div className="flex items-center gap-3">
             <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_8px_#f59e0b]" />
-            <span className="font-space-mono text-xs tracking-[0.2em] uppercase text-amber-300 font-medium">
+            <span className="font-space-mono text-xs tracking-[0.25em] uppercase text-amber-300 font-medium">
               {p.category || "PROJECT"}
             </span>
             {p.year && (
@@ -41,18 +41,6 @@ export function ProphecyCard({ project: p, index: i, activeIndex }: ProphecyCard
               </>
             )}
           </div>
-
-          {/* Minimalist Tech Stack Line (No Clunky Pills) */}
-          {p.tech && p.tech.length > 0 && (
-            <div className="flex items-center gap-2 text-xs font-space-mono text-neutral-300 tracking-widest">
-              {p.tech.slice(0, 5).map((t, idx, arr) => (
-                <span key={idx} className="flex items-center gap-2">
-                  <span className="text-white font-medium">{t.name}</span>
-                  {idx < arr.length - 1 && <span className="text-amber-500/50 text-[8px]">•</span>}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* 👑 2. Majestic Monumental Display Title */}
