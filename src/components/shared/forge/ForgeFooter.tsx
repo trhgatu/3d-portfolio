@@ -59,13 +59,9 @@ export const ForgeFooter = () => {
             className="group/ribbon inline-flex items-center gap-4 py-1 cursor-pointer select-none text-neutral-400 hover:text-amber-400 transition-colors duration-300"
             aria-expanded={isColophonOpen}
           >
-            {/* Left Antique Rule */}
             <div className="h-[1px] w-12 sm:w-20 bg-gradient-to-r from-transparent via-amber-500/30 to-amber-500/60 group-hover/ribbon:via-amber-400/50 group-hover/ribbon:to-amber-400 transition-all duration-300" />
 
             <div className="flex items-center gap-2.5">
-              <span className="text-amber-500/60 text-xs group-hover/ribbon:rotate-45 group-hover/ribbon:text-amber-400 transition-all duration-300">
-                ✧
-              </span>
               <span className="font-bilbo text-2xl sm:text-3xl text-neutral-300 group-hover/ribbon:text-amber-300 transition-colors duration-300">
                 {t.colophon.badge}
               </span>
@@ -73,12 +69,8 @@ export const ForgeFooter = () => {
                 {isColophonOpen ? "▴" : "▾"}
               </span>
             </div>
-
-            {/* Right Antique Rule */}
             <div className="h-[1px] w-12 sm:w-20 bg-gradient-to-l from-transparent via-amber-500/30 to-amber-500/60 group-hover/ribbon:via-amber-400/50 group-hover/ribbon:to-amber-400 transition-all duration-300" />
           </button>
-
-          {/* Smooth Grid Accordion Expansion */}
           <div
             className={`grid transition-all duration-500 ease-out w-full ${
               isColophonOpen

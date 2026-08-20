@@ -18,9 +18,9 @@ export const translations = {
         text1:
           '"In the alchemical dance of existence, nothing new can be born until the old is surrendered."',
         text2:
-          '"Life is a sacred furnace. To die a thousand small deaths is not destruction, but a necessary tempering of the soul."',
-        text3: '"And from the crucible, we rise.',
-        text3Highlight: "Not just better, but truer.",
+          '"The forge of creation always demands the flame of trial. Yesterday’s failures are but kindling to temper an unwavering will."',
+        text3: '"And from the abyss of the crucible, we emerge into light.',
+        text3Highlight: "Mind tempered like steel, and spirit crystallized into gold.",
         footer: '"We begin again. With Gold in the marrow."',
       },
       techGrimoire: {
@@ -190,9 +190,9 @@ export const translations = {
         text1:
           '"Trong điệu vũ giả kim của sự tồn tại, cái mới không thể thành hình cho đến khi cái cũ được buông bỏ."',
         text2:
-          '"Cuộc đời là một lò luyện thiêng liêng. Chết đi ngàn lần không phải là sự hủy diệt, mà là sự tôi luyện cần thiết cho linh hồn."',
-        text3: '"Và từ lò luyện ấy, chúng ta trỗi dậy.',
-        text3Highlight: "Không chỉ tốt hơn, mà chân thực hơn.",
+          '"Lò rèn của sự sáng tạo luôn đòi hỏi ngọn lửa thử thách. Những vấp ngã ngày hôm qua là mồi lửa để thanh lọc nên một ý chí kiên định."',
+        text3: '"Để rồi từ đáy vực của sự tôi luyện, ta bước ra ánh sáng.',
+        text3Highlight: "Tâm trí sắc bén như thép, và linh hồn kết tinh thành vàng ròng.",
         footer: '"Chúng ta bắt đầu lại. Với vàng ròng trong cốt tủy."',
       },
       techGrimoire: {

@@ -38,10 +38,7 @@ export const GlobalAtmosphere = ({
   return (
     <div ref={containerRef} className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       {showStars && (
-        <div
-          ref={starsRef}
-          className="absolute inset-0 z-0 global-stars pointer-events-none transition-opacity duration-1000"
-        >
+        <div ref={starsRef} className="absolute inset-0 z-0 global-stars pointer-events-none">
           <OglStarField />
           <StarField />
         </div>

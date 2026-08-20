@@ -19,28 +19,12 @@ export const useAtmosphereTimeline = ({
   useGSAP(
     () => {
       if (!containerRef.current || !starsRef.current || !embersRef.current) return;
-      gsap.set(starsRef.current, { autoAlpha: 0, opacity: 0 });
+      gsap.set(starsRef.current, { autoAlpha: 1, opacity: 1 });
       gsap.set(embersRef.current, { autoAlpha: 1, opacity: 1 });
       setEmbersVisible(true);
 
-      const alchemistEl = document.getElementById("the-alchemist");
       const techGrimoireEl = document.getElementById("tech-grimoire");
       const craftingsEl = document.getElementById("craftings");
-
-      if (alchemistEl) {
-        ScrollTrigger.create({
-          trigger: alchemistEl,
-          start: "top 80%",
-          end: "top top",
-          scrub: true,
-          onUpdate: (self) => {
-            gsap.set(starsRef.current, {
-              opacity: self.progress,
-              autoAlpha: self.progress > 0.02 ? 1 : 0,
-            });
-          },
-        });
-      }
 
       if (techGrimoireEl) {
         ScrollTrigger.create({
