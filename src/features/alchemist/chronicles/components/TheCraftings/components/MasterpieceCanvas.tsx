@@ -33,21 +33,18 @@ export function MasterpieceCanvas({ project: p, isActive }: MasterpieceCanvasPro
     const normY = (e.clientY - rect.top) / rect.height;
 
     setMousePos({ x: normX * 100, y: normY * 100 });
-
-    // 🌟 Pronounced 3D Perspective Tilt (up to ±16 degrees)
     const tiltX = (normY - 0.5) * -18;
     const tiltY = (normX - 0.5) * 18;
 
     gsap.to(cardRef.current, {
       rotateX: tiltX,
       rotateY: tiltY,
-      z: 35, // Lift card in 3D space
+      z: 35,
       duration: 0.35,
       ease: "power2.out",
       transformPerspective: 900,
     });
 
-    // 🌑 Dynamic 3D Drop Shadow (shifts inversely to light angle)
     if (shadowRef.current) {
       const shadowX = (normX - 0.5) * -35;
       const shadowY = (normY - 0.5) * -35 + 25;
@@ -93,7 +90,6 @@ export function MasterpieceCanvas({ project: p, isActive }: MasterpieceCanvasPro
       className="relative w-full max-w-[480px] aspect-[16/10] mx-auto select-none"
       style={{ perspective: "1000px" }}
     >
-      {/* 🌑 Dynamic 3D Directional Shadow Layer */}
       <div
         ref={shadowRef}
         className="absolute inset-4 rounded-2xl bg-amber-500/10 blur-2xl pointer-events-none transition-opacity duration-500"
@@ -102,7 +98,6 @@ export function MasterpieceCanvas({ project: p, isActive }: MasterpieceCanvasPro
         }}
       />
 
-      {/* 🏛️ 3D Floating Masterpiece Slab */}
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -111,7 +106,6 @@ export function MasterpieceCanvas({ project: p, isActive }: MasterpieceCanvasPro
         className="relative w-full h-full rounded-xl overflow-hidden border border-amber-500/25 bg-[#0c0b12] cursor-pointer transition-colors duration-300 hover:border-amber-400/80 group/art"
         style={{ transformStyle: "preserve-3d" }}
       >
-        {/* 🖼️ Floating Project Image Layer (Elevated in 3D) */}
         <div
           className="relative w-full h-full"
           style={{
@@ -129,7 +123,6 @@ export function MasterpieceCanvas({ project: p, isActive }: MasterpieceCanvasPro
           />
         </div>
 
-        {/* 🌟 3D Holographic Specular Glare (Moves dynamically across surface) */}
         <div
           ref={glareRef}
           className="absolute inset-0 pointer-events-none z-30 transition-opacity duration-300 mix-blend-color-dodge"
@@ -140,7 +133,6 @@ export function MasterpieceCanvas({ project: p, isActive }: MasterpieceCanvasPro
           }}
         />
 
-        {/* Subtle Dark Vignette & Gilded Edge Inset Ring (Highest 3D layer) */}
         <div
           className="absolute inset-0 shadow-[inset_0_0_35px_rgba(0,0,0,0.85)] pointer-events-none"
           style={{ transform: "translateZ(24px)" }}

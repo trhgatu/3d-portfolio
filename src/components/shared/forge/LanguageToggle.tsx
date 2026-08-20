@@ -2,68 +2,64 @@
 
 import { useAppStore } from "@/hooks/useAppStore";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "motion/react";
-import { useState } from "react";
+import { motion } from "motion/react";
 
 export function LanguageToggle({ className }: { className?: string }) {
   const { lang, setLang } = useAppStore();
-  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div
-      className={cn("fixed bottom-10 right-10 z-[60] flex flex-col items-center gap-4", className)}
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      className={cn(
+        "fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[70] flex items-center select-none",
+        className
+      )}
     >
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="flex font-playfair-display flex-col gap-2 p-1 bg-black border border-white/10 rounded-full shadow-2xl backdrop-blur-xl"
-          >
-            <button
-              onClick={() => setLang("en")}
-              className={cn(
-                "w-12 h-12 flex items-center justify-center rounded-full transition-all duration-500 text-lg",
-                lang === "en"
-                  ? "bg-white text-black shadow-lg"
-                  : "bg-transparent text-white/40 hover:text-white"
-              )}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang("vi")}
-              className={cn(
-                "w-12 h-12 flex items-center justify-center rounded-full transition-all duration-500 font-playfair-display text-lg",
-                lang === "vi"
-                  ? "bg-white text-black shadow-lg"
-                  : "bg-transparent text-white/40 hover:text-white"
-              )}
-            >
-              VN
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div className="flex items-center p-1 rounded-full bg-neutral-950/75 border border-white/[0.1] backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+        {/* EN Button */}
+        <button
+          onClick={() => setLang("en")}
+          aria-label="Switch to English"
+          className={cn(
+            "relative px-3.5 py-1 text-xs font-space-mono tracking-wider transition-colors duration-300 cursor-pointer rounded-full",
+            lang === "en"
+              ? "text-amber-200 font-semibold"
+              : "text-neutral-400 hover:text-neutral-200"
+          )}
+        >
+          {lang === "en" && (
+            <motion.div
+              layoutId="active-lang-bg"
+              className="absolute inset-0 rounded-full bg-amber-500/15 border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.15)]"
+              transition={{ type: "spring", stiffness: 450, damping: 35 }}
+            />
+          )}
+          <span className="relative z-10">EN</span>
+        </button>
 
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="w-16 h-16 flex items-center justify-center rounded-full bg-black border border-white/20 text-white shadow-xl relative overflow-hidden group"
-      >
-        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+        {/* Minimal Divider */}
+        <span className="text-white/20 text-[10px] px-0.5 select-none font-mono">/</span>
 
-        <div className="relative z-10 flex flex-col items-center">
-          <span className="text-2xl tracking-widest font-playfair-display">
-            {lang === "en" ? "EN" : "VN"}
-          </span>
-        </div>
-
-        <div className="absolute inset-[3px] border border-white/5 rounded-full pointer-events-none" />
-      </motion.button>
+        {/* VI Button */}
+        <button
+          onClick={() => setLang("vi")}
+          aria-label="Chuyển sang Tiếng Việt"
+          className={cn(
+            "relative px-3.5 py-1 text-xs font-space-mono tracking-wider transition-colors duration-300 cursor-pointer rounded-full",
+            lang === "vi"
+              ? "text-amber-200 font-semibold"
+              : "text-neutral-400 hover:text-neutral-200"
+          )}
+        >
+          {lang === "vi" && (
+            <motion.div
+              layoutId="active-lang-bg"
+              className="absolute inset-0 rounded-full bg-amber-500/15 border border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.15)]"
+              transition={{ type: "spring", stiffness: 450, damping: 35 }}
+            />
+          )}
+          <span className="relative z-10">VI</span>
+        </button>
+      </div>
     </div>
   );
 }
